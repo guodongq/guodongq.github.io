@@ -31,16 +31,13 @@ jobs:
 
       - name: Install hexo dependencies
         run: |
-          npm install hexo-cli gulp -g
+          npm install hexo-cli -g
           npm install
 
       - name: Generate files
         run: |
           hexo clean
           hexo generate
-
-      - name: Execute gulp task
-        run: gulp
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
