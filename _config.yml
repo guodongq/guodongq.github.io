@@ -8,7 +8,7 @@ subtitle: ''
 description: ''
 keywords:
 author: Guodong Qian
-language: zh-CN
+language: en
 timezone: 'Asia/Shanghai'
 
 # URL
@@ -94,6 +94,7 @@ pagination_dir: page
 include:
 exclude:
 ignore:
+  - README.md
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
@@ -104,4 +105,7 @@ theme: next
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: 'git'
+  repo: https://github.com/qianguodong/qianguodong.github.io.git
+  branch: gh-pages
+  message: 'update markdown'
