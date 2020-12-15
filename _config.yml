@@ -109,3 +109,9 @@ deploy:
   repo: https://github.com/qianguodong/qianguodong.github.io.git
   branch: gh-pages
   message: 'update markdown'
+
+search:
+  path: search.xml
+  field: post
+  content: true
+  format: html
