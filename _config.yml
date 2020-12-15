@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: bruce's blog
+title: Bruce's Blog
 subtitle: ''
-description: '书山有路勤为径,学海无涯苦作舟'
+description: 'There is no royal road to learning'
 keywords:
-author: guodongq
-language: zh-CN
+author: Bruce Qian
+language: en
 timezone: 'Asia/Shanghai'
 
 # URL
