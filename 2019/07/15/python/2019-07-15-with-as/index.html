@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qianguodong.xyz","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="有一些任务，可能事先需要设置，事后做清理工作。对于这种场景，Python的with语句提供了一种非常方便的处理方式。一个很好的例子是文件处理，你需要获取一个文件句柄，从文件中读取数据，然后关闭文件句柄。 with语句当我们进行文件处理时，需要获取一个文件句柄，从文件中读取数据，然后关闭文件句柄。要正确的处理涉及到的异常资源管理时，在2.6版本之前，需要使用try&#x2F;finally代码结构，实现如下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="with as usage in python!">
+<meta property="og:url" content="https://qianguodong.xyz/2019/07/15/python/2019-07-15-with-as/index.html">
+<meta property="og:site_name" content="Bruce&#39;s Blog">
+<meta property="og:description" content="有一些任务，可能事先需要设置，事后做清理工作。对于这种场景，Python的with语句提供了一种非常方便的处理方式。一个很好的例子是文件处理，你需要获取一个文件句柄，从文件中读取数据，然后关闭文件句柄。 with语句当我们进行文件处理时，需要获取一个文件句柄，从文件中读取数据，然后关闭文件句柄。要正确的处理涉及到的异常资源管理时，在2.6版本之前，需要使用try&#x2F;finally代码结构，实现如下：">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-07-15T02:22:16.000Z">
+<meta property="article:modified_time" content="2020-12-17T03:11:26.952Z">
+<meta property="article:author" content="Bruce Qian">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="with_as">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://qianguodong.xyz/2019/07/15/python/2019-07-15-with-as/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+<title>with as usage in python! | Bruce's Blog</title>
+  
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Bruce's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">There is no royal road to learning</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#with%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.</span> <span class="nav-text">with语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#with%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">with语句执行过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">上下文管理器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#contextlib%E6%A8%A1%E5%9D%97"><span class="nav-number">3.</span> <span class="nav-text">contextlib模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#closing%E5%AF%B9%E8%B1%A1"><span class="nav-number">4.</span> <span class="nav-text">closing对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bruce Qian"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Bruce Qian</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qianguodong" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qianguodong" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:goldon.qian@gmail.com" title="E-Mail → mailto:goldon.qian@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://qianguodong.xyz/2019/07/15/python/2019-07-15-with-as/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bruce Qian">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          with as usage in python!
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-07-15 10:22:16" itemprop="dateCreated datePublished" datetime="2019-07-15T10:22:16+08:00">2019-07-15</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-17 11:11:26" itemprop="dateModified" datetime="2020-12-17T11:11:26+08:00">2020-12-17</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>有一些任务，可能事先需要设置，事后做清理工作。对于这种场景，Python的with语句提供了一种非常方便的处理方式。<br>一个很好的例子是文件处理，你需要获取一个文件句柄，从文件中读取数据，然后关闭文件句柄。</p>
+<h1 id="with语句"><a href="#with语句" class="headerlink" title="with语句"></a>with语句</h1><p>当我们进行文件处理时，需要获取一个文件句柄，从文件中读取数据，然后关闭文件句柄。<br>要正确的处理涉及到的异常资源管理时，在2.6版本之前，需要使用try/finally代码结构，实现如下：  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;abc.txt&quot;</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	<span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">		print(line)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">	<span class="keyword">if</span> f <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">		f.close()	</span><br></pre></td></tr></table></figure>
+
+<p>这种清理方式不够优雅，python设计者们希望这种清理工作不要暴露给使用者，with语句并由此产生了。<br>with语句基本语法结构如下：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">with expression [as variable]:</span><br><span class="line">	with-block</span><br></pre></td></tr></table></figure>
+
+<p>使用with语句重写上面的读取文件操作，如下：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">with open(&quot;abc.txt&quot;) as f:</span><br><span class="line">	for line in f.readlines():</span><br><span class="line">		print(line)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="with语句执行过程"><a href="#with语句执行过程" class="headerlink" title="with语句执行过程"></a>with语句执行过程</h2><p>with语句的expression是上下文管理器，with语句的[as variable]可选，上下文管理器实现了__enter__和__exit__两个函数。</p>
+<ul>
+<li>首先生成一个上下文管理器expression，上面的读文件例子中生成了上下文管理器<code>open(&quot;abc.txt&quot;)</code></li>
+<li>然后执行expression.<strong>enter</strong>()，如果指定了as variable，那个<strong>enter</strong>()返回值赋给variable</li>
+<li>执行with-block语句块</li>
+<li>执行expression.<strong>exit</strong>(),在<strong>exit</strong>()函数中可以进行资源清理工作</li>
+</ul>
+<p>with语句不仅可以管理文件，还可以管理锁、连接等等  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lock &#x3D; threading.lock()</span><br><span class="line">with lock:</span><br><span class="line">	pass</span><br></pre></td></tr></table></figure>
+
+<h1 id="上下文管理器"><a href="#上下文管理器" class="headerlink" title="上下文管理器"></a>上下文管理器</h1><p>with语句简单但强大，主要依赖上下文管理器。<br>上下文管理器是实现了上下文协议的类，上下文协议就是要实现<strong>enter</strong>()和<strong>exit</strong>()的两个方法。  </p>
+<ul>
+<li><strong>enter</strong>(): 主要执行一些环境准备工作，同时返回资源对象， 例如上文管理器open(“abc.txt”)的<strong>enter</strong>()返回一个文件对象。</li>
+<li><strong>exit</strong>(): 完整形式为<strong>exit</strong>(type, value, traceback),三个参数和调用sys.exec_info()函数返回值一致，分为异常类型、异常信息和堆栈。<ul>
+<li>如果执行体语句没有引发异常，那么三个参数均被设置为None，否则他们将包含上下文异常信息。  </li>
+<li><strong>exit</strong>()方法返回True或者False，分别指示被引发的异常有没有被处理。</li>
+<li>如果返回False，则表示引发的异常将会被传递出上下文。</li>
+<li>如果<strong>exit</strong>()函数内部引发了异常，则会覆盖掉执行体中引发的异常。</li>
+<li>处理异常时，不需要重新抛出异常，只需要返回False，with语句会检测<strong>exit</strong>()返回False来处理异常。</li>
+</ul>
+</li>
+</ul>
+<p>针对上下文管理，我们可以编写一个例子来说明该问题：<br>DBConnection需要提供一项功能： <strong>enter</strong>()要返回一个连接的cursor， 当没有异常发生时，<strong>exit</strong>()函数commit所有的数据库操作，如果有异常发生，则回滚数据库，代码如下：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">def DBConnection(object):</span><br><span class="line">	def __init__(self):</span><br><span class="line">		pass</span><br><span class="line">	</span><br><span class="line">	def cursor(self):</span><br><span class="line">		print(&#39;start cursor, return transaction&#39;)</span><br><span class="line">	</span><br><span class="line">	def commit(self):</span><br><span class="line">		print(&#39;commit current transaction&#39;)</span><br><span class="line">	</span><br><span class="line">	def rollback(self):</span><br><span class="line">		print(&#39;rollback current transaction&#39;)</span><br><span class="line">		</span><br><span class="line">	def execute(self, sql):</span><br><span class="line">		print(&#39;execute sql segment&#39;)</span><br><span class="line">		</span><br><span class="line">	def __enter__(self):</span><br><span class="line">		return self.cursor()</span><br><span class="line">		</span><br><span class="line">	def __exit__(self, type, value, traceback):</span><br><span class="line">		if traceback is None:</span><br><span class="line">			self.commit()</span><br><span class="line">		</span><br><span class="line">		else: </span><br><span class="line">			self.rollback()</span><br><span class="line">			</span><br><span class="line"></span><br><span class="line">with DBConnection() as cursor:</span><br><span class="line">	cursor.execute(sql)</span><br><span class="line">	cursor.execute(sql)</span><br><span class="line">	cursor.execute(sql)	</span><br></pre></td></tr></table></figure>
+
+<h1 id="contextlib模块"><a href="#contextlib模块" class="headerlink" title="contextlib模块"></a>contextlib模块</h1><p>自定义的上下文管理器，需要实现__enter__和__exit__两个方法，显然不是很方便。<br>python的contextlib模块提供了一个更方便的自定义管理器,可以利用装饰器contextmanager和一些辅助函数代替自定义的管理器，用法如下：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@contextmanager</span><br><span class="line">def generator_func(&lt;arguments&gt;):</span><br><span class="line">	&lt;setup&gt;</span><br><span class="line">	try:</span><br><span class="line">		yield &lt;value&gt;</span><br><span class="line">	finally:</span><br><span class="line">		&lt;clearup&gt;</span><br></pre></td></tr></table></figure>
+<p>然后就可以使用with语句调用contextmanager生成上下文管理器了， 语法如下：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">with generator_func(&lt;arguments&gt;) as &lt;variable&gt;:</span><br><span class="line">	&lt;body&gt;</span><br></pre></td></tr></table></figure>
+<p>生成器函数generator_func和普通函数一样，原理如下：  </p>
+<ul>
+<li>generator_func函数在yield之前的代码等同于上下文管理器的 <strong>enter</strong> 函数</li>
+<li>yield的返回值等同于__enter__函数的返回值，即如果with语句声明了as <variable>, 则yield的值会赋给variable</li>
+<li>执行<clearup>代码块，等同于上下文管理器的__exit__函数，此时发生的任何异常都会再次通过yield函数返回</li>
+</ul>
+<p>锁资源自动获取和释放例子：  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">locked</span>(<span class="params">lock</span>):</span></span><br><span class="line">	lock.acquire()</span><br><span class="line">	<span class="keyword">try</span>:</span><br><span class="line">		<span class="keyword">yield</span></span><br><span class="line">	<span class="keyword">finally</span>:</span><br><span class="line">		lock.release()</span><br><span class="line">		</span><br><span class="line"><span class="keyword">with</span> locked(myLock):</span><br><span class="line">	<span class="comment"># 代码执行到此处，myLock已经自动上锁</span></span><br><span class="line">	<span class="keyword">pass</span></span><br><span class="line">	<span class="comment"># 执行完毕后，会自动释放锁</span></span><br></pre></td></tr></table></figure>
+
+<p>文件打开后自动管理例子：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@contextmanager</span><br><span class="line">def myopen(filename, mode&#x3D;&#39;r&#39;):</span><br><span class="line">	f &#x3D; open(filename, mode)</span><br><span class="line">	try:</span><br><span class="line">		yield f</span><br><span class="line">	finally:</span><br><span class="line">		f.close()</span><br><span class="line">		</span><br><span class="line">with myopen(&quot;abc.txt&quot;) as f:</span><br><span class="line">	for line in f:</span><br><span class="line">		print(line)</span><br></pre></td></tr></table></figure>
+
+<p>数据库事务处理例子：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@contextmanager</span><br><span class="line">def transaction(db):</span><br><span class="line">	db.begin()</span><br><span class="line">	try:</span><br><span class="line">		yield</span><br><span class="line">	except:</span><br><span class="line">		db.rollback()</span><br><span class="line">		raise</span><br><span class="line">	else:</span><br><span class="line">		db.commit()</span><br><span class="line">		</span><br><span class="line">with transaction(mydb):</span><br><span class="line">	mydb.cursor.execute(sql)</span><br><span class="line">	mydb.cursor.execute(sql)</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="closing对象"><a href="#closing对象" class="headerlink" title="closing对象"></a>closing对象</h1><p>contextlib模块包含一个closing对象，这个对象就是一个上下文管理器，它的__exit__函数仅仅调用传入参数的close函数，closing源码如下：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class closing(object):</span><br><span class="line">     def __init__(self, thing):</span><br><span class="line">         self.thing &#x3D; thing</span><br><span class="line">     def __enter__(self):</span><br><span class="line">         return self.thing</span><br><span class="line">     def __exit__(self, *exc_info):</span><br><span class="line">         self.thing.close()</span><br></pre></td></tr></table></figure>
+
+<p>可以利用closing对象关闭具有close()方法的资源对象，例如打开网页如下： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import urllib, sys</span><br><span class="line">from contextlib import closing</span><br><span class="line"></span><br><span class="line">with closing(urllib.urlopen(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;)) as f:</span><br><span class="line">    for line in f:</span><br><span class="line">        sys.stdout.write(line)</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/nnnkkk/p/4309275.html">https://www.cnblogs.com/nnnkkk/p/4309275.html</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/with-as/" rel="tag"># with_as</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/07/13/golang/2019-07-13-patterns/" rel="prev" title="Go patterns!">
+                  <i class="fa fa-chevron-left"></i> Go patterns!
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/07/15/python/2019-07-15-decorate/" rel="next" title="Print python function name with decorator!">
+                  Print python function name with decorator! <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bruce Qian</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.css">
+
+<script>
+NexT.utils.loadComments('#gitalk-container', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '566ec257445badffee98',
+      clientSecret: 'd3f485d706e7ec94d5e4d9f5dfa989907f05b8c7',
+      repo        : 'qianguodong.github.io',
+      owner       : 'qianguodong',
+      admin       : ['bruce'],
+      id          : '4b51de1d639ce1b5b1275da005bf078c',
+        language: 'en',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

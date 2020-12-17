@@ -194,9 +194,17 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">posts</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
@@ -241,7 +249,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://qianguodong.xyz/2020/12/15/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://qianguodong.xyz/2020/02/13/gRPC/2020-02-13-protobuf/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -254,7 +262,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/15/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+          <a href="/2020/02/13/gRPC/2020-02-13-protobuf/" class="post-title-link" itemprop="url">gRPC之protobuf</a>
         </h2>
 
         <div class="post-meta-container">
@@ -265,7 +273,23 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2020-12-15 23:21:30" itemprop="dateCreated datePublished" datetime="2020-12-15T23:21:30+08:00">2020-12-15</time>
+      <time title="Created: 2020-02-13 22:15:19" itemprop="dateCreated datePublished" datetime="2020-02-13T22:15:19+08:00">2020-02-13</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-17 11:11:26" itemprop="dateModified" datetime="2020-12-17T11:11:26+08:00">2020-12-17</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/gRPC/" itemprop="url" rel="index"><span itemprop="name">gRPC</span></a>
+        </span>
     </span>
 
   
@@ -278,19 +302,130 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+          <h1 id="Protobuf简介"><a href="#Protobuf简介" class="headerlink" title="Protobuf简介"></a>Protobuf简介</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><strong>Protobuf</strong>也叫做Protocol Buffers,它是由Google公司开发的一种跨语言和平台的序列化数据结构的方式，是一个灵活的、高效的用于序列化数据的协议。<br><strong>Protobuf</strong>是跨语言的，自身带有一个编译器(protoc),我们可以通过protoc集成相关语言的插件(例如protoc-gen-go)就可以快速编译成Go、Java等多种语言代码，并且可以直接使用无需编写其他代码，它自己带有解析的代码。  </p>
+<p>protoc的GitHub地址：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;github.com&#x2F;protocolbuffers&#x2F;protobuf</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><ul>
+<li>优点<ul>
+<li>性能好、效率高<br>与XML相比，protobuf序列化后字节占用空间会少3-10倍，序列化时间会快20-100倍</li>
+<li>代码生成机制<br>对结构化的数据操作封装成了一个类，便于使用</li>
+<li>支持向后和向前兼容<br>客户端在.proto中添加一个字节时，不会影响客户端的使用</li>
+<li>支持多种编程语言</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>可读性差，二进制形式</li>
+<li>缺少自描述</li>
+</ul>
+</li>
+</ul>
+<h1 id="Protobuf编译器安装"><a href="#Protobuf编译器安装" class="headerlink" title="Protobuf编译器安装"></a>Protobuf编译器安装</h1><h2 id="Protobuf编译器安装-1"><a href="#Protobuf编译器安装-1" class="headerlink" title="Protobuf编译器安装"></a>Protobuf编译器安装</h2><p>在github中的页面<code>https://github.com/protocolbuffers/protobuf/releases</code>找到对应平台的protobuf版本进行下载安装。</p>
+<h2 id="Protobuf编译器使用"><a href="#Protobuf编译器使用" class="headerlink" title="Protobuf编译器使用"></a>Protobuf编译器使用</h2><p>Protobuf提供了protoc编译器，用于通过定义好的.proto文件来生成Java，Python，Go等语言代码<br>命令格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc --proto_path&#x3D;IMPORT_PATH --cpp_out&#x3D;DST_PATH --go_out&#x3D;DST_PATH path&#x2F;to&#x2F;file.proto</span><br></pre></td></tr></table></figure>
+<h3 id="导入目录设置"><a href="#导入目录设置" class="headerlink" title="导入目录设置"></a>导入目录设置</h3><ul>
+<li>IMPORT_PATH声明了一个.proto文件所在的解析import具体目录  </li>
+<li>如果忽略该值，使用当前目录  </li>
+<li>如果多个目录可以多次调用–proto_path,会顺序被访问并执行导入  </li>
+<li>-I=IMPORT_PATH是–proto_path的简化形式</li>
+</ul>
+<h3 id="生成代码指定"><a href="#生成代码指定" class="headerlink" title="生成代码指定"></a>生成代码指定</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">--cpp_out ：在目标目录DST_DIR中产生C++代码</span><br><span class="line">--java_out ：在目标目录DST_DIR中产生Java代码</span><br><span class="line">--python_out ：在目标目录 DST_DIR 中产生Python代码</span><br><span class="line">--go_out ：在目标目录 DST_DIR 中产生Go代码</span><br><span class="line">--ruby_out：在目标目录 DST_DIR 中产生Ruby代码</span><br><span class="line">--javanano_out：在目标目录DST_DIR中生成JavaNano</span><br><span class="line">--objc_out：在目标目录DST_DIR中产生Object代码</span><br><span class="line">--csharp_out：在目标目录DST_DIR中产生Object代码</span><br><span class="line">--php_out：在目标目录DST_DIR中产生Object代码</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<h3 id="导入proto消息文件指定"><a href="#导入proto消息文件指定" class="headerlink" title="导入proto消息文件指定"></a>导入proto消息文件指定</h3><p>必须指定一个或多个.proto文件作为输入，多个.proto文件可以只指定一个。虽然文件路径是相对于当前目录的，每个文件必须位于其IMPORT_PATH下，以便每个文件可以确定其规范的名称。</p>
+<h3 id="生成编程语言相关代码"><a href="#生成编程语言相关代码" class="headerlink" title="生成编程语言相关代码"></a>生成编程语言相关代码</h3><p>当用Protobuf编译器来运行.proto文件时，编译器将生成所选择语言的代码，相应语言的代码可以操作在.proto文件中定义的消息类型，包括获取、设置字段值，将消息序列化到一个输出流中以及从一个输入流中解析消息。<br><code>对Go语言，编译器会为每个消息类型生成了一个.pb.go文件</code></p>
+<h1 id="Protobuf3语法"><a href="#Protobuf3语法" class="headerlink" title="Protobuf3语法"></a>Protobuf3语法</h1><h2 id="消息定义"><a href="#消息定义" class="headerlink" title="消息定义"></a>消息定义</h2><p>消息在Protobuf中就是结构化数据  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">syntax &#x3D; &quot;proto3&quot;</span><br><span class="line"></span><br><span class="line">message Person&#123;</span><br><span class="line">    string name &#x3D; 1;</span><br><span class="line">    int32 id &#x3D; 2;</span><br><span class="line">    string email &#x3D; 3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Person消息有三个字段，在一个消息文件.proto中可以定义多个消息类型，在定义多个相关的消息时较为有用。 </p>
+<p>.proto文件中非注释非空的第一行必须使用Proto版本声明，版本声明如下，如果不使用proto3版本声明，Protobuf编译器默认使用proto2版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">syntax &#x3D; &quot;proto3&quot;;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h2 id="添加注释"><a href="#添加注释" class="headerlink" title="添加注释"></a>添加注释</h2><p>添加注释可以使用C风格的双斜杠（//）语法格式。</p>
+<h2 id="Package"><a href="#Package" class="headerlink" title="Package"></a>Package</h2><p>.proto文件中可以新增一个可选的package声明符，用来防止不同的消息类型有命名冲突。包的声明符会根据使用语言的不同影响生成的代码：<br>对于Go语言，包可以被用做Go包名称，除非显式的提供一个option go_package在.proto文件中。<br>Protobuf语法中类型名称的解析与C++是一致的：首先从最内部开始查找，依次向外进行，每个包会被看作是其父类包的内部类。当然对于Company.Person以“.”分隔的是从最外围开始的。<br>Protobuf编译器会解析.proto文件中定义的所有类型名。 对于不同语言的代码生成器会知道如何来指向每个具体的类型，即使它们使用了不同的规则。</p>
+<h2 id="字段类型"><a href="#字段类型" class="headerlink" title="字段类型"></a>字段类型</h2><ul>
+<li>标量类型</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>.proto Type</th>
+<th>Notes</th>
+<th>Go Type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>double</td>
+<td></td>
+<td>double</td>
+</tr>
+<tr>
+<td>float</td>
+<td></td>
+<td>float</td>
+</tr>
+<tr>
+<td>int32</td>
+<td>变长编码，对于负值效率低，如果字段有负值用sint64代替</td>
+<td>int32</td>
+</tr>
+<tr>
+<td>uint32</td>
+<td>使用变长编码</td>
+<td>uint32</td>
+</tr>
+<tr>
+<td>uint64</td>
+<td>使用变长编码</td>
+<td>uint64</td>
+</tr>
+<tr>
+<td>sint32</td>
+<td>使用变长编码，在负值时比int32高效的多</td>
+<td>int32</td>
+</tr>
+<tr>
+<td>sint64</td>
+<td>使用变长编码，有符号的整型值，编码时比通常的int64高效</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>fixed32</td>
+<td>总是4个字节，如果数值总大于228，比uint32高效</td>
+<td>uint32</td>
+</tr>
+<tr>
+<td>fixed64</td>
+<td>总是8个字节，如果数值总大于256，比uint64高效</td>
+<td>uint64</td>
+</tr>
+<tr>
+<td>sfixed32</td>
+<td></td>
+<td>int32</td>
+</tr>
+<tr>
+<td>sfixed64</td>
+<td></td>
+<td>int64</td>
+</tr>
+<tr>
+<td>bool</td>
+<td></td>
+<td>bool</td>
+</tr>
+<tr>
+<td>string</td>
+<td></td>
+<td>string</td>
+</tr>
+<tr>
+<td>bytes</td>
+<td>可能包含任意顺序的字节数据</td>
+<td>[]byte</td>
+</tr>
+</tbody></table>
+<ul>
+<li>合成类型<br>合成类型包括枚举(enumerations)或其它消息类型</li>
+</ul>
 
       
     </div>
@@ -309,6 +444,1007 @@
 
 
 
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://qianguodong.xyz/2019/11/08/golang/2019-11-08-goconvey/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bruce Qian">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/11/08/golang/2019-11-08-goconvey/" class="post-title-link" itemprop="url">GoConvey!</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-11-08 10:22:16" itemprop="dateCreated datePublished" datetime="2019-11-08T10:22:16+08:00">2019-11-08</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-17 11:11:26" itemprop="dateModified" datetime="2020-12-17T11:11:26+08:00">2020-12-17</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>GoConvey是Golang的测试框架，它提供了丰富的断言，支持web界面，能够与Golang自带的单元测试框架无缝集成，可以让程序员简洁优雅的编写测试代码</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get github.com&#x2F;smartystreets&#x2F;goconvey  </span><br></pre></td></tr></table></figure>
+<p>运行成功后，你会发现：</p>
+<ul>
+<li>$GOPATH/src目录下新增github.com/smartystreets/goconvey框架源代码</li>
+<li>$GOPATH/bin目录下新增可执行程序 goconvey</li>
+</ul>
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>我们通过一个案例来介绍GoConvey使用方法，下面是一个能够实现整数基本四则运算(加、减、乘、除)的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">package cal</span><br><span class="line"></span><br><span class="line">import &quot;errors&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">func Add(a, b int) int &#123;</span><br><span class="line">    return a + b</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">func Subtract(a, b int) int &#123;</span><br><span class="line">    return a - b</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">func Multiply(a, b int) int &#123;</span><br><span class="line">    return a * b</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">func Division(a, b int) (int, error) &#123;</span><br><span class="line">    if b &#x3D;&#x3D; 0 &#123;</span><br><span class="line">        return 0, errors.New(&quot;被除数不能为 0&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">    return a &#x2F; b, nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">package cal</span><br><span class="line"> </span><br><span class="line">import (</span><br><span class="line">    &quot;testing&quot;</span><br><span class="line">    . &quot;github.com&#x2F;smartystreets&#x2F;goconvey&#x2F;convey&quot;</span><br><span class="line">)</span><br><span class="line"> </span><br><span class="line">func TestAdd(t *testing.T) &#123;</span><br><span class="line">    Convey(&quot;将两数相加&quot;, t, func() &#123;</span><br><span class="line">        So(Add(1, 2), ShouldEqual, 3)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">func TestSubtract(t *testing.T) &#123;</span><br><span class="line">    Convey(&quot;将两数相减&quot;, t, func() &#123;</span><br><span class="line">        So(Subtract(1, 2), ShouldEqual, -1)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">func TestMultiply(t *testing.T) &#123;</span><br><span class="line">    Convey(&quot;将两数相乘&quot;, t, func() &#123;</span><br><span class="line">        So(Multiply(3, 2), ShouldEqual, 6)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">func TestDivision(t *testing.T) &#123;</span><br><span class="line">    Convey(&quot;将两数相除&quot;, t, func() &#123;</span><br><span class="line"> </span><br><span class="line">        Convey(&quot;除以非 0 数&quot;, func() &#123;</span><br><span class="line">            num, err :&#x3D; Division(10, 2)</span><br><span class="line">            So(err, ShouldBeNil)</span><br><span class="line">            So(num, ShouldEqual, 5)</span><br><span class="line">        &#125;)</span><br><span class="line"> </span><br><span class="line">        Convey(&quot;除以 0&quot;, func() &#123;</span><br><span class="line">            _, err :&#x3D; Division(10, 0)</span><br><span class="line">            So(err, ShouldNotBeNil)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>import goconvey包时，前面加点号”.”，以减少冗余的代码</li>
+<li>使用 GoConvey 书写单元测试，每个测试用例需要使用 Convey 函数包裹起来。它接受的第一个参数为 string 类型的描述；第二个参数一般为 *testing.T，即本例中的变量 t；第三个参数为不接收任何参数也不返回任何值的函数（习惯以闭包的形式书写</li>
+<li>Convey 语句同样可以无限嵌套，以体现各个测试用例之间的关系，例如 TestDivision 函数就采用了嵌套的方式体现它们之间的关系。需要注意的是，只有最外层的 Convey 需要传入变量 t，内层的嵌套均不需要传入</li>
+<li>最后，需要使用 So 语句来对条件进行判断</li>
+</ul>
+<h2 id="运行测试"><a href="#运行测试" class="headerlink" title="运行测试"></a>运行测试</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">root@qgd:~&#x2F;qgd&#x2F;projects&#x2F;src&#x2F;gitlab.zte.com.cn&#x2F;10172605&#x2F;gonote&#x2F;src&#x2F;calculator# go test -v </span><br><span class="line">&#x3D;&#x3D;&#x3D; RUN   TestAdd</span><br><span class="line">--- PASS: TestAdd (0.00s)</span><br><span class="line">&#x3D;&#x3D;&#x3D; RUN   TestAddConvey</span><br><span class="line"></span><br><span class="line">  将两数相加 ✔</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1 total assertion</span><br><span class="line"></span><br><span class="line">--- PASS: TestAddConvey (0.00s)</span><br><span class="line">&#x3D;&#x3D;&#x3D; RUN   TestSubtract</span><br><span class="line"></span><br><span class="line">  将两数相减 ✔</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2 total assertions</span><br><span class="line"></span><br><span class="line">--- PASS: TestSubtract (0.00s)</span><br><span class="line">&#x3D;&#x3D;&#x3D; RUN   TestMultiply</span><br><span class="line"></span><br><span class="line">  将两数相乘 ✔</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">3 total assertions</span><br><span class="line"></span><br><span class="line">--- PASS: TestMultiply (0.00s)</span><br><span class="line">&#x3D;&#x3D;&#x3D; RUN   TestDivision</span><br><span class="line"></span><br><span class="line">  将两数相除 </span><br><span class="line">    除以非 0 数 ✔✔</span><br><span class="line">    除以 0 ✔</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">6 total assertions</span><br><span class="line"></span><br><span class="line">--- PASS: TestDivision (0.00s)</span><br><span class="line">PASS</span><br><span class="line">ok      calculator      0.013s</span><br></pre></td></tr></table></figure>
+
+<h2 id="Web-界面"><a href="#Web-界面" class="headerlink" title="Web 界面"></a>Web 界面</h2><p>想要使用 GoConvey 的 Web 界面特性，需要在相应目录下执行 goconvey（需使用go get安装到$GOPATH/bin目录下），然后打开浏览器，访问 <a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080</a> ，就可以看到界面</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://qianguodong.xyz/2019/11/08/golang/2019-11-08-gomock/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bruce Qian">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/11/08/golang/2019-11-08-gomock/" class="post-title-link" itemprop="url">GoMock!</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-11-08 10:22:16" itemprop="dateCreated datePublished" datetime="2019-11-08T10:22:16+08:00">2019-11-08</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-17 11:11:26" itemprop="dateModified" datetime="2020-12-17T11:11:26+08:00">2020-12-17</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>GoMock是由Golang官方开发维护的测试框架，实现了较为完整的基于interface的Mock功能，能够与Golang内置的testing包良好集成，也能用于其它的测试环境中<br>GoMock测试框架包含了GoMock包和mockgen工具两部分，其中GoMock包完成对桩对象生命周期的管理，mockgen工具用来生成interface对应的Mock类源文件</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>在命令行运行命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get github.com&#x2F;golang&#x2F;mock&#x2F;gomock</span><br></pre></td></tr></table></figure>
+<p>运行完后你会发现，在$GOPATH/src目录下有了github.com/golang/mock子目录，且在该子目录下有GoMock包和mockgen工具</p>
+<p>继续运行命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd $GOPATH&#x2F;src&#x2F;github.com&#x2F;golang&#x2F;mock&#x2F;mockgen</span><br><span class="line">go build</span><br></pre></td></tr></table></figure>
+<p>则在当前目录下生成了一个可执行程序mockgen,将mockgen程序移动到$GOPATH/bin目录下</p>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><h2 id="测试用例编写步骤"><a href="#测试用例编写步骤" class="headerlink" title="测试用例编写步骤"></a>测试用例编写步骤</h2><ul>
+<li>想清楚整体逻辑</li>
+<li>定义想要（模拟）依赖项的 interface（接口）</li>
+<li>使用 mockgen 命令对所需 mock 的 interface 生成 mock 文件</li>
+<li>编写单元测试的逻辑，在测试中使用 mock</li>
+<li>进行单元测试的验证</li>
+</ul>
+<h2 id="定义依赖的接口Repository"><a href="#定义依赖的接口Repository" class="headerlink" title="定义依赖的接口Repository"></a>定义依赖的接口Repository</h2><p>假设我们定义一个接口Repository,Repository是领域驱动设计中战术设计的一个元素，用来存储领域对象，一般将对象持久化在数据库中，比如Aerospike，Redis或Etcd等。对于领域层来说，只知道对象在Repository中维护，并不care对象到底在哪持久化，这是基础设施层的职责。微服务在启动时，根据部署参数实例化Repository接口，比如AerospikeRepository，RedisRepository或EtcdRepository。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">package db</span><br><span class="line"></span><br><span class="line">type Repository interface &#123;</span><br><span class="line">	Create(key string, value []byte) error</span><br><span class="line">	Get(key string) ([]byte, error)</span><br><span class="line">	Update(key string, value []byte) error</span><br><span class="line">	Delete(key string) error</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="生成mock类文件"><a href="#生成mock类文件" class="headerlink" title="生成mock类文件"></a>生成mock类文件</h2><p>回到项目目录shop下，我们执行以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$GOPATH&#x2F;bin&#x2F;mockgen -source&#x3D;.&#x2F;db&#x2F;repo.go -destination&#x3D;.&#x2F;mock&#x2F;repo_mock.go -package&#x3D;mock</span><br></pre></td></tr></table></figure>
+<p>执行完毕之后，我们会发现在当前目录下多了一个mock目录，并在该目录下发现多了一个repo_mock.go文件，这个就是mock文件</p>
+<ul>
+<li>source: 设置需要模拟(mock)的接口文件 </li>
+<li>destination: 设置 mock 文件输出的地方，若不设置则打印到标准输出中</li>
+<li>package： 设置 mock 文件的包名，若不设置则为 mock_ 前缀加上文件名（如本文的包名会为 mock_repo）</li>
+</ul>
+<p>在<code>mockgen</code>命令中，支持两种生成模式:</p>
+<ul>
+<li>source: 从源文件生成mock接口(通过-source启用)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mockgen -source&#x3D;foo.go [other options]</span><br></pre></td></tr></table></figure></li>
+<li>reflect: 通过使用反射程序生成mock接口，它通过传递两个非标志参数来启用：导入路径和逗号分割的接口列表<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mockgen database&#x2F;sql&#x2F;Driver Conn,Driver</span><br></pre></td></tr></table></figure>
+<code>PS: 从本质上讲，两种方式生成的mock代码没有区别，因此选择合适的就可以了</code></li>
+</ul>
+<h2 id="service层调用repo进行入库操作"><a href="#service层调用repo进行入库操作" class="headerlink" title="service层调用repo进行入库操作"></a>service层调用repo进行入库操作</h2><p>当我们的srv层有代码对repo层进行调用入库时，<code>srv/repo_srv.go</code>代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package srv</span><br><span class="line"></span><br><span class="line">import &quot;shop&#x2F;db&quot;</span><br><span class="line"></span><br><span class="line">type RepoService struct &#123;</span><br><span class="line">	repo db.Repository</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func NewRepoService(repo db.Repository) *RepoService &#123;</span><br><span class="line">	return &amp;RepoService&#123;</span><br><span class="line">		repo: repo,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (r *RepoService) Create(key string, value []byte) error &#123;</span><br><span class="line">	return r.repo.Create(key, value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="针对service层代码我们编写测试代码"><a href="#针对service层代码我们编写测试代码" class="headerlink" title="针对service层代码我们编写测试代码"></a>针对service层代码我们编写测试代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">package srv</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;db&#x2F;mock&quot;</span><br><span class="line">	&quot;github.com&#x2F;golang&#x2F;mock&#x2F;gomock&quot;</span><br><span class="line">	&quot;testing&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func TestRepository_Create(t *testing.T) &#123;</span><br><span class="line">	ctl :&#x3D; gomock.NewController(t)</span><br><span class="line">	defer ctl.Finish()</span><br><span class="line"></span><br><span class="line">	mockRepo :&#x3D; mock.NewMockRepository(ctl)</span><br><span class="line"></span><br><span class="line">	mockRepo.EXPECT().Create(gomock.Any(), gomock.Any()).Return(nil)</span><br><span class="line"></span><br><span class="line">	repoSrv :&#x3D; NewRepoService(mockRepo)</span><br><span class="line">	err :&#x3D; repoSrv.Create(&quot;abc&quot;, []byte(&quot;abc&quot;))</span><br><span class="line">	if err !&#x3D; nil &#123;</span><br><span class="line">		t.Errorf(&quot;repo.Create error: %v&quot;, err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="最后代码结构"><a href="#最后代码结构" class="headerlink" title="最后代码结构"></a>最后代码结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$GOPATH</span><br><span class="line">  |- src</span><br><span class="line">      |- shop</span><br><span class="line">           |- db</span><br><span class="line">               |- repo.go</span><br><span class="line">           |- mock</span><br><span class="line">               |- repo_mock.go</span><br><span class="line">           |- srv</span><br><span class="line">               |- repo_srv.go</span><br><span class="line">               |- repo_srv_test.go</span><br></pre></td></tr></table></figure>
+
+<h2 id="gomock详细解析"><a href="#gomock详细解析" class="headerlink" title="gomock详细解析"></a>gomock详细解析</h2><ol>
+<li>gomock.NewController：返回 gomock.Controller，它代表 mock 生态系统中的顶级控件。定义了 mock 对象的范围、生命周期和期待值。另外它在多个goroutine中是安全的</li>
+<li>ctl.Finish()：当用例结束后，控制器会检查所有剩余期望的调用是否满足条件，一般会使用 defer 延迟执行，以防止我们忘记这一操作</li>
+<li>mock.NewMockRepository(ctl)：创建一个新的mock实例</li>
+<li>mockRepo.EXPECT().Create(gomock.Any(), gomock.Any()).Return(nil)：这里有三个步骤，EXPECT()返回一个允许调用者设置期望和返回值的对象。Create(gomock.Any(), gomock.Any()) 是设置入参并调用 mock 实例中的方法。Return(nil) 是设置先前调用的方法出参。简单来说，就是设置入参并调用，最后设置返回值</li>
+<li>NewRepoService(mockRepo)：创建RepoService实例，值得注意的是，在这里注入了mock对象，因此实际在随后的 repo.Create(key,value)调用（入参：key为”abc”,value为[]byte(“abc”）中。它调用的是我们事先模拟好的 mock 方法</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://qianguodong.xyz/2019/11/08/golang/2019-11-08-gostub/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bruce Qian">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/11/08/golang/2019-11-08-gostub/" class="post-title-link" itemprop="url">GoStub!</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-11-08 10:22:16" itemprop="dateCreated datePublished" datetime="2019-11-08T10:22:16+08:00">2019-11-08</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-17 11:11:26" itemprop="dateModified" datetime="2020-12-17T11:11:26+08:00">2020-12-17</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get github.com&#x2F;prashantv&#x2F;gostub</span><br></pre></td></tr></table></figure>
+
+<h2 id="gostub用法"><a href="#gostub用法" class="headerlink" title="gostub用法"></a>gostub用法</h2><h3 id="为全局变量进行打桩"><a href="#为全局变量进行打桩" class="headerlink" title="为全局变量进行打桩"></a>为全局变量进行打桩</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var configFile &#x3D; &quot;config.json&quot;</span><br><span class="line"></span><br><span class="line">func GetConfig() ([]byte, error) &#123;</span><br><span class="line">    return ioutil.ReadFile(configFile)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Test code</span><br><span class="line">stubs :&#x3D; gostub.Stub(&amp;configFile, &quot;&#x2F;tmp&#x2F;test.config&quot;)</span><br><span class="line"></span><br><span class="line">data, err :&#x3D; GetConfig()</span><br><span class="line">&#x2F;&#x2F; data will now return contents of the &#x2F;tmp&#x2F;test.config file</span><br></pre></td></tr></table></figure>
+<ul>
+<li>本例中对变量configFile进行打桩，替换了原来的值</li>
+<li>调用GetConfig返回的结果用自己替换的文件替代了</li>
+</ul>
+<h3 id="为函数进行打桩"><a href="#为函数进行打桩" class="headerlink" title="为函数进行打桩"></a>为函数进行打桩</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var timeNow &#x3D; time.Now</span><br><span class="line"></span><br><span class="line">func GetDate() int &#123;</span><br><span class="line">    return timeNow().Day()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;Test code</span><br><span class="line">stubs :&#x3D; gostub.Stub(&amp;timeNow, func() time.Time &#123;</span><br><span class="line">    return time.Date(2015, 6, 1, 0, 0, 0, 0, time.UTC)</span><br><span class="line">&#125;)</span><br><span class="line">defer stubs.Reset()</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Test can check that GetDate returns 6</span><br></pre></td></tr></table></figure>
+
+<p><strong>对于非变量定义出的函数，我们需要进行一些修改，以适配为函数进行打桩的方式</strong></p>
+<p>假设工程中自定义函数如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func Exec(cmd string, args ...string) (string, error) &#123;</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Exec函数是不能通过GoStub框架打桩的。如果想要通过GoStub框架对Exec函数进行打桩，则仅需对自定义函数进行简单的重构，即将Exec函数定义为匿名函数，同时将其赋值给Exec变量，重构后的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var Exec &#x3D; func(cmd string, args ...string) (string, error) &#123;</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当Exec函数重构成Exec变量后，并不影响既有代码中对Exec函数的调用。由于Exec变量是函数变量，因此一般函数变量也叫做函数。对Exec函数变量进行打桩的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">stubs :&#x3D; Stub(&amp;Exec, func(cmd string, args ...string) (string, error) &#123;</span><br><span class="line">   return &quot;test&quot;, nil</span><br><span class="line">&#125;)</span><br><span class="line">defer stubs.Reset()</span><br></pre></td></tr></table></figure>
+<p>GoStub框架专门提供了StubFunc函数用于函数打桩，对于函数的打桩代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stubs :&#x3D; StubFunc(&amp;Exec,&quot;test&quot;, nil)</span><br><span class="line">defer stubs.Reset()</span><br></pre></td></tr></table></figure>
+
+<p><strong>工程代码中会调用Golang库函数或第三方库函数，由于不能重构库函数，因此需要在工程代码中增加一层适配层，在适配层中定义库函数的变量，然后在工程代码中使用函数变量</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">例如：</span><br><span class="line">Marshal &#x3D; json.Marshal</span><br><span class="line">Unmarshal &#x3D; json.Unmarshal</span><br></pre></td></tr></table></figure>
+
+<h2 id="对环境变量值进行打桩"><a href="#对环境变量值进行打桩" class="headerlink" title="对环境变量值进行打桩"></a>对环境变量值进行打桩</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">stubs :&#x3D; gostub.New()</span><br><span class="line">stubs.SetEnv(&quot;GOSTUB_VAR&quot;, &quot;test_value&quot;)</span><br><span class="line">defer stubs.Reset()</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://qianguodong.xyz/2019/11/07/golang/2019-11-07-monkey/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bruce Qian">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/11/07/golang/2019-11-07-monkey/" class="post-title-link" itemprop="url">Monkey!</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-11-07 10:22:16" itemprop="dateCreated datePublished" datetime="2019-11-07T10:22:16+08:00">2019-11-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-17 11:11:26" itemprop="dateModified" datetime="2020-12-17T11:11:26+08:00">2020-12-17</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Monkey是Golang的一个猴子补丁（monkeypatching）框架，在运行时通过汇编语句重写可执行文件，将待打桩函数或方法的实现跳转到桩实现，原理和热补丁类似</p>
+<p>通过Monkey，我们可以解决函数或方法的打桩问题，但Monkey不是线程安全的，不要将Monkey用于并发的测试中</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get github.com&#x2F;bouk&#x2F;monkey</span><br></pre></td></tr></table></figure>
+<p>运行完后你会发现，在$GOPATH/src/github.com目录下，新增了bouk/monkey子目录</p>
+<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h2><p>目前有一个项目app，app的整体架构如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$GOPATH</span><br><span class="line">   |- src</span><br><span class="line">       |- app</span><br><span class="line">           |- vnpm.go</span><br><span class="line">           |- vnpm_test.go</span><br><span class="line">           |- swr.go</span><br><span class="line">           |- swr_test.go </span><br></pre></td></tr></table></figure>
+
+<h3 id="为函数打桩"><a href="#为函数打桩" class="headerlink" title="为函数打桩"></a>为函数打桩</h3><p>目前有一个业务场景：我们需要通过vnpm查询所有服务信息，我们可以将通过http请求查询vnpm数据的地方打桩</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*** 生产代码开始 ***&#x2F;</span><br><span class="line">package app</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;encoding&#x2F;json&quot;</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;io&#x2F;ioutil&quot;</span><br><span class="line">	&quot;net&#x2F;http&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type (</span><br><span class="line">	Srv struct &#123;</span><br><span class="line">		Name    string &#96;json:&quot;name&quot;&#96;</span><br><span class="line">		Version string &#96;json:&quot;version&quot;&#96;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	Header map[string]string</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; http get请求的工具类</span><br><span class="line">func HTTPGet(url string, header Header) ([]byte, error) &#123;</span><br><span class="line">	request, err :&#x3D; http.NewRequest(http.MethodGet, url, nil)</span><br><span class="line">	if err !&#x3D; nil &#123;</span><br><span class="line">		return nil, err</span><br><span class="line">	&#125;</span><br><span class="line">	if header !&#x3D; nil &amp;&amp; len(header) &gt; 0 &#123;</span><br><span class="line">		for k, v :&#x3D; range header &#123;</span><br><span class="line">			request.Header.Set(k, v)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	resp, err :&#x3D; http.DefaultClient.Do(request)</span><br><span class="line">	if err !&#x3D; nil &#123;</span><br><span class="line">		return nil, err</span><br><span class="line">	&#125;</span><br><span class="line">	defer resp.Body.Close()</span><br><span class="line"></span><br><span class="line">	buf, err :&#x3D; ioutil.ReadAll(resp.Body)</span><br><span class="line">	if err !&#x3D; nil &#123;</span><br><span class="line">		return nil, err</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	if resp.StatusCode &lt; http.StatusOK || resp.StatusCode &gt; http.StatusIMUsed &#123;</span><br><span class="line">		return buf, fmt.Errorf(&quot;%d %s&quot;, resp.StatusCode, resp.Status)</span><br><span class="line">	&#125;</span><br><span class="line">	return buf, nil</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 通过http请求获取服务列表[]Srv</span><br><span class="line">func RequestVNPM(endpoint, token string) (srvs []Srv, err error) &#123;</span><br><span class="line">	url :&#x3D; fmt.Sprintf(&quot;https:&#x2F;&#x2F;%s&#x2F;vnpm&#x2F;tenants&#x2F;service&quot;, endpoint)</span><br><span class="line">	resp, err :&#x3D; HTTPGet(url, Header&#123;&quot;Access-Token&quot;: token&#125;)</span><br><span class="line">	if err !&#x3D; nil &#123;</span><br><span class="line">		return nil, err</span><br><span class="line">	&#125;</span><br><span class="line">	if err &#x3D; json.Unmarshal(resp, &amp;srvs); err !&#x3D; nil &#123;</span><br><span class="line">		return nil, err</span><br><span class="line">	&#125;</span><br><span class="line">	return</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;*** 生产代码结束 ***&#x2F;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;*** 测试代码开始 ***&#x2F;</span><br><span class="line">package app_test</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;app&quot;</span><br><span class="line">	&quot;encoding&#x2F;json&quot;</span><br><span class="line">	&quot;errors&quot;</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;github.com&#x2F;bouk&#x2F;monkey&quot;</span><br><span class="line">	&quot;github.com&#x2F;smartystreets&#x2F;goconvey&#x2F;convey&quot;</span><br><span class="line">	&quot;testing&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func TestRequestVNPM(t *testing.T) &#123;</span><br><span class="line">	convey.Convey(&quot;RequestVNPM&quot;, t, func() &#123;</span><br><span class="line">		convey.Convey(&quot;should be return error when http get failed&quot;, func() &#123;</span><br><span class="line">			&#x2F;&#x2F; 通过monkey.Patch对函数进行打桩，模拟异常情况</span><br><span class="line">			patch :&#x3D; monkey.Patch(app.HTTPGet, func(url string, header app.Header) ([]byte, error) &#123;</span><br><span class="line">				return nil, errors.New(&quot;http get failed&quot;)</span><br><span class="line">			&#125;)</span><br><span class="line">			defer patch.Unpatch()</span><br><span class="line">			resp, err :&#x3D; app.RequestVNPM(&quot;1.2.3.4:80&quot;, &quot;token-1345&quot;)</span><br><span class="line">			convey.So(resp, convey.ShouldBeNil)</span><br><span class="line">			convey.So(err, convey.ShouldNotBeNil)</span><br><span class="line">			convey.So(err.Error(), convey.ShouldEqual, &quot;http get failed&quot;)</span><br><span class="line">		&#125;)</span><br><span class="line">		convey.Convey(&quot;should be success return when http get success&quot;, func() &#123;</span><br><span class="line">            &#x2F;&#x2F; 通过monkey.Patch对函数进行打桩，模拟正常情况</span><br><span class="line">			patch :&#x3D; monkey.Patch(app.HTTPGet, func(url string, header app.Header) ([]byte, error) &#123;</span><br><span class="line">				srvs :&#x3D; []app.Srv&#123;</span><br><span class="line">					&#123;Name: &quot;abc&quot;, Version: &quot;123&quot;&#125;,</span><br><span class="line">					&#123;Name: &quot;def&quot;, Version: &quot;mnt&quot;&#125;,</span><br><span class="line">				&#125;</span><br><span class="line">				buf, _ :&#x3D; json.Marshal(srvs)</span><br><span class="line">				return buf, nil</span><br><span class="line">			&#125;)</span><br><span class="line">			defer patch.Unpatch()</span><br><span class="line">			resp, err :&#x3D; app.RequestVNPM(&quot;1.2.3.4:80&quot;, &quot;token-1345&quot;)</span><br><span class="line">			convey.So(err, convey.ShouldBeNil)</span><br><span class="line">			fmt.Println(resp)</span><br><span class="line">			convey.So(len(resp), convey.ShouldEqual, 2)</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;*** 测试代码结束 ***&#x2F;</span><br></pre></td></tr></table></figure>
+<p>Patch是Monkey提供给用户用于函数打桩的API：</p>
+<ul>
+<li>第一个参数是目标函数的函数名</li>
+<li>第二个参数是桩函数的函数名，习惯用法是匿名函数或闭包</li>
+<li>返回值是一个PatchGuard对象指针，主要用于在测试结束时删除当前的补丁</li>
+</ul>
+<h3 id="为方法打桩"><a href="#为方法打桩" class="headerlink" title="为方法打桩"></a>为方法打桩</h3><p>我们也可以对基于结构体struct的方法进行打桩，假设目前我们有一个请求，是从swr从查询所有的Bins，具体请看代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*** 生产代码开始 ***&#x2F;</span><br><span class="line">package app</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;encoding&#x2F;json&quot;</span><br><span class="line">	&quot;errors&quot;</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;github.com&#x2F;tidwall&#x2F;gjson&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 从swr中查询bins的结果如下</span><br><span class="line">type BinResponse struct &#123;</span><br><span class="line">	List []struct &#123;</span><br><span class="line">		Name string &#96;json:&quot;name&quot;&#96;</span><br><span class="line">		VERs []struct &#123;</span><br><span class="line">			Ver string   &#96;json:&quot;version&quot;&#96;</span><br><span class="line">			Uri []string &#96;json:&quot;uri&quot;&#96;</span><br><span class="line">		&#125; &#96;json:&quot;versions&quot;&#96;</span><br><span class="line">	&#125; &#96;json:&quot;list&quot;&#96;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 对结果进行序列化</span><br><span class="line">func (b *BinResponse) String() string &#123;</span><br><span class="line">	str, _ :&#x3D; json.Marshal(b)</span><br><span class="line">	return string(str)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 通过调用请求至swr，获取bins结果BinResp</span><br><span class="line">func (b *BinResponse) InitFromHttpResp(endpoint, tenantID, binName, token string) (*BinResponse, error) &#123;</span><br><span class="line">	url :&#x3D; fmt.Sprintf(&quot;%s&#x2F;swr&#x2F;v1&#x2F;tenants&#x2F;%s&#x2F;bins?name&#x3D;%s&amp;reponame&#x3D;%s&quot;, endpoint, tenantID, binName, tenantID)</span><br><span class="line">	resp, err :&#x3D; HTTPGet(url, Header&#123;&quot;Access-Token&quot;: token&#125;)</span><br><span class="line">	if err !&#x3D; nil &#123;</span><br><span class="line">		return nil, err</span><br><span class="line">	&#125;</span><br><span class="line">	if exist :&#x3D; gjson.Get(string(resp), &quot;list.#[name&#x3D;&quot;+binName+&quot;]#.versions&quot;); !exist.Exists() &#123;</span><br><span class="line">		return nil, errors.New(&quot;no matched binName&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">	if err &#x3D; json.Unmarshal(resp, &amp;b); err !&#x3D; nil &#123;</span><br><span class="line">		return nil, err</span><br><span class="line">	&#125;</span><br><span class="line">	return b, nil</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;*** 生产代码结束 ***&#x2F;</span><br><span class="line"></span><br><span class="line">&#x2F;*** 测试代码开始 ***&#x2F;</span><br><span class="line">package app_test</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;app&quot;</span><br><span class="line">	&quot;encoding&#x2F;json&quot;</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;github.com&#x2F;bouk&#x2F;monkey&quot;</span><br><span class="line">	&quot;github.com&#x2F;smartystreets&#x2F;goconvey&#x2F;convey&quot;</span><br><span class="line">	&quot;reflect&quot;</span><br><span class="line">	&quot;testing&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func TestBinResponse_InitFromHttpResp(t *testing.T) &#123;</span><br><span class="line">	convey.Convey(&quot;TestBinResponse&quot;, t, func() &#123;</span><br><span class="line">		convey.Convey(&quot;response success&quot;, func() &#123;</span><br><span class="line">            &#x2F;&#x2F; 对BinResponse的方法InitFromHttpResp进行打桩</span><br><span class="line">			var binResp *app.BinResponse</span><br><span class="line">			guard :&#x3D; monkey.PatchInstanceMethod(reflect.TypeOf(binResp), &quot;InitFromHttpResp&quot;,</span><br><span class="line">				func(b *app.BinResponse, endpoint, tenantID, binName, token string) (*app.BinResponse, error) &#123;</span><br><span class="line">					var resp *app.BinResponse</span><br><span class="line">					jsonStr :&#x3D; &#96;&#123;</span><br><span class="line">    &quot;list&quot;:[</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;:&quot;abc&quot;,</span><br><span class="line">            &quot;versions&quot;:[</span><br><span class="line">                &#123;</span><br><span class="line">                    &quot;version&quot;:&quot;123&quot;,</span><br><span class="line">                    &quot;uri&quot;:[&quot;&#x2F;abc&#x2F;123&quot;]</span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    &quot;version&quot;:&quot;456&quot;,</span><br><span class="line">                    &quot;uri&quot;:[&quot;&#x2F;abc&#x2F;456&quot;]</span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;&#96;</span><br><span class="line">					_ &#x3D; json.Unmarshal([]byte(jsonStr), &amp;resp)</span><br><span class="line">					return resp, nil</span><br><span class="line">				&#125;)</span><br><span class="line">			defer guard.Unpatch()</span><br><span class="line"></span><br><span class="line">			&#x2F;&#x2F; 模拟调用</span><br><span class="line">			binResp, err :&#x3D; new(app.BinResponse).InitFromHttpResp(&quot;1.2.3.4:80&quot;, &quot;ranoss&quot;, &quot;abc&quot;, &quot;token----&quot;)</span><br><span class="line">            &#x2F;&#x2F; 结果校验</span><br><span class="line">			convey.So(err, convey.ShouldBeNil)</span><br><span class="line">			fmt.Println(binResp)</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;*** 测试代码结束 ***&#x2F;</span><br></pre></td></tr></table></figure>
+<p>PatchInstanceMethod API是Monkey提供给用户用于方法打桩的API：</p>
+<ul>
+<li>在使用前，先要定义一个目标类的指针变量x</li>
+<li>第一个参数是reflect.TypeOf(x)</li>
+<li>第二个参数是字符串形式的函数名</li>
+<li>返回值是一个PatchGuard对象指针，主要用于在测试结束时删除当前的补丁</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://qianguodong.xyz/2019/07/30/golang/2019-07-30-beego/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bruce Qian">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/07/30/golang/2019-07-30-beego/" class="post-title-link" itemprop="url">Beego!</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-07-30 10:22:16" itemprop="dateCreated datePublished" datetime="2019-07-30T10:22:16+08:00">2019-07-30</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-17 11:11:26" itemprop="dateModified" datetime="2020-12-17T11:11:26+08:00">2020-12-17</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Beego is an HTTP framework for rapid development of Go applications. It can be used to quickly develop applications such as APIs, Web and back-end services. It is a RESTful framework, mainly inspired by the three frameworks of tornado, sinatra and flask. But a framework designed to combine some of Go’s own features (interface, struct embedding, etc.).</p>
+<h2 id="跨域访问"><a href="#跨域访问" class="headerlink" title="跨域访问"></a>跨域访问</h2><ul>
+<li>CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）</li>
+<li>CORS允许浏览器向跨源服务器发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制</li>
+<li>CORS与JSONP的使用目的相同，但是比JSONP更强大，JSONP只支持GET请求，CORS支持所有类型的HTTP请求，JSONP的优势在于支持老式浏览器，以及可以向不支持CORS的网站请求数据</li>
+</ul>
+<h3 id="什么叫做跨域？"><a href="#什么叫做跨域？" class="headerlink" title="什么叫做跨域？"></a>什么叫做跨域？</h3><p>当两个域具有相同的协议(如http)，相同的端口(如80)，相同的host(如<code>www.github.com</code>),则认为它们是相同的域，否则就是跨域</p>
+<h3 id="限制跨域访问的作用？"><a href="#限制跨域访问的作用？" class="headerlink" title="限制跨域访问的作用？"></a>限制跨域访问的作用？</h3><p>限制跨域资源访问的作用可以从服务端和客户端两个方面进行分析：  </p>
+<ul>
+<li>服务端<br>当服务端收到一个请求时，会检查该请求来源，如果来源的客户端页面自己无法识别，而且服务端的数据又是比较敏感的，则可能做出限制或者拒绝访问(例如黑客对服务器的攻击)</li>
+<li>客户端<br>浏览器的同源策略可限制对跨域资源的访问，若是与服务器的域不相同，则浏览器可能进行限制甚至拒绝访问(例如，黑客通过让你访问他的服务器数据来攻击你的客户端页面)<br>跨域访问失败时，实际上浏览器发送请求成功，浏览器也接收到了响应，但是它会限制xmlhttprequest接受响应并在js控制台报错。  </li>
+</ul>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>通过在响应中增加Access-Control-Allow-Origin标识的header，指定服务器端运行进行跨域资源访问的来源域<br>其中 Access-Control-Allow-Origin: * 表示该资源谁都可以用，在Beego框架中可以通过CORS显式定义支持跨域的功能，定义如下：     </p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">beego.InsertFilter(<span class="string">&quot;*&quot;</span>, beego.BeforeRouter, cors.Allow(&amp;cors.Options&#123;</span><br><span class="line">		AllowAllOrigins:  <span class="literal">true</span>,</span><br><span class="line">		AllowCredentials: <span class="literal">true</span>,</span><br><span class="line">		AllowMethods:     []<span class="keyword">string</span>&#123;<span class="string">&quot;GET&quot;</span>, <span class="string">&quot;POST&quot;</span>, <span class="string">&quot;PUT&quot;</span>, <span class="string">&quot;DELETE&quot;</span>, <span class="string">&quot;OPTIONS&quot;</span>&#125;,</span><br><span class="line">		AllowHeaders:     []<span class="keyword">string</span>&#123;<span class="string">&quot;Origin&quot;</span>, <span class="string">&quot;Authorization&quot;</span>, <span class="string">&quot;Access-Control-Allow-Origin&quot;</span>, <span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;language-option&quot;</span>, <span class="string">&quot;X-Requested-With&quot;</span>&#125;,</span><br><span class="line">		ExposeHeaders:    []<span class="keyword">string</span>&#123;<span class="string">&quot;*&quot;</span>&#125;,</span><br><span class="line">		MaxAge:           <span class="number">5</span> * time.Minute,</span><br><span class="line">	&#125;))</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="添加日志支持"><a href="#添加日志支持" class="headerlink" title="添加日志支持"></a>添加日志支持</h2><p>beego的日志可以通过配置文件app.conf中定义<br>定义格式如下： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Emergency:0, Alert:1, Critical:2, Error:3, Warn:4, Notice:5, Info:6, Debug:7</span><br><span class="line">LogOutputs &#x3D; console,&#123;&quot;level&quot;:7&#125;;file, &#123;&quot;filename&quot;:&quot;work&#x2F;logs&#x2F;prism.log&quot;,&quot;level&quot;:7,&quot;maxlines&quot;:30000,&quot;maxsize&quot;:20000000,&quot;daily&quot;:false,&quot;maxdays&quot;:10,&quot;rotate&quot;:true&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>work/logs目录需要手动创建，因为beego框架不会帮我们创建</strong></p>
+<h2 id="从请求头中获取数据"><a href="#从请求头中获取数据" class="headerlink" title="从请求头中获取数据"></a>从请求头中获取数据</h2><p>A系统有UI和后端两个微服务，现A系统的后端需要访问B系统提供的REST服务，由于安全的考虑，访问B系统时，都需要在请求头部加上Token。<br>A系统在UI访问后端时可以通过HTTP头部将此Token传递过来，假设A系统的后端目前采取Beego框架实现，如何编写优雅的代码获取UI传递的Token？</p>
+<h3 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import &quot;github.com&#x2F;astaxie&#x2F;beego&quot;</span><br><span class="line"></span><br><span class="line">type MainController struct&#123;</span><br><span class="line">	beego.Controller</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (this *MainController) Get()&#123;</span><br><span class="line">	token :&#x3D; this.Ctx.Request.Header.Get(consts.AcceptToken)</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的实例，我们先要知道它干了什么： </p>
+<ul>
+<li>自定义了一个内含beego.Controller控制器的MainController。</li>
+<li>重写了MainController的Get()方法，熟悉go语言的应该知道这个方法来自beego.Controller。</li>
+<li>在Get()方法内部，通过Content从http请求头中获取token。</li>
+</ul>
+<h3 id="ControllerInterface接口"><a href="#ControllerInterface接口" class="headerlink" title="ControllerInterface接口"></a>ControllerInterface接口</h3><p>在介绍本文的重点之前，我们先来认识一下beego中定义的ControllerInterface接口  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">type  ControllerInterface interface&#123;</span><br><span class="line">	Init(ctx *context.Context, controllerName, actionName string, app interface&#123;&#125;)</span><br><span class="line">	Prepare()</span><br><span class="line">	Get()</span><br><span class="line">	Post()</span><br><span class="line">	Delete()</span><br><span class="line">	Put()</span><br><span class="line">	Head()</span><br><span class="line">	Patch()</span><br><span class="line">	Options()</span><br><span class="line">	Finish()</span><br><span class="line">	Render() error</span><br><span class="line">	XSRFToken() string</span><br><span class="line">	CheckXSRFCookie() bool</span><br><span class="line">	HandlerFunc(fn string) bool</span><br><span class="line">	URLMapping()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从这些接口的定义我们可以知道，它主要定义了Http请求过程中针对不同Method所作出的不同响应。而 beego.Controller 就是对这些接口的一个实现，对于其中方法的一些解释：</p>
+<ul>
+<li>Init(ct *context.Context, controllerName, actionName string, app interface{})<br>这个函数主要初始化了Context，相应Controller的名称，模板名，初始化模板参数的容器Data</li>
+<li>Prepare()<br>这个函数主要是为了用户扩展用的，这个函数会在下面定义的这些Method方法之前执行，用户可以重写这个函数实现类似用户验证之类。</li>
+<li>Get()<br>如果用户请求的Http Method是Get，那么就执行该函数，默认是403，用户继承的子struct可以实现该方法，以处理Get请求</li>
+<li>Finish()<br>这个函数是在执行完相关Http Method方法之后执行的，默认为空，用户可以在子Struct中重写这个函数，执行例如关闭数据库，清理数据之类的操作。</li>
+</ul>
+<h3 id="重写beego框架函数"><a href="#重写beego框架函数" class="headerlink" title="重写beego框架函数"></a>重写beego框架函数</h3><p>通过上文的介绍，我们可以知道，能够通过重写beego框架中定义函数的使用，快速便利实现自己各种业务处理。<br><strong>业务场景:</strong> A系统要和B系统进行通讯，每次都需要带上Token操作。<br><strong>解决手段:</strong> 针对这种情况，我们可以封装一个BaseController用来继承beego.Controller，重写Prepare()函数并从Http头部解析获取Token,而其他业务Controller都继承BaseController，那么每次就可以很方便的获取Token了。</p>
+<p>具体实现代码如下：</p>
+<ul>
+<li>基础类：base.go</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import &quot;github.com&#x2F;astaxie&#x2F;beego&quot;</span><br><span class="line"></span><br><span class="line">type BaseController struct&#123;</span><br><span class="line">	beego.Controller</span><br><span class="line">	Token string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func(b *BaseController) Prepare()&#123;</span><br><span class="line">	b.Token &#x3D; b.Ctx.Request.Header.Get(consts.AcceptToken)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>业务类： main.go</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">type MainController struct&#123;</span><br><span class="line">	BaseController</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (this *BaseController) Get()&#123;</span><br><span class="line">	token :&#x3D; this.Token</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://qianguodong.xyz/2019/07/29/golang/2019-07-29-testing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bruce Qian">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/07/29/golang/2019-07-29-testing/" class="post-title-link" itemprop="url">Testing!</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-07-29 10:22:16" itemprop="dateCreated datePublished" datetime="2019-07-29T10:22:16+08:00">2019-07-29</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-17 11:11:26" itemprop="dateModified" datetime="2020-12-17T11:11:26+08:00">2020-12-17</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>An important part of the development process is testing, how to ensure the quality of the code, how to ensure that each function can run and the results are correct, and how to ensure the best performance of the written code.   </p>
+<p>The focus of unit testing is to discover logic errors in programming or implementation, to expose problems early, and to facilitate problem location. The focus of performance testing is to find some problems in programming, so that online programs can be in high concurrency. It can still be stable.</p>
+<h1 id="testing"><a href="#testing" class="headerlink" title="testing"></a>testing</h1><h2 id="单元测试准则"><a href="#单元测试准则" class="headerlink" title="单元测试准则"></a>单元测试准则</h2><ul>
+<li>文件名必须<code>_test.go</code>结尾</li>
+<li>必须<code>import testing</code>包</li>
+<li>所有的测试用例函数必须Test开头</li>
+<li>测试用例会按照源代码中定义的顺序依次执行</li>
+<li>测试函数<code>TestXXX()</code>函数入参为<code>testing.T</code></li>
+<li>测试格式<code>func TestXXX(t *testing.T)</code>,<code>XXX</code>部分可以为任意的字母数字组合，但是首字母必须为大写<code>[A-Z]</code></li>
+<li>函数中通过调用<code>testing.T</code>的Error, Errorf, FailNow, Fatal, FatalIf方法，说明测试不通过，调用Log方法用来记录测试的信息</li>
+<li>go test命令执行的测试目标，默认为package级别，直接执行不带任何参数，会尝试执行当前目录所在的package的所有测试用例</li>
+<li>go test只会在当前或用户指定的目录下查找测试函数，不会去查找子目录  </li>
+<li>go test -run可以指定package中执行的函数名，如：<code>go test -run &quot;^TestA|TestB$&quot;</code>,执行名为TestA和TestB的测试函数</li>
+<li>go test -v 会输出执行过程信息</li>
+<li>go test -cover可以用来统计行覆盖率</li>
+<li>go test 具体用法可以参考<code>go test --help</code>查询帮助信息进行查看</li>
+</ul>
+<h2 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 生产代码</span><br><span class="line">package cal</span><br><span class="line"></span><br><span class="line">func Add(a, b int) int&#123;</span><br><span class="line">	return a + b</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 功能测试</span><br><span class="line">package cal</span><br><span class="line"></span><br><span class="line">import &quot;testing&quot;</span><br><span class="line"></span><br><span class="line">func TestAdd(t *testing.T)&#123;</span><br><span class="line">	expected :&#x3D; 5</span><br><span class="line">	actual :&#x3D; Add(3,4)</span><br><span class="line">	if expected !&#x3D; actual&#123;</span><br><span class="line">		t.Errorf(&quot;Add(3,4) got:%v, expected:%v&quot;, actual,expected)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 性能测试</span><br><span class="line">package cal</span><br><span class="line"></span><br><span class="line">import &quot;testing&quot;</span><br><span class="line"></span><br><span class="line">func Benchmark(b *testing.B)&#123;</span><br><span class="line">	for i :&#x3D; 0; i &lt; b.N; i++&#123;</span><br><span class="line">		Add(4, 5)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="执行功能测试"><a href="#执行功能测试" class="headerlink" title="执行功能测试"></a>执行功能测试</h3><ul>
+<li><code>go test -v</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜ src&gt; go test -v .&#x2F;cal</span><br><span class="line">&#x3D;&#x3D;&#x3D; RUN   TestAdd</span><br><span class="line">--- FAIL: TestAdd (0.00s)</span><br><span class="line">    add_test.go:12: Add(3,4) got:7, expected:5</span><br><span class="line">FAIL</span><br><span class="line">FAIL	cal	0.007s</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>执行指定函数<code>go test -run</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜ src&gt; go test -run TestAdd .&#x2F;testcase</span><br><span class="line">### 输出 ###</span><br><span class="line">--- FAIL: TestAdd (0.00s)</span><br><span class="line">    main_test.go:9: Add(3,4) got:7, expected:5</span><br><span class="line">FAIL</span><br><span class="line">FAIL    gitlab.zte.com.cn&#x2F;testcase      0.147s</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行性能测试<code>go test -brench</code><ul>
+<li>benchmem：输出内存分配统计</li>
+<li>benchtime：指定测试时间</li>
+<li>cpu：指定GOMAXPROCS</li>
+<li>timeout：超时限制</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜ src&gt; go test -v -bench&#x3D;.  -cpu&#x3D;8 -benchtime&#x3D;&quot;3s&quot; -timeout&#x3D;&quot;5s&quot; -benchmem</span><br><span class="line">### 输出 ###</span><br><span class="line">&#x3D;&#x3D;&#x3D; RUN   TestAdd</span><br><span class="line">--- PASS: TestAdd (0.00s)</span><br><span class="line">goos: windows</span><br><span class="line">goarch: 386</span><br><span class="line">pkg: github.com&#x2F;testcase</span><br><span class="line">Benchmark-8     1000000000               0.31 ns&#x2F;op            0 B&#x2F;op          0</span><br><span class="line">allocs&#x2F;op</span><br><span class="line">PASS</span><br><span class="line">ok      github.com&#x2F;testcase      1.144s</span><br></pre></td></tr></table></figure>
+
+<h2 id="Pprof"><a href="#Pprof" class="headerlink" title="Pprof"></a>Pprof</h2><h3 id="命令行生成测试数据文件"><a href="#命令行生成测试数据文件" class="headerlink" title="命令行生成测试数据文件"></a>命令行生成测试数据文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜ src&gt; go test -bench&#x3D;. -cpuprofile cpu.out</span><br><span class="line">### 输出 ###</span><br><span class="line">goos: windows</span><br><span class="line">goarch: 386</span><br><span class="line">pkg: github.com&#x2F;testcase</span><br><span class="line">Benchmark-4     2000000000               0.31 ns&#x2F;op</span><br><span class="line">PASS</span><br><span class="line">ok      github.com&#x2F;testcase      1.590s</span><br></pre></td></tr></table></figure>
+
+<h4 id="命令行分析"><a href="#命令行分析" class="headerlink" title="命令行分析"></a>命令行分析</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">➜ src&gt; go tool pprof -text cpu.out</span><br><span class="line">### 输出 ###</span><br><span class="line">Type: cpu</span><br><span class="line">Time: May 30, 2019 at 3:19pm (CST)</span><br><span class="line">Duration: 800.05ms, Total samples &#x3D; 690ms (86.25%)</span><br><span class="line">Showing nodes accounting for 690ms, 100% of 690ms total</span><br><span class="line">      flat  flat%   sum%        cum   cum%</span><br><span class="line">     650ms 94.20% 94.20%      650ms 94.20%  github.com&#x2F;testcase.Benchmark</span><br><span class="line"></span><br><span class="line">      10ms  1.45% 95.65%       10ms  1.45%  runtime.findrunnable</span><br><span class="line">      10ms  1.45% 97.10%       10ms  1.45%  runtime.heapBitsSetType</span><br><span class="line">      10ms  1.45% 98.55%       10ms  1.45%  runtime.siftupTimer</span><br><span class="line">      10ms  1.45%   100%       10ms  1.45%  runtime&#x2F;pprof.(*profMap).lookup</span><br><span class="line">         0     0%   100%       20ms  2.90%  runtime.(*timersBucket).addtimerLocked</span><br><span class="line">         0     0%   100%       10ms  1.45%  runtime.malg</span><br><span class="line">         0     0%   100%       10ms  1.45%  runtime.mallocgc</span><br><span class="line">         0     0%   100%       10ms  1.45%  runtime.mcall</span><br><span class="line">         0     0%   100%       10ms  1.45%  runtime.newobject</span><br><span class="line">         0     0%   100%       10ms  1.45%  runtime.newproc</span><br><span class="line">         0     0%   100%       10ms  1.45%  runtime.newproc.func1</span><br><span class="line">         0     0%   100%       10ms  1.45%  runtime.newproc1</span><br><span class="line">         0     0%   100%       10ms  1.45%  runtime.park_m</span><br><span class="line">         0     0%   100%       10ms  1.45%  runtime.schedule</span><br><span class="line">         0     0%   100%       10ms  1.45%  runtime.systemstack</span><br><span class="line">         0     0%   100%       10ms  1.45%  runtime&#x2F;pprof.(*profileBuilder).addCPUData</span><br><span class="line">         0     0%   100%       30ms  4.35%  runtime&#x2F;pprof.profileWriter</span><br><span class="line">         0     0%   100%      650ms 94.20%  testing.(*B).launch</span><br><span class="line">         0     0%   100%      650ms 94.20%  testing.(*B).runN</span><br><span class="line">         0     0%   100%       20ms  2.90%  time.Sleep</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="pprof交互模式分析"><a href="#pprof交互模式分析" class="headerlink" title="pprof交互模式分析"></a>pprof交互模式分析</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">➜ src&gt; go tool pprof main_test.go cpu.out</span><br><span class="line">### 输出 ###</span><br><span class="line">main_test.go: parsing profile: unrecognized profile format</span><br><span class="line">Fetched 1 source profiles out of 2</span><br><span class="line">Type: cpu</span><br><span class="line">Time: May 30, 2019 at 3:19pm (CST)</span><br><span class="line">Duration: 800.05ms, Total samples &#x3D; 690ms (86.25%)</span><br><span class="line">Entering interactive mode (type &quot;help&quot; for commands, &quot;o&quot; for options)</span><br><span class="line">(pprof) top</span><br><span class="line">Showing nodes accounting for 690ms, 100% of 690ms total</span><br><span class="line">Showing top 10 nodes out of 21</span><br><span class="line">      flat  flat%   sum%        cum   cum%</span><br><span class="line">     650ms 94.20% 94.20%      650ms 94.20%  github.com&#x2F;testcase.Benchmark</span><br><span class="line"></span><br><span class="line">      10ms  1.45% 95.65%       10ms  1.45%  runtime.findrunnable</span><br><span class="line">      10ms  1.45% 97.10%       10ms  1.45%  runtime.heapBitsSetType</span><br><span class="line">      10ms  1.45% 98.55%       10ms  1.45%  runtime.siftupTimer</span><br><span class="line">      10ms  1.45%   100%       10ms  1.45%  runtime&#x2F;pprof.(*profMap).lookup</span><br><span class="line">         0     0%   100%       20ms  2.90%  runtime.(*timersBucket).addtimerLocked</span><br><span class="line">         0     0%   100%       10ms  1.45%  runtime.malg</span><br><span class="line">         0     0%   100%       10ms  1.45%  runtime.mallocgc</span><br><span class="line">         0     0%   100%       10ms  1.45%  runtime.mcall</span><br><span class="line">         0     0%   100%       10ms  1.45%  runtime.newobject</span><br><span class="line">(pprof)</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码生成测试数据文件"><a href="#代码生成测试数据文件" class="headerlink" title="代码生成测试数据文件"></a>代码生成测试数据文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line">import (</span><br><span class="line">    &quot;os&quot;</span><br><span class="line">    &quot;runtime&#x2F;pprof&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    w, _ :&#x3D; os.Create(&quot;cpu.out&quot;)</span><br><span class="line">    defer w.Close()</span><br><span class="line">    pprof.StartCPUProfile(w)</span><br><span class="line">    defer pprof.StopCPUProfile()</span><br><span class="line"></span><br><span class="line">    w2, _ :&#x3D; os.Create(&quot;mem.out&quot;)</span><br><span class="line">    defer w2.Close()</span><br><span class="line">    defer pprof.WriteHeapProfile(w2)</span><br><span class="line"></span><br><span class="line">    Add(3, 5)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func Add(a, b int) int &#123;</span><br><span class="line">    return a + b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译并执行以上文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">go build main.go   </span><br><span class="line">.&#x2F;main  </span><br><span class="line">ls（.&#x2F;main命令生成cpu.out和mem.out文件）  </span><br><span class="line">cpu.out     mem.out     pprof       pprof.go  </span><br></pre></td></tr></table></figure>
+
+<p>生成pdf文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go tool pprof -pdf cpu.out &gt; cpu.pdf  </span><br><span class="line">go tool pprof -pdf mem.out &gt; mem.pdf  </span><br></pre></td></tr></table></figure>
+
+<h2 id="与CI集成"><a href="#与CI集成" class="headerlink" title="与CI集成"></a>与CI集成</h2><h3 id="go-junit-report"><a href="#go-junit-report" class="headerlink" title="go-junit-report"></a>go-junit-report</h3><p>类似java的junit，go test可以与go-junit-report工具结合生成junit报告，然后集成到jenkins中进行查看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export GOPATH&#x3D;$(pwd)</span><br><span class="line">ut_modules&#x3D;&#96;go list src&#x2F;...&#96;</span><br><span class="line">go test -v $&#123;ut_modules[*&#125;&#125; 2 &gt;&amp;1 | go-junit-report &gt; go_junit.xml</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="gocover-cobertura"><a href="#gocover-cobertura" class="headerlink" title="gocover-cobertura"></a>gocover-cobertura</h3><p>也可以类似和cobertura进行集成,生成coverage.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export GOPATH&#x3D;$(pwd)</span><br><span class="line">ut_modules&#x3D;&#96;go list src&#x2F;...&#96;</span><br><span class="line">go test -coverprofile&#x3D;coverage.txt -covermode count $&#123;ut_modules[*&#125;&#125;</span><br><span class="line">gocover-cobertura &lt; coverage.txt &gt; coverage.xml</span><br></pre></td></tr></table></figure>
+
+<h3 id="goreporter"><a href="#goreporter" class="headerlink" title="goreporter"></a>goreporter</h3><p>可以和goreporter集成，生成html格式的报告文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export GOPATH&#x3D;$(pwd)</span><br><span class="line">goreporter -p $&#123;projectRelativePath&#125;  -r $&#123;report_dir&#125; -f html</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://qianguodong.xyz/2019/07/21/golang/2019-07-21-duplicate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bruce Qian">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/07/21/golang/2019-07-21-duplicate/" class="post-title-link" itemprop="url">Deduplicate slice elements!</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-07-21 10:22:16" itemprop="dateCreated datePublished" datetime="2019-07-21T10:22:16+08:00">2019-07-21</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-17 11:11:26" itemprop="dateModified" datetime="2020-12-17T11:11:26+08:00">2020-12-17</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>开发过程中，我们经常会遇到对切片中的数据进行加工，如何很优雅的对切片中的元素进行去重，本文通过代码的实例告诉大家优雅的对切片进行去重处理。</p>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>现有一个字符串的切片，如何将该切片中的元素进行去重。</p>
+<h1 id="代码逻辑实现-参考k8s，-clientcmd包中的deduplicate方法"><a href="#代码逻辑实现-参考k8s，-clientcmd包中的deduplicate方法" class="headerlink" title="代码逻辑实现(参考k8s， clientcmd包中的deduplicate方法)"></a>代码逻辑实现(参考k8s， clientcmd包中的deduplicate方法)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">func deduplicate(s []string) []string&#123;</span><br><span class="line">  encountered :&#x3D; map[string]bool&#123;&#125;</span><br><span class="line">  ret :&#x3D; make([]string,0)</span><br><span class="line">  for i :&#x3D; rang s&#123;</span><br><span class="line">    if encountered[s[i]] &#123;</span><br><span class="line">      continue</span><br><span class="line">    &#125;</span><br><span class="line">    encountered[s[i]] &#x3D; true</span><br><span class="line">    ret &#x3D; append(ret, s[i])</span><br><span class="line">  &#125;</span><br><span class="line">  return ret</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://qianguodong.xyz/2019/07/21/golang/2019-07-21-cobra/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bruce Qian">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/07/21/golang/2019-07-21-cobra/" class="post-title-link" itemprop="url">Cobra cli interface!</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-07-21 10:22:16" itemprop="dateCreated datePublished" datetime="2019-07-21T10:22:16+08:00">2019-07-21</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-17 11:11:26" itemprop="dateModified" datetime="2020-12-17T11:11:26+08:00">2020-12-17</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Cobra is a library that provides a simple interface to create powerful modern Cli interfaces, similar to git and go tools.<br>Cobra is also an application that will generate your application scaffold to quickly develop Cobra-based applications.</p>
+<h2 id="Cobra可以提供哪些功能？"><a href="#Cobra可以提供哪些功能？" class="headerlink" title="Cobra可以提供哪些功能？"></a>Cobra可以提供哪些功能？</h2><ul>
+<li>简单的基于子命令的命令行：如app server，app fetch等</li>
+<li>完全兼容posix的标志flags(包括短版本和长版本)</li>
+<li>嵌套的子命令</li>
+<li>支持全局、本地和级联标志flags</li>
+<li>使用cobra init appname和cobra add cmdname轻松生成应用程序和命令</li>
+<li>智能建议(app srver…你是说app server吗?)</li>
+<li>自动生成命令和标志的帮助</li>
+<li>自动识别帮助标志-h, –help等</li>
+<li>为您的应用程序自动生成bash自动完成</li>
+<li>自动生成应用程序的man手册</li>
+<li>命令别名，这样您就可以在不破坏它们的情况下更改内容</li>
+<li>定义自己的帮助、用法等的灵活性。</li>
+<li>可选的紧密集成的viper apps；</li>
+</ul>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>Cobra建立在命令、参数和标志的结构之上</p>
+<p>命令表示动作，arg表示对象，标志是这些动作的修饰符</p>
+<p>最好的应用程序在使用时会读起来像句子。用户将知道如何使用应用程序，因为他们天生就知道如何使用它</p>
+<p>接下来的模式是<code>APPNAME 动词 名词 形容词</code>或<code>APPNAME COMMAND ARG --FLAG</code></p>
+<p>在下面的例子中，’server’是一个命令，’port’是一个标志:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hugo server --port&#x3D;1313</span><br></pre></td></tr></table></figure>
+
+<p>在这个命令中，我们告诉Git克隆bare url:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone URL --bare</span><br></pre></td></tr></table></figure>
+
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>命令是应用程序的中心点。应用程序支持的每个交互都包含在一个命令中。命令可以有子命令和可选参数来运行一个动作。</p>
+<h2 id="标志"><a href="#标志" class="headerlink" title="标志"></a>标志</h2><p>标志是一种修改命令行为的方式。Cobra支持完全兼容posix的标志以及Go标志包。Cobra命令可以定义持续到子命令的标志，以及仅对该命令可用的标志。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>获取Cobra最新版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u github.com&#x2F;spf13&#x2F;cobra</span><br></pre></td></tr></table></figure>
+
+<p>在项目中引用cobra</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &quot;github.com&#x2F;spf13&#x2F;cobra</span><br></pre></td></tr></table></figure>
+
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>通常基于cobra的应用程序将遵循以下组织结构，当然你也可以采用自己的组织结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">▾ appName&#x2F;</span><br><span class="line">  ▾ cmd&#x2F;</span><br><span class="line">      add.go</span><br><span class="line">      your.go</span><br><span class="line">      commands.go</span><br><span class="line">      here.go</span><br><span class="line">    main.go</span><br></pre></td></tr></table></figure>
+
+<p>在Cobra应用程序中，通常是主程序。去文件是非常光秃秃的。它有一个目的:初始化Cobra。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">  &quot;&#123;pathToYourApp&#125;&#x2F;cmd&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">  cmd.Execute()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用Cobra生成器"><a href="#使用Cobra生成器" class="headerlink" title="使用Cobra生成器"></a>使用Cobra生成器</h2><p>Cobra提供了自己的程序，可以创建您的应用程序并添加您想要的任何命令。这是将Cobra合并到应用程序中最简单的方法。</p>
+<h2 id="使用Cobra库"><a href="#使用Cobra库" class="headerlink" title="使用Cobra库"></a>使用Cobra库</h2><p>要手动实现Cobra，您需要创建一个main.go文件和rootCmd文件。您可以选择提供您认为合适的附加命令。</p>
+<h3 id="创建rootCmd"><a href="#创建rootCmd" class="headerlink" title="创建rootCmd"></a>创建rootCmd</h3><p>Cobra不需要任何特殊的构造函数。只需创建您的命令。</p>
+<p>理想情况下，你把它放在app/cmd/root.go:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var rootCmd &#x3D; &amp;cobra.Command&#123;</span><br><span class="line">  Use:   &quot;hugo&quot;,</span><br><span class="line">  Short: &quot;Hugo is a very fast static site generator&quot;,</span><br><span class="line">  Long: &#96;A Fast and Flexible Static Site Generator built with</span><br><span class="line">                love by spf13 and friends in Go.</span><br><span class="line">                Complete documentation is available at http:&#x2F;&#x2F;hugo.spf13.com&#96;,</span><br><span class="line">  Run: func(cmd *cobra.Command, args []string) &#123;</span><br><span class="line">    &#x2F;&#x2F; Do Stuff Here</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func Execute() &#123;</span><br><span class="line">  if err :&#x3D; rootCmd.Execute(); err !&#x3D; nil &#123;</span><br><span class="line">    fmt.Println(err)</span><br><span class="line">    os.Exit(1)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你还可以在init()函数中定义标志并处理配置。</p>
+<p>例如下面 cmd/root.go：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">import (</span><br><span class="line">  &quot;fmt&quot;</span><br><span class="line">  &quot;os&quot;</span><br><span class="line"></span><br><span class="line">  homedir &quot;github.com&#x2F;mitchellh&#x2F;go-homedir&quot;</span><br><span class="line">  &quot;github.com&#x2F;spf13&#x2F;cobra&quot;</span><br><span class="line">  &quot;github.com&#x2F;spf13&#x2F;viper&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func init() &#123;</span><br><span class="line">  cobra.OnInitialize(initConfig)</span><br><span class="line">  rootCmd.PersistentFlags().StringVar(&amp;cfgFile, &quot;config&quot;, &quot;&quot;, &quot;config file (default is $HOME&#x2F;.cobra.yaml)&quot;)</span><br><span class="line">  rootCmd.PersistentFlags().StringVarP(&amp;projectBase, &quot;projectbase&quot;, &quot;b&quot;, &quot;&quot;, &quot;base project directory eg. github.com&#x2F;spf13&#x2F;&quot;)</span><br><span class="line">  rootCmd.PersistentFlags().StringP(&quot;author&quot;, &quot;a&quot;, &quot;YOUR NAME&quot;, &quot;Author name for copyright attribution&quot;)</span><br><span class="line">  rootCmd.PersistentFlags().StringVarP(&amp;userLicense, &quot;license&quot;, &quot;l&quot;, &quot;&quot;, &quot;Name of license for the project (can provide &#96;licensetext&#96; in config)&quot;)</span><br><span class="line">  rootCmd.PersistentFlags().Bool(&quot;viper&quot;, true, &quot;Use Viper for configuration&quot;)</span><br><span class="line">  viper.BindPFlag(&quot;author&quot;, rootCmd.PersistentFlags().Lookup(&quot;author&quot;))</span><br><span class="line">  viper.BindPFlag(&quot;projectbase&quot;, rootCmd.PersistentFlags().Lookup(&quot;projectbase&quot;))</span><br><span class="line">  viper.BindPFlag(&quot;useViper&quot;, rootCmd.PersistentFlags().Lookup(&quot;viper&quot;))</span><br><span class="line">  viper.SetDefault(&quot;author&quot;, &quot;NAME HERE &lt;EMAIL ADDRESS&gt;&quot;)</span><br><span class="line">  viper.SetDefault(&quot;license&quot;, &quot;apache&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func initConfig() &#123;</span><br><span class="line">  &#x2F;&#x2F; Don&#39;t forget to read config either from cfgFile or from home directory!</span><br><span class="line">  if cfgFile !&#x3D; &quot;&quot; &#123;</span><br><span class="line">    &#x2F;&#x2F; Use config file from the flag.</span><br><span class="line">    viper.SetConfigFile(cfgFile)</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    &#x2F;&#x2F; Find home directory.</span><br><span class="line">    home, err :&#x3D; homedir.Dir()</span><br><span class="line">    if err !&#x3D; nil &#123;</span><br><span class="line">      fmt.Println(err)</span><br><span class="line">      os.Exit(1)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Search config in home directory with name &quot;.cobra&quot; (without extension).</span><br><span class="line">    viper.AddConfigPath(home)</span><br><span class="line">    viper.SetConfigName(&quot;.cobra&quot;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  if err :&#x3D; viper.ReadInConfig(); err !&#x3D; nil &#123;</span><br><span class="line">    fmt.Println(&quot;Can&#39;t read config:&quot;, err)</span><br><span class="line">    os.Exit(1)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建你的main-go"><a href="#创建你的main-go" class="headerlink" title="创建你的main.go"></a>创建你的main.go</h3><p>使用根命令，您需要让主函数执行它。为了清晰起见，Execute应该在根上运行，不过可以在任何命令上调用它。</p>
+<p>在Cobra应用程序中，通常是主程序。去文件是非常光秃秃的。它的一个目的是初始化Cobra。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">  &quot;&#123;pathToYourApp&#125;&#x2F;cmd&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">  cmd.Execute()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建其他的命令"><a href="#创建其他的命令" class="headerlink" title="创建其他的命令"></a>创建其他的命令</h3><p>可以定义其他命令，通常每个命令在cmd/目录中都有自己的文件。</p>
+<p>如果您想创建一个版本命令，您可以创建cmd/version。用下面的代码填充它:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package cmd</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">  &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">  &quot;github.com&#x2F;spf13&#x2F;cobra&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func init() &#123;</span><br><span class="line">  rootCmd.AddCommand(versionCmd)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var versionCmd &#x3D; &amp;cobra.Command&#123;</span><br><span class="line">  Use:   &quot;version&quot;,</span><br><span class="line">  Short: &quot;Print the version number of Hugo&quot;,</span><br><span class="line">  Long:  &#96;All software has versions. This is Hugo&#39;s&#96;,</span><br><span class="line">  Run: func(cmd *cobra.Command, args []string) &#123;</span><br><span class="line">    fmt.Println(&quot;Hugo Static Site Generator v0.9 -- HEAD&quot;)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用标志"><a href="#使用标志" class="headerlink" title="使用标志"></a>使用标志</h2><p>标志提供修饰符来控制操作命令的操作方式。</p>
+<h3 id="为命令分配标志"><a href="#为命令分配标志" class="headerlink" title="为命令分配标志"></a>为命令分配标志</h3><p>由于这些标志是在不同的位置定义和使用的，所以我们需要在外部定义一个变量，该变量具有正确的范围，以便分配要使用的标志。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var Verbose bool</span><br><span class="line">var Source string</span><br></pre></td></tr></table></figure>
+<p>有两种不同的方法来分配标志。</p>
+<h3 id="持久化的标志"><a href="#持久化的标志" class="headerlink" title="持久化的标志"></a>持久化的标志</h3><p>一个标志可以是“持久的”，这意味着这个标志将对分配给它的命令以及该命令下的每个命令可用。对于全局标志，将标志指定为根上的持久标志。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rootCmd.PersistentFlags().BoolVarP(&amp;Verbose, &quot;verbose&quot;, &quot;v&quot;, false, &quot;verbose output&quot;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="本地的标志"><a href="#本地的标志" class="headerlink" title="本地的标志"></a>本地的标志</h3><p>还可以在本地分配一个标志，该标志只适用于该特定命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rootCmd.Flags().StringVarP(&amp;Source, &quot;source&quot;, &quot;s&quot;, &quot;&quot;, &quot;Source directory to read from&quot;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="父命令上的本地标志"><a href="#父命令上的本地标志" class="headerlink" title="父命令上的本地标志"></a>父命令上的本地标志</h3><p>默认情况下Cobra只解析目标命令上的本地标志，父命令上的任何本地标志都将被忽略。</p>
+<p>通过启用命令。在执行目标命令之前，TraverseChildren Cobra将在每个命令上解析父命令上的本地标志。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">command :&#x3D; cobra.Command&#123;</span><br><span class="line">  Use: &quot;print [OPTIONS] [COMMANDS]&quot;,</span><br><span class="line">  TraverseChildren: true,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用配置绑定标志"><a href="#使用配置绑定标志" class="headerlink" title="使用配置绑定标志"></a>使用配置绑定标志</h3><p>你也可以用viper绑定你的标志:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var author string</span><br><span class="line"></span><br><span class="line">func init() &#123;</span><br><span class="line">  rootCmd.PersistentFlags().StringVar(&amp;author, &quot;author&quot;, &quot;YOUR NAME&quot;, &quot;Author name for copyright attribution&quot;)</span><br><span class="line">  viper.BindPFlag(&quot;author&quot;, rootCmd.PersistentFlags().Lookup(&quot;author&quot;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在本例中，持久性标志author与viper绑定。注意，当用户没有提供<code>--author</code>标志时，变量author不会被设置为config中的值。</p>
+<h3 id="设置必须配置的标志"><a href="#设置必须配置的标志" class="headerlink" title="设置必须配置的标志"></a>设置必须配置的标志</h3><p>默认情况下标志是可选的。如果你希望你的命令报告一个错误时，没有设置一个标志，标记它按要求:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rootCmd.Flags().StringVarP(&amp;Region, &quot;region&quot;, &quot;r&quot;, &quot;&quot;, &quot;AWS region (required)&quot;)</span><br><span class="line">rootCmd.MarkFlagRequired(&quot;region&quot;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="位置参数和自定义参数"><a href="#位置参数和自定义参数" class="headerlink" title="位置参数和自定义参数"></a>位置参数和自定义参数</h2><p>位置参数的验证可以使用命令的Args字段指定。</p>
+<p>内置的验证器:</p>
+<ul>
+<li>NoArgs: 如果有任何位置参数，该命令将报告错误。</li>
+<li>ArbitraryArgs: 命令将接受任何参数。</li>
+<li>OnlyValidArgs： 如果有任何位置args不在命令的ValidArgs字段中，该命令将报告错误。</li>
+<li>MinimumNArgs(int): 如果不存在至少N个位置参数，该命令将报告错误。</li>
+<li>MaximumNArgs(int): 如果有超过N个位置参数，该命令将报告一个错误。</li>
+<li>ExactArgs(int): 如果没有确切的N个位置参数，命令将报告错误。</li>
+<li>ExactValidArgs(int): 如果没有确切的N个位置args，或者有任何位置args不在命令的ValidArgs字段中，该命令将报告一个错误.</li>
+<li>RangeArgs(min, max): 如果arg的数量不在预期的最小和最大arg数量之间，则命令将报告错误。</li>
+</ul>
+<p>设置自定义验证器的一个例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var cmd &#x3D; &amp;cobra.Command&#123;</span><br><span class="line">  Short: &quot;hello&quot;,</span><br><span class="line">  Args: func(cmd *cobra.Command, args []string) error &#123;</span><br><span class="line">    if len(args) &lt; 1 &#123;</span><br><span class="line">      return errors.New(&quot;requires a color argument&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">    if myapp.IsValidColor(args[0]) &#123;</span><br><span class="line">      return nil</span><br><span class="line">    &#125;</span><br><span class="line">    return fmt.Errorf(&quot;invalid color specified: %s&quot;, args[0])</span><br><span class="line">  &#125;,</span><br><span class="line">  Run: func(cmd *cobra.Command, args []string) &#123;</span><br><span class="line">    fmt.Println(&quot;Hello, World!&quot;)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>在下面的示例中，我们定义了三个命令。两个位于顶层，一个(cmdTimes)是顶层命令之一的子命令。在这种情况下，根不可执行，这意味着需要子命令。这是通过不为“rootCmd”提供“Run”来实现的。</p>
+<p>我们仅为单个命令定义了一个标志。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">  &quot;fmt&quot;</span><br><span class="line">  &quot;strings&quot;</span><br><span class="line"></span><br><span class="line">  &quot;github.com&#x2F;spf13&#x2F;cobra&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">  var echoTimes int</span><br><span class="line"></span><br><span class="line">  var cmdPrint &#x3D; &amp;cobra.Command&#123;</span><br><span class="line">    Use:   &quot;print [string to print]&quot;,</span><br><span class="line">    Short: &quot;Print anything to the screen&quot;,</span><br><span class="line">    Long: &#96;print is for printing anything back to the screen.</span><br><span class="line">For many years people have printed back to the screen.&#96;,</span><br><span class="line">    Args: cobra.MinimumNArgs(1),</span><br><span class="line">    Run: func(cmd *cobra.Command, args []string) &#123;</span><br><span class="line">      fmt.Println(&quot;Print: &quot; + strings.Join(args, &quot; &quot;))</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  var cmdEcho &#x3D; &amp;cobra.Command&#123;</span><br><span class="line">    Use:   &quot;echo [string to echo]&quot;,</span><br><span class="line">    Short: &quot;Echo anything to the screen&quot;,</span><br><span class="line">    Long: &#96;echo is for echoing anything back.</span><br><span class="line">Echo works a lot like print, except it has a child command.&#96;,</span><br><span class="line">    Args: cobra.MinimumNArgs(1),</span><br><span class="line">    Run: func(cmd *cobra.Command, args []string) &#123;</span><br><span class="line">      fmt.Println(&quot;Print: &quot; + strings.Join(args, &quot; &quot;))</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  var cmdTimes &#x3D; &amp;cobra.Command&#123;</span><br><span class="line">    Use:   &quot;times [string to echo]&quot;,</span><br><span class="line">    Short: &quot;Echo anything to the screen more times&quot;,</span><br><span class="line">    Long: &#96;echo things multiple times back to the user by providing</span><br><span class="line">a count and a string.&#96;,</span><br><span class="line">    Args: cobra.MinimumNArgs(1),</span><br><span class="line">    Run: func(cmd *cobra.Command, args []string) &#123;</span><br><span class="line">      for i :&#x3D; 0; i &lt; echoTimes; i++ &#123;</span><br><span class="line">        fmt.Println(&quot;Echo: &quot; + strings.Join(args, &quot; &quot;))</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  cmdTimes.Flags().IntVarP(&amp;echoTimes, &quot;times&quot;, &quot;t&quot;, 1, &quot;times to echo the input&quot;)</span><br><span class="line"></span><br><span class="line">  var rootCmd &#x3D; &amp;cobra.Command&#123;Use: &quot;app&quot;&#125;</span><br><span class="line">  rootCmd.AddCommand(cmdPrint, cmdEcho)</span><br><span class="line">  cmdEcho.AddCommand(cmdTimes)</span><br><span class="line">  rootCmd.Execute()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>命令格式：<br>app print<br>app echo<br>app echo times  –times=5</p>
+<h2 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h2><p>当您有子命令时，Cobra会自动向您的应用程序添加一个帮助命令。这将在用户运行“app help”时调用。此外，help还将支持所有其他命令作为输入。例如，您有一个名为“create”的命令，没有任何其他配置;Cobra将在“应用程序帮助创建”被调用时工作。每个命令都会自动添加<code>--help</code>标志。</p>
+<h3 id="帮助例子"><a href="#帮助例子" class="headerlink" title="帮助例子"></a>帮助例子</h3><p>以下输出由Cobra自动生成。除了命令和标志定义之外，不需要任何东西</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$ cobra help</span><br><span class="line"></span><br><span class="line">Cobra is a CLI library for Go that empowers applications.</span><br><span class="line">This application is a tool to generate the needed files</span><br><span class="line">to quickly create a Cobra application.</span><br><span class="line"></span><br><span class="line">Usage:</span><br><span class="line">  cobra [command]</span><br><span class="line"></span><br><span class="line">Available Commands:</span><br><span class="line">  add         Add a command to a Cobra Application</span><br><span class="line">  help        Help about any command</span><br><span class="line">  init        Initialize a Cobra Application</span><br><span class="line"></span><br><span class="line">Flags:</span><br><span class="line">  -a, --author string    author name for copyright attribution (default &quot;YOUR NAME&quot;)</span><br><span class="line">      --config string    config file (default is $HOME&#x2F;.cobra.yaml)</span><br><span class="line">  -h, --help             help for cobra</span><br><span class="line">  -l, --license string   name of license for the project</span><br><span class="line">      --viper            use Viper for configuration (default true)</span><br><span class="line"></span><br><span class="line">Use &quot;cobra [command] --help&quot; for more information about a command.</span><br></pre></td></tr></table></figure>
+<p>帮助只是像其他命令一样的命令。它没有特殊的逻辑或行为。事实上，如果您愿意，您可以自己提供。</p>
+<h3 id="定义你自己的帮助"><a href="#定义你自己的帮助" class="headerlink" title="定义你自己的帮助"></a>定义你自己的帮助</h3><p>你可以提供你自己的帮助命令或你自己的模板默认命令使用以下功能:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cmd.SetHelpCommand(cmd *Command)</span><br><span class="line">cmd.SetHelpFunc(f func(*Command, []string))</span><br><span class="line">cmd.SetHelpTemplate(s string)</span><br></pre></td></tr></table></figure>
+
+<h2 id="用法信息"><a href="#用法信息" class="headerlink" title="用法信息"></a>用法信息</h2><p>当用户提供无效标志或无效命令时，Cobra会向用户显示“用法”</p>
+<h3 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ cobra --invalid</span><br><span class="line">Error: unknown flag: --invalid</span><br><span class="line">Usage:</span><br><span class="line">  cobra [command]</span><br><span class="line"></span><br><span class="line">Available Commands:</span><br><span class="line">  add         Add a command to a Cobra Application</span><br><span class="line">  help        Help about any command</span><br><span class="line">  init        Initialize a Cobra Application</span><br><span class="line"></span><br><span class="line">Flags:</span><br><span class="line">  -a, --author string    author name for copyright attribution (default &quot;YOUR NAME&quot;)</span><br><span class="line">      --config string    config file (default is $HOME&#x2F;.cobra.yaml)</span><br><span class="line">  -h, --help             help for cobra</span><br><span class="line">  -l, --license string   name of license for the project</span><br><span class="line">      --viper            use Viper for configuration (default true)</span><br><span class="line"></span><br><span class="line">Use &quot;cobra [command] --help&quot; for more information about a command.</span><br></pre></td></tr></table></figure>
+
+<h3 id="定义你自己的用法"><a href="#定义你自己的用法" class="headerlink" title="定义你自己的用法"></a>定义你自己的用法</h3><p>您可以为Cobra提供自己的使用功能或模板。像help一样，函数和模板可以通过公共方法覆盖:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cmd.SetUsageFunc(f func(*Command) error)</span><br><span class="line">cmd.SetUsageTemplate(s string)</span><br></pre></td></tr></table></figure>
+
+<h2 id="版本标志"><a href="#版本标志" class="headerlink" title="版本标志"></a>版本标志</h2><p>如果在根命令上设置了version字段，Cobra将添加一个顶级的“–version”标志。运行带有”–version”标志的应用程序时，将使用版本模板将版本打印到stdout。可以使用<code>cmd.SetVersionTemplate(string)</code>函数定制模板。</p>
+<h2 id="运行前和运行后钩子"><a href="#运行前和运行后钩子" class="headerlink" title="运行前和运行后钩子"></a>运行前和运行后钩子</h2><p>可以在命令的主运行函数之前或之后运行其他函数。PersistentPreRun和PreRun函数将在运行之前执行。PersistentPostRun和PostRun将在运行后执行。如果在子命令中没有声明它们自己的Persistent*Run函数，那么它们将继承父命令的。</p>
+<p>这几个函数的运行顺序：</p>
+<ul>
+<li>PersistentPreRun</li>
+<li>PreRun</li>
+<li>Run</li>
+<li>PostRun</li>
+<li>PersistentPostRun</li>
+</ul>
+<p>下面是使用所有这些特性的两个命令的示例。当执行子命令时，它将运行根命令的PersistentPreRun，而不是根命令的PersistentPostRun:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">  &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">  &quot;github.com&#x2F;spf13&#x2F;cobra&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">  var rootCmd &#x3D; &amp;cobra.Command&#123;</span><br><span class="line">    Use:   &quot;root [sub]&quot;,</span><br><span class="line">    Short: &quot;My root command&quot;,</span><br><span class="line">    PersistentPreRun: func(cmd *cobra.Command, args []string) &#123;</span><br><span class="line">      fmt.Printf(&quot;Inside rootCmd PersistentPreRun with args: %v\n&quot;, args)</span><br><span class="line">    &#125;,</span><br><span class="line">    PreRun: func(cmd *cobra.Command, args []string) &#123;</span><br><span class="line">      fmt.Printf(&quot;Inside rootCmd PreRun with args: %v\n&quot;, args)</span><br><span class="line">    &#125;,</span><br><span class="line">    Run: func(cmd *cobra.Command, args []string) &#123;</span><br><span class="line">      fmt.Printf(&quot;Inside rootCmd Run with args: %v\n&quot;, args)</span><br><span class="line">    &#125;,</span><br><span class="line">    PostRun: func(cmd *cobra.Command, args []string) &#123;</span><br><span class="line">      fmt.Printf(&quot;Inside rootCmd PostRun with args: %v\n&quot;, args)</span><br><span class="line">    &#125;,</span><br><span class="line">    PersistentPostRun: func(cmd *cobra.Command, args []string) &#123;</span><br><span class="line">      fmt.Printf(&quot;Inside rootCmd PersistentPostRun with args: %v\n&quot;, args)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  var subCmd &#x3D; &amp;cobra.Command&#123;</span><br><span class="line">    Use:   &quot;sub [no options!]&quot;,</span><br><span class="line">    Short: &quot;My subcommand&quot;,</span><br><span class="line">    PreRun: func(cmd *cobra.Command, args []string) &#123;</span><br><span class="line">      fmt.Printf(&quot;Inside subCmd PreRun with args: %v\n&quot;, args)</span><br><span class="line">    &#125;,</span><br><span class="line">    Run: func(cmd *cobra.Command, args []string) &#123;</span><br><span class="line">      fmt.Printf(&quot;Inside subCmd Run with args: %v\n&quot;, args)</span><br><span class="line">    &#125;,</span><br><span class="line">    PostRun: func(cmd *cobra.Command, args []string) &#123;</span><br><span class="line">      fmt.Printf(&quot;Inside subCmd PostRun with args: %v\n&quot;, args)</span><br><span class="line">    &#125;,</span><br><span class="line">    PersistentPostRun: func(cmd *cobra.Command, args []string) &#123;</span><br><span class="line">      fmt.Printf(&quot;Inside subCmd PersistentPostRun with args: %v\n&quot;, args)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  rootCmd.AddCommand(subCmd)</span><br><span class="line"></span><br><span class="line">  rootCmd.SetArgs([]string&#123;&quot;&quot;&#125;)</span><br><span class="line">  rootCmd.Execute()</span><br><span class="line">  fmt.Println()</span><br><span class="line">  rootCmd.SetArgs([]string&#123;&quot;sub&quot;, &quot;arg1&quot;, &quot;arg2&quot;&#125;)</span><br><span class="line">  rootCmd.Execute()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Inside rootCmd PersistentPreRun with args: []</span><br><span class="line">Inside rootCmd PreRun with args: []</span><br><span class="line">Inside rootCmd Run with args: []</span><br><span class="line">Inside rootCmd PostRun with args: []</span><br><span class="line">Inside rootCmd PersistentPostRun with args: []</span><br><span class="line"></span><br><span class="line">Inside rootCmd PersistentPreRun with args: [arg1 arg2]</span><br><span class="line">Inside subCmd PreRun with args: [arg1 arg2]</span><br><span class="line">Inside subCmd Run with args: [arg1 arg2]</span><br><span class="line">Inside subCmd PostRun with args: [arg1 arg2]</span><br><span class="line">Inside subCmd PersistentPostRun with args: [arg1 arg2]</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://qianguodong.xyz/2019/07/15/python/2019-07-15-decorate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bruce Qian">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/07/15/python/2019-07-15-decorate/" class="post-title-link" itemprop="url">Print python function name with decorator!</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-07-15 10:22:16" itemprop="dateCreated datePublished" datetime="2019-07-15T10:22:16+08:00">2019-07-15</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-17 11:11:26" itemprop="dateModified" datetime="2020-12-17T11:11:26+08:00">2020-12-17</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>装饰器(Decorators)是 Python 的一个重要部分。简单地说：他们是修改其他函数的功能的函数。他们有助于让我们的代码更简短，也更Pythonic（Python范儿）。</p>
+<h1 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h1><p>有一个打开文件进行读写操作的类FileManager，现在想要给其每一个执行的方法都加上打印方法名，以及方法执行时间。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># encoding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line">logging.basicConfig(level=logging.INFO,</span><br><span class="line">                    <span class="built_in">format</span>=<span class="string">&#x27;%(asctime)s -%(name)s -%(levelname)s -%(message)s&#x27;</span>)</span><br><span class="line">logger = logging.getLogger(__name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_method_name</span>(<span class="params">func</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>(<span class="params">*args, **kwargs</span>):</span></span><br><span class="line">        start_time = datetime.datetime.now()</span><br><span class="line">        result = func(*args, **kwargs)</span><br><span class="line">        end_time = datetime.datetime.now()</span><br><span class="line">        logger.info(</span><br><span class="line">            <span class="string">&quot;---call function=&#123;func&#125;, escaped=&#123;escaped&#125;ms---&quot;</span>.<span class="built_in">format</span>(func=func.__name__,</span><br><span class="line">                                                                     escaped=(</span><br><span class="line">                                                                             end_time - start_time).microseconds)</span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileManager</span>:</span></span><br><span class="line"><span class="meta">    @print_method_name</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, name, mode</span>):</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.mode = mode</span><br><span class="line">        self.file = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @print_method_name</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__enter__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.file = <span class="built_in">open</span>(self.name, self.mode)</span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line"></span><br><span class="line"><span class="meta">    @print_method_name</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__exit__</span>(<span class="params">self, exc_type, exc_val, exc_tb</span>):</span></span><br><span class="line">        <span class="keyword">if</span> self.file:</span><br><span class="line">            self.file.close()</span><br><span class="line">        logger.info(<span class="string">&quot;exec_type=&#123;&#125;,exc_val=&#123;&#125;, exc_tb=&#123;&#125;&quot;</span>.<span class="built_in">format</span>(exc_type, exc_val, exc_tb))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @print_method_name</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">business</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.file.write(<span class="string">&quot;hello&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> FileManager(<span class="string">&quot;test.txt&quot;</span>, <span class="string">&quot;a&quot;</span>) <span class="keyword">as</span> fm:</span><br><span class="line">    fm.business()</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000012315090">https://segmentfault.com/a/1190000012315090</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
 <script>

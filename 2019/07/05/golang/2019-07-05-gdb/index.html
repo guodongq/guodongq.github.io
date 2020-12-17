@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qianguodong.xyz","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="GDB是一个由GNU开源组织发布的、UNIX&#x2F;LINUX操作系统下的、基于命令行的、功能强大的程序调试工具。 对于一名Linux下工作的golang程序员，gdb是必不可少的工具； 调试准备准备源码hello.go： 123456789101112131415package mainimport &quot;fmt&quot;func init()&amp;#123;	fmt.Println(&quot;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Debug with gdb!">
+<meta property="og:url" content="https://qianguodong.xyz/2019/07/05/golang/2019-07-05-gdb/index.html">
+<meta property="og:site_name" content="Bruce&#39;s Blog">
+<meta property="og:description" content="GDB是一个由GNU开源组织发布的、UNIX&#x2F;LINUX操作系统下的、基于命令行的、功能强大的程序调试工具。 对于一名Linux下工作的golang程序员，gdb是必不可少的工具； 调试准备准备源码hello.go： 123456789101112131415package mainimport &quot;fmt&quot;func init()&amp;#123;	fmt.Println(&quot;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-07-05T02:22:16.000Z">
+<meta property="article:modified_time" content="2020-12-17T03:11:26.948Z">
+<meta property="article:author" content="Bruce Qian">
+<meta property="article:tag" content="gdb">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://qianguodong.xyz/2019/07/05/golang/2019-07-05-gdb/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+<title>Debug with gdb! | Bruce's Blog</title>
+  
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Bruce's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">There is no royal road to learning</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">调试准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E6%BA%90%E7%A0%81"><span class="nav-number">1.1.</span> <span class="nav-text">准备源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-number">1.2.</span> <span class="nav-text">编译</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">调试步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">加载文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E6%BA%90%E7%A0%81"><span class="nav-number">2.2.</span> <span class="nav-text">显示源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%85%E5%B1%8F"><span class="nav-number">2.3.</span> <span class="nav-text">清屏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95"><span class="nav-number">2.4.</span> <span class="nav-text">断点调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%96%AD%E7%82%B9"><span class="nav-number">2.4.1.</span> <span class="nav-text">设置断点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89%E8%AE%BE%E7%BD%AE%E7%9A%84%E6%96%AD%E7%82%B9"><span class="nav-number">2.4.2.</span> <span class="nav-text">查询所有设置的断点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%AD%E7%82%B9%E5%88%A0%E9%99%A4"><span class="nav-number">2.4.3.</span> <span class="nav-text">断点删除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E8%AF%95"><span class="nav-number">2.5.</span> <span class="nav-text">调试</span></a></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bruce Qian"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Bruce Qian</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qianguodong" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qianguodong" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:goldon.qian@gmail.com" title="E-Mail → mailto:goldon.qian@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://qianguodong.xyz/2019/07/05/golang/2019-07-05-gdb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bruce Qian">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Debug with gdb!
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-07-05 10:22:16" itemprop="dateCreated datePublished" datetime="2019-07-05T10:22:16+08:00">2019-07-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-17 11:11:26" itemprop="dateModified" datetime="2020-12-17T11:11:26+08:00">2020-12-17</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>GDB是一个由GNU开源组织发布的、UNIX/LINUX操作系统下的、基于命令行的、功能强大的程序调试工具。 对于一名Linux下工作的golang程序员，gdb是必不可少的工具；</p>
+<h1 id="调试准备"><a href="#调试准备" class="headerlink" title="调试准备"></a>调试准备</h1><h2 id="准备源码"><a href="#准备源码" class="headerlink" title="准备源码"></a>准备源码</h2><p>hello.go：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;debug init&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	mainMethod()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">mainMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;hello,world&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go build -gcflags &quot;-N -l&quot; -ldflags &quot;-s -w&quot; -o hello hello.go</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除调试符号 -ldflags “-s -w”<ul>
+<li>s: 去掉符号信息</li>
+<li>w: 去掉DWARF调试信息</li>
+</ul>
+</li>
+<li>关闭内联优化 -gcflags “-N -l”</li>
+</ul>
+<p>成功编译后，目录结构如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root@qgd:~&#x2F;bruce# tree src&#x2F;</span><br><span class="line">src&#x2F;</span><br><span class="line"> |-- hello</span><br><span class="line"> |-- hello.go</span><br><span class="line"></span><br><span class="line">0 directories, 2 files</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="调试步骤"><a href="#调试步骤" class="headerlink" title="调试步骤"></a>调试步骤</h1><h2 id="加载文件"><a href="#加载文件" class="headerlink" title="加载文件"></a>加载文件</h2><p>通过<code>gdb 文件名</code>将待调试的程序载入，载入时会打印gdb的一些版本信息说明之类的，<code>-q</code>选项可以忽略这些输出  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@qgd:~&#x2F;bruce&#x2F;src# gdb -q hello</span><br><span class="line">Reading symbols from hello...(no debugging symbols found)...done.</span><br><span class="line">(gdb) </span><br></pre></td></tr></table></figure>
+<p>我们也可以先进入gdb模式，然后再加载文件  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@qgd:~&#x2F;bruce&#x2F;src# gdb -q</span><br><span class="line">(gdb) file hello</span><br><span class="line">Reading symbols from hello...(no debugging symbols found)...done.</span><br><span class="line">(gdb) </span><br></pre></td></tr></table></figure>
+
+<h2 id="显示源码"><a href="#显示源码" class="headerlink" title="显示源码"></a>显示源码</h2><p>在调试过程中，如果我们想查看源码怎么办？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">(gdb) list </span><br><span class="line">1	package main</span><br><span class="line">2	</span><br><span class="line">3	import &quot;fmt&quot;</span><br><span class="line">4	</span><br><span class="line">5	func init()&#123;</span><br><span class="line">6		fmt.Println(&quot;debug init&quot;)</span><br><span class="line">7	&#125;</span><br><span class="line">8	</span><br><span class="line">9	func main()&#123;</span><br><span class="line">10		mainMethod()</span><br><span class="line">(gdb) 回车</span><br><span class="line">11	&#125;</span><br><span class="line">12	</span><br><span class="line">13	func mainMethod()&#123;</span><br><span class="line">14		fmt.Println(&quot;hello,world&quot;)</span><br><span class="line">15	&#125;</span><br><span class="line">(gdb) 回车</span><br><span class="line">Line number 16 out of range; &#x2F;root&#x2F;bruce&#x2F;src&#x2F;hello.go has 15 lines.</span><br><span class="line">(gdb) </span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过list命令可以显示源码，每次可以显示10行，直接enter键回车，显示接下来的10行</li>
+<li>list默认参数可以用show listsize来查看，如果感觉10行太多或者太少，还可以用set listsize count来更改</li>
+<li>list 还可以加上其他参数:<ul>
+<li>list 5,10   显示第5行到第10行的代码</li>
+<li>list hello.go:5,10  显示源文件hello.go第5行到第10行的代码，一般用于调试含多个源文件的程序</li>
+<li>search str   从当前行开始，<code>向前</code>查找含str的字符串；</li>
+<li>reverse-search str   从当前行开始，<code>向后</code>查找含str的字符串</li>
+</ul>
+</li>
+</ul>
+<h2 id="清屏"><a href="#清屏" class="headerlink" title="清屏"></a>清屏</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(gdb) shell clear</span><br><span class="line">(gdb)</span><br></pre></td></tr></table></figure>
+
+<h2 id="断点调试"><a href="#断点调试" class="headerlink" title="断点调试"></a>断点调试</h2><h3 id="设置断点"><a href="#设置断点" class="headerlink" title="设置断点"></a>设置断点</h3><p>感觉第6行代码可能有点问题，现在就需要我就需要设置一个断点，让程序停在第6行之前  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(gdb) b 6</span><br><span class="line">Breakpoint 1 at 0x48504d: file &#x2F;root&#x2F;bruce&#x2F;src&#x2F;hello.go, line 6.</span><br><span class="line">(gdb) </span><br></pre></td></tr></table></figure>
+
+<p>gdb还可以以条件表达式设置断点(条件断点)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(gdb) break 14 if 1&#x3D;&#x3D;1</span><br><span class="line">Breakpoint 2 at 0x48511d: file &#x2F;root&#x2F;bruce&#x2F;src&#x2F;hello.go, line 14.</span><br><span class="line">(gdb) </span><br></pre></td></tr></table></figure>
+
+<p>还可以直接在某个函数处设置断点；直接break 函数名就可以了  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(gdb) break main.main</span><br><span class="line">Breakpoint 6 at 0x4850d0: file &#x2F;root&#x2F;bruce&#x2F;src&#x2F;hello.go, line 9.</span><br><span class="line">(gdb) </span><br></pre></td></tr></table></figure>
+<h3 id="查询所有设置的断点"><a href="#查询所有设置的断点" class="headerlink" title="查询所有设置的断点"></a>查询所有设置的断点</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(gdb) info break</span><br><span class="line">Num     Type           Disp Enb Address            What</span><br><span class="line">1       breakpoint     keep y   0x000000000048504d in main.init.0 </span><br><span class="line">                                                   at &#x2F;root&#x2F;bruce&#x2F;src&#x2F;hello.go:6</span><br><span class="line">2       breakpoint     keep y   0x000000000048511d in main.mainMethod </span><br><span class="line">                                                   at &#x2F;root&#x2F;bruce&#x2F;src&#x2F;hello.go:14</span><br><span class="line">	stop only if 1&#x3D;&#x3D;1</span><br><span class="line">6       breakpoint     keep y   0x00000000004850d0 in main.main </span><br><span class="line">                                                   at &#x2F;root&#x2F;bruce&#x2F;src&#x2F;hello.go:9</span><br><span class="line">(gdb) </span><br></pre></td></tr></table></figure>
+<ul>
+<li>Num表示断点的编号</li>
+<li>Type表示断点的断点的类型，第二个断点类型还加上了条件</li>
+<li>Disp表示中断点在执行一次之后是否失去作用，dis为是，keep为不是</li>
+<li>Enb表示当前中断点是否有效，y为是，n为否</li>
+<li>Address表示中断点所处的内存地址</li>
+<li>What指出断点所处的位置</li>
+</ul>
+<h3 id="断点删除"><a href="#断点删除" class="headerlink" title="断点删除"></a>断点删除</h3><p>如果不需要程序在该断点暂停时，有两种方法，一种是使该断点失效，一种是直接删除该断点。  </p>
+<ul>
+<li><p>断点失效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(gdb) disable 1</span><br><span class="line">(gdb) info b</span><br><span class="line">Num     Type           Disp Enb Address            What</span><br><span class="line">1       breakpoint     keep n   0x000000000048504d in main.init.0 </span><br><span class="line">                                                   at &#x2F;root&#x2F;bruce&#x2F;src&#x2F;hello.go:6</span><br><span class="line">2       breakpoint     keep y   0x000000000048511d in main.mainMethod </span><br><span class="line">                                                   at &#x2F;root&#x2F;bruce&#x2F;src&#x2F;hello.go:14</span><br><span class="line">	stop only if 1&#x3D;&#x3D;1</span><br><span class="line">6       breakpoint     keep y   0x00000000004850d0 in main.main </span><br><span class="line">                                                   at &#x2F;root&#x2F;bruce&#x2F;src&#x2F;hello.go:9</span><br><span class="line">(gdb) </span><br></pre></td></tr></table></figure>
+<p>第一个断点的Enb变为n了，表示该断点已经无效了，如果需要恢复，可以使用enable命令。这里需要注意的是，disable后面的参数为断点的编号,而不是行号.</p>
+</li>
+<li><p>断点删除<br>可以使用clear命令和delete命令直接删除断点<br>clear命令后面的参数为设置断点的行号，clear后面参数还可以加设置断点的函数名<br>delete命令后面的参数为断点的编号；可以一次删除多个断点，断点编号之间用空格隔开；如果delete后没有参数，默认删除所以断点，会给出提示选择是否操作  </p>
+</li>
+</ul>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">(gdb) run                                &#x2F;&#x2F;开始执行程序</span><br><span class="line">Starting program: &#x2F;root&#x2F;bruce&#x2F;src&#x2F;hello </span><br><span class="line"></span><br><span class="line">Breakpoint 1, main.init.0 () at &#x2F;root&#x2F;bruce&#x2F;src&#x2F;hello.go:6  &#x2F;&#x2F;设置的第一个断点，程序在第6行暂停</span><br><span class="line">6		fmt.Println(&quot;debug init&quot;)</span><br><span class="line">(gdb) continue               &#x2F;&#x2F;让程序继续运行，直到下个断点或者结束</span><br><span class="line">Continuing.</span><br><span class="line">debug init</span><br><span class="line"></span><br><span class="line">Breakpoint 6, main.main () at &#x2F;root&#x2F;bruce&#x2F;src&#x2F;hello.go:9   &#x2F;&#x2F;设置的第二个断点，程序在第9行暂停</span><br><span class="line">9	func main()&#123;</span><br><span class="line">(gdb) next                    &#x2F;&#x2F;继续执行下一条语句，只执行一条。</span><br><span class="line"></span><br><span class="line">Breakpoint 6, main.main () at &#x2F;root&#x2F;bruce&#x2F;src&#x2F;hello.go:9</span><br><span class="line">9	func main()&#123;</span><br><span class="line">(gdb) next</span><br><span class="line"></span><br><span class="line">Breakpoint 6, main.main () at &#x2F;root&#x2F;bruce&#x2F;src&#x2F;hello.go:9</span><br><span class="line">9	func main()&#123;</span><br><span class="line">(gdb) continue            &#x2F;让程序继续运行，直到下个断点或者结束</span><br><span class="line">Continuing.</span><br><span class="line"></span><br><span class="line">Breakpoint 6, main.main () at &#x2F;root&#x2F;bruce&#x2F;src&#x2F;hello.go:9</span><br><span class="line">9	func main()&#123;</span><br><span class="line">(gdb) continue</span><br><span class="line">Continuing.</span><br><span class="line"></span><br><span class="line">Breakpoint 2, main.mainMethod () at &#x2F;root&#x2F;bruce&#x2F;src&#x2F;hello.go:14     &#x2F;&#x2F;设置的第三个断点，程序在第14行暂停</span><br><span class="line">14		fmt.Println(&quot;hello,world&quot;)</span><br><span class="line">(gdb) continue</span><br><span class="line">Continuing.</span><br><span class="line">hello,world</span><br><span class="line">[LWP 2116 exited]</span><br><span class="line">[Inferior 1 (process 2116) exited normally]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>run，开始运行程序；</li>
+<li>continue，程序暂停时继续运行程序的命令；</li>
+<li>print 变量名或表达式，打印该变量或者该表达式的值。whatis 变量名或者表达式，可以显示该变量或表达式的数据类型。</li>
+<li>print  变量=值，这种形式还可以给对应的变量赋值；类似的还有set variable 变量=值。作用和用print赋值相同。</li>
+<li>next，继续执行下一条语句；还有一条命令step，与之类似，不同的是，当下一条语句遇到函数调用的时候，next不会跟踪进入函数，而是继续执行下面的语句，而step命令则会跟踪进入函数内部</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/gdb/" rel="tag"># gdb</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/07/04/vue/2019-07-04-vue-basic/" rel="prev" title="vue grammar learning!">
+                  <i class="fa fa-chevron-left"></i> vue grammar learning!
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/07/13/golang/2019-07-13-patterns/" rel="next" title="Go patterns!">
+                  Go patterns! <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bruce Qian</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.css">
+
+<script>
+NexT.utils.loadComments('#gitalk-container', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '566ec257445badffee98',
+      clientSecret: 'd3f485d706e7ec94d5e4d9f5dfa989907f05b8c7',
+      repo        : 'qianguodong.github.io',
+      owner       : 'qianguodong',
+      admin       : ['bruce'],
+      id          : '75393762852a10d99579199b08524d51',
+        language: 'en',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
