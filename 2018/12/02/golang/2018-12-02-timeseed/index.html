@@ -31,7 +31,7 @@
 <meta property="og:description" content="问题提出有10台服务器负载均衡，并提供了RESTful请求，每次获取一个实例进行通信。使用rand.Int获取随机数，向其中一个实例发送RESTful请求，经发现每次获取的都是同一台机器，这样所有的流量都打到一台机器上，导致机器挂了。影响其它服务。   解决方法添加随机种子，保证每次产生的随机数不同,不过rand.Seed会导致内存飙升，影响程序的性能，最好放到init方法中。根据官方文档，如下：">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2018-12-02T02:22:16.000Z">
-<meta property="article:modified_time" content="2020-12-17T03:11:26.948Z">
+<meta property="article:modified_time" content="2020-12-18T02:04:09.248Z">
 <meta property="article:author" content="Bruce Qian">
 <meta property="article:tag" content="seed">
 <meta property="article:tag" content="golang">
@@ -288,7 +288,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-12-17 11:11:26" itemprop="dateModified" datetime="2020-12-17T11:11:26+08:00">2020-12-17</time>
+        <time title="Modified: 2020-12-18 10:04:09" itemprop="dateModified" datetime="2020-12-18T10:04:09+08:00">2020-12-18</time>
       </span>
 
   
