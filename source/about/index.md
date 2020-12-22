@@ -1,5 +1,6 @@
 ---
-title: about date: 2020-10-15 00:47:05
+title: about 
+date: 2020-10-15 00:47:05
 ---
 
 Hey, I'am guodong, You can call me bruce. I major in Computer Network Engineering and began to work in 2012. During

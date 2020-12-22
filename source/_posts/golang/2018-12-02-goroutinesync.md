@@ -6,13 +6,12 @@ tags: ["goroutine"]
 published: true
 comments: true
 script: [post.js]
-excerpted: |
-    golang中通常有一些任务处理，需要主线程等待子线程的结果之后，再来进行处理。比如发送若干个http请求，主线程需要等待各个子线程的结果，之后再做关联处理 ...
 day_quote:
   title: The word of the day!
   description: |
     Put a very powerful message.
 ---
+golang中通常有一些任务处理，需要主线程等待子线程的结果之后，再来进行处理。比如发送若干个http请求，主线程需要等待各个子线程的结果，之后再做关联处理
 
 <!-- more -->
 
