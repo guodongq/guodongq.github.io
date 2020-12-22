@@ -3,7 +3,9 @@
   <entry>
     <title>gRPC之protobuf</title>
     <url>/2020/02/13/gRPC/2020-02-13-protobuf/</url>
-    <content><![CDATA[<h1 id="Protobuf简介"><a href="#Protobuf简介" class="headerlink" title="Protobuf简介"></a>Protobuf简介</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><strong>Protobuf</strong>也叫做Protocol Buffers,它是由Google公司开发的一种跨语言和平台的序列化数据结构的方式，是一个灵活的、高效的用于序列化数据的协议。<br><strong>Protobuf</strong>是跨语言的，自身带有一个编译器(protoc),我们可以通过protoc集成相关语言的插件(例如protoc-gen-go)就可以快速编译成Go、Java等多种语言代码，并且可以直接使用无需编写其他代码，它自己带有解析的代码。  </p>
+    <content><![CDATA[<a id="more"></a>
+
+<h1 id="Protobuf简介"><a href="#Protobuf简介" class="headerlink" title="Protobuf简介"></a>Protobuf简介</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><strong>Protobuf</strong>也叫做Protocol Buffers,它是由Google公司开发的一种跨语言和平台的序列化数据结构的方式，是一个灵活的、高效的用于序列化数据的协议。<br><strong>Protobuf</strong>是跨语言的，自身带有一个编译器(protoc),我们可以通过protoc集成相关语言的插件(例如protoc-gen-go)就可以快速编译成Go、Java等多种语言代码，并且可以直接使用无需编写其他代码，它自己带有解析的代码。  </p>
 <p>protoc的GitHub地址：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;github.com&#x2F;protocolbuffers&#x2F;protobuf</span><br></pre></td></tr></table></figure>
 
@@ -138,7 +140,9 @@
   <entry>
     <title>Goroutine Synchronized!</title>
     <url>/2018/12/02/golang/2018-12-02-goroutinesync/</url>
-    <content><![CDATA[<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="1，time-sleep"><a href="#1，time-sleep" class="headerlink" title="1，time.sleep()"></a>1，time.sleep()</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func main()&#123;</span><br><span class="line"> var buf []byte</span><br><span class="line"> var err error</span><br><span class="line"> &#x2F;&#x2F;发送HTTP请求</span><br><span class="line"> go func()&#123;</span><br><span class="line"> buf, err &#x3D; http.Get(&quot;http:&#x2F;&#x2F;localhost:8080&#x2F;api&quot;)</span><br><span class="line"> &#125;()</span><br><span class="line"> &#x2F;&#x2F;主线程sleep 5s，等待上面的goroutine发送http请求结束</span><br><span class="line"> time.Sleep(5e9)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<a id="more"></a>
+
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="1，time-sleep"><a href="#1，time-sleep" class="headerlink" title="1，time.sleep()"></a>1，time.sleep()</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func main()&#123;</span><br><span class="line"> var buf []byte</span><br><span class="line"> var err error</span><br><span class="line"> &#x2F;&#x2F;发送HTTP请求</span><br><span class="line"> go func()&#123;</span><br><span class="line"> buf, err &#x3D; http.Get(&quot;http:&#x2F;&#x2F;localhost:8080&#x2F;api&quot;)</span><br><span class="line"> &#125;()</span><br><span class="line"> &#x2F;&#x2F;主线程sleep 5s，等待上面的goroutine发送http请求结束</span><br><span class="line"> time.Sleep(5e9)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -157,7 +161,10 @@
   <entry>
     <title>Golang Rand Seed!</title>
     <url>/2018/12/02/golang/2018-12-02-timeseed/</url>
-    <content><![CDATA[<h1 id="问题提出"><a href="#问题提出" class="headerlink" title="问题提出"></a>问题提出</h1><p>有10台服务器负载均衡，并提供了RESTful请求，每次获取一个实例进行通信。<br>使用rand.Int获取随机数，向其中一个实例发送RESTful请求，经发现每次获取的都是同一台机器，这样所有的流量都打到一台机器上，导致机器挂了。影响其它服务。  </p>
+    <content><![CDATA[<a id="more"></a>
+
+
+<h1 id="问题提出"><a href="#问题提出" class="headerlink" title="问题提出"></a>问题提出</h1><p>有10台服务器负载均衡，并提供了RESTful请求，每次获取一个实例进行通信。<br>使用rand.Int获取随机数，向其中一个实例发送RESTful请求，经发现每次获取的都是同一台机器，这样所有的流量都打到一台机器上，导致机器挂了。影响其它服务。  </p>
 <h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>添加随机种子，保证每次产生的随机数不同,不过rand.Seed会导致内存飙升，影响程序的性能，最好放到init方法中。<br>根据官方文档，如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; Seed uses the provided seed value to initialize the generator to a deterministic state.</span><br><span class="line">&#x2F;&#x2F; Seed should not be called concurrently with any other Rand method.</span><br></pre></td></tr></table></figure>
 
@@ -170,19 +177,11 @@
       </tags>
   </entry>
   <entry>
-    <title>kubernetes waiting cluster ready!</title>
-    <url>/2019/01/06/golang/2019-01-06-k8s-waiting-cluster-status/</url>
-    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; WaitForClusterAvailable returns true if all endpoints in the cluster are available after retry attempts, an error is returned otherwise</span><br><span class="line">func (c Client) WaitForClusterAvailable(retries int, retryInterval time.Duration) (bool, error) &#123;</span><br><span class="line">	for i :&#x3D; 0; i &lt; retries; i++ &#123;</span><br><span class="line">		if i &gt; 0 &#123;</span><br><span class="line">			fmt.Printf(&quot;[util&#x2F;etcd] Waiting %v until next retry\n&quot;, retryInterval)</span><br><span class="line">			time.Sleep(retryInterval)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Printf(&quot;[util&#x2F;etcd] Attempting to see if all cluster endpoints are available %d&#x2F;%d\n&quot;, i+1, retries)</span><br><span class="line">		resp, err :&#x3D; c.ClusterAvailable()</span><br><span class="line">		if err !&#x3D; nil &#123;</span><br><span class="line">			switch err &#123;</span><br><span class="line">			case context.DeadlineExceeded:</span><br><span class="line">				fmt.Println(&quot;[util&#x2F;etcd] Attempt timed out&quot;)</span><br><span class="line">			default:</span><br><span class="line">				fmt.Printf(&quot;[util&#x2F;etcd] Attempt failed with error: %v\n&quot;, err)</span><br><span class="line">			&#125;</span><br><span class="line">			continue</span><br><span class="line">		&#125;</span><br><span class="line">		return resp, nil</span><br><span class="line">	&#125;</span><br><span class="line">	return false, errors.New(&quot;timeout waiting for etcd cluster to be available&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>golang</tag>
-        <tag>k8s</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>RESTful之echo</title>
     <url>/2019/04/12/golang/2019-04-12-echo/</url>
-    <content><![CDATA[<h1 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h1><p><a href="https://echo.labstack.com/guide">Echo</a>是一个高性能、可扩展、<strong>极简主义的golang web框架</strong>。它具有下面的特点：</p>
+    <content><![CDATA[<a id="more"></a>
+
+<h1 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h1><p><a href="https://echo.labstack.com/guide">Echo</a>是一个高性能、可扩展、<strong>极简主义的golang web框架</strong>。它具有下面的特点：</p>
 <ul>
 <li>高效的路由</li>
 <li>支持http/2</li>
@@ -293,7 +292,9 @@
   <entry>
     <title>Syscall.Exec!</title>
     <url>/2019/04/17/golang/2019-04-17-syscall-exec/</url>
-    <content><![CDATA[<p><strong style="color:green">文章转载自： <a href="https://www.jianshu.com/p/e1de8fc52718">https://www.jianshu.com/p/e1de8fc52718</a></strong></p>
+    <content><![CDATA[<a id="more"></a>
+
+<p><strong style="color:green">文章转载自： <a href="https://www.jianshu.com/p/e1de8fc52718">https://www.jianshu.com/p/e1de8fc52718</a></strong></p>
 <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>在docker的docker-entrypoint.sh脚本中我们经常会看到有如下的一句话</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">exec $@</span><br></pre></td></tr></table></figure>
 <p><strong>Q:</strong> 在shell脚本中exec有什么作用？<br><strong>A:</strong> exec会执行参数指定的命令，但是并不创建新的进程，只在当前进程空间内执行，即替换当前进程的执行内容，他们重用同一个进程号PID.</p>
@@ -328,7 +329,9 @@
   <entry>
     <title>k8s basic tutorials!</title>
     <url>/2019/04/18/golang/2019-04-18-k8s-basic-tutorials/</url>
-    <content><![CDATA[<h1 id="kubernetes基础"><a href="#kubernetes基础" class="headerlink" title="kubernetes基础"></a>kubernetes基础</h1><h2 id="kuberntes能为你做什么"><a href="#kuberntes能为你做什么" class="headerlink" title="kuberntes能为你做什么?"></a>kuberntes能为你做什么?</h2><ul>
+    <content><![CDATA[<a id="more"></a>
+
+<h1 id="kubernetes基础"><a href="#kubernetes基础" class="headerlink" title="kubernetes基础"></a>kubernetes基础</h1><h2 id="kuberntes能为你做什么"><a href="#kuberntes能为你做什么" class="headerlink" title="kuberntes能为你做什么?"></a>kuberntes能为你做什么?</h2><ul>
 <li>给现代化的web服务提供7*24的运行机制;</li>
 <li>随时都能发布新的应用程序版本;</li>
 </ul>
@@ -401,7 +404,9 @@
   <entry>
     <title>Kubectl!</title>
     <url>/2019/04/22/golang/2019-04-22-kubernetes-kubectl/</url>
-    <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>kubernetes中的命令行接口叫做kubectl，用来控制kubernetes集群。</p>
+    <content><![CDATA[<a id="more"></a>
+
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>kubernetes中的命令行接口叫做kubectl，用来控制kubernetes集群。</p>
 <p>kubectl采用Cobra库进行构建，关于Cobra的简单使用，请参考<a href="https://guodongq.github.io/2019/04/19/golang-cli-about-cobra/">Cobra Cli</a></p>
 <h1 id="源码结构"><a href="#源码结构" class="headerlink" title="源码结构"></a>源码结构</h1><ul>
 <li>api: 接口文档，基本上都是json源码</li>
@@ -458,7 +463,9 @@
   <entry>
     <title>Integrate error codes for the go app!</title>
     <url>/2019/05/27/golang/2019-05-27-errcode/</url>
-    <content><![CDATA[<p>Golang provides a lot of open source frameworks for rest, such as <a href="https://beego.me/">beego</a>, <a href="http://go-echo.org/">echo</a>,<a href="https://iris-go.com/">iris</a> and so on.<br>In practice, when we use these frameworks, we will expose the unfriendly prompts such as exception information and stacks directly to the user. In this case, it is necessary to integrate error codes for your golang application.</p>
+    <content><![CDATA[<a id="more"></a>
+
+<p>Golang provides a lot of open source frameworks for rest, such as <a href="https://beego.me/">beego</a>, <a href="http://go-echo.org/">echo</a>,<a href="https://iris-go.com/">iris</a> and so on.<br>In practice, when we use these frameworks, we will expose the unfriendly prompts such as exception information and stacks directly to the user. In this case, it is necessary to integrate error codes for your golang application.</p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
 <li>Q：小明,不好了,你使用beego框架开发出来的微服务报错了<blockquote>
 <p>啊，报的啥错呀？</p>
@@ -525,7 +532,9 @@
   <entry>
     <title>Testify!</title>
     <url>/2019/05/30/golang/2019-05-30-testify/</url>
-    <content><![CDATA[<p>testing是go标准库中提供的关于单元测试的相关包，不过断言我感觉是其真正缺失的东西。<br>你绝对可以通过<code>if</code>比较或者其他任何方式获得相同的结果，但相比java中提供的junit框架，golang中testing并不是最简洁的方法。<br><code>stretchr/testify</code>框架的出现，终于解决了go单元测试断言方面的缺陷，它优雅的语法使您能够编写简单得难以置信的断言。</p>
+    <content><![CDATA[<a id="more"></a>
+
+<p>testing是go标准库中提供的关于单元测试的相关包，不过断言我感觉是其真正缺失的东西。<br>你绝对可以通过<code>if</code>比较或者其他任何方式获得相同的结果，但相比java中提供的junit框架，golang中testing并不是最简洁的方法。<br><code>stretchr/testify</code>框架的出现，终于解决了go单元测试断言方面的缺陷，它优雅的语法使您能够编写简单得难以置信的断言。</p>
 <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>你可以通过如下命令来进行安装：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">go get -u github.com&#x2F;stretchr&#x2F;testify</span><br></pre></td></tr></table></figure>
 
@@ -552,7 +561,9 @@
   <entry>
     <title>Debug with gdb!</title>
     <url>/2019/07/05/golang/2019-07-05-gdb/</url>
-    <content><![CDATA[<p>GDB是一个由GNU开源组织发布的、UNIX/LINUX操作系统下的、基于命令行的、功能强大的程序调试工具。 对于一名Linux下工作的golang程序员，gdb是必不可少的工具；</p>
+    <content><![CDATA[<a id="more"></a>
+
+<p>GDB是一个由GNU开源组织发布的、UNIX/LINUX操作系统下的、基于命令行的、功能强大的程序调试工具。 对于一名Linux下工作的golang程序员，gdb是必不可少的工具；</p>
 <h1 id="调试准备"><a href="#调试准备" class="headerlink" title="调试准备"></a>调试准备</h1><h2 id="准备源码"><a href="#准备源码" class="headerlink" title="准备源码"></a>准备源码</h2><p>hello.go：</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;debug init&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	mainMethod()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">mainMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;hello,world&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -631,7 +642,9 @@
   <entry>
     <title>Deduplicate slice elements!</title>
     <url>/2019/07/21/golang/2019-07-21-duplicate/</url>
-    <content><![CDATA[<p>开发过程中，我们经常会遇到对切片中的数据进行加工，如何很优雅的对切片中的元素进行去重，本文通过代码的实例告诉大家优雅的对切片进行去重处理。</p>
+    <content><![CDATA[<a id="more"></a>
+
+<p>开发过程中，我们经常会遇到对切片中的数据进行加工，如何很优雅的对切片中的元素进行去重，本文通过代码的实例告诉大家优雅的对切片进行去重处理。</p>
 <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>现有一个字符串的切片，如何将该切片中的元素进行去重。</p>
 <h1 id="代码逻辑实现-参考k8s，-clientcmd包中的deduplicate方法"><a href="#代码逻辑实现-参考k8s，-clientcmd包中的deduplicate方法" class="headerlink" title="代码逻辑实现(参考k8s， clientcmd包中的deduplicate方法)"></a>代码逻辑实现(参考k8s， clientcmd包中的deduplicate方法)</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func deduplicate(s []string) []string&#123;</span><br><span class="line">  encountered :&#x3D; map[string]bool&#123;&#125;</span><br><span class="line">  ret :&#x3D; make([]string,0)</span><br><span class="line">  for i :&#x3D; rang s&#123;</span><br><span class="line">    if encountered[s[i]] &#123;</span><br><span class="line">      continue</span><br><span class="line">    &#125;</span><br><span class="line">    encountered[s[i]] &#x3D; true</span><br><span class="line">    ret &#x3D; append(ret, s[i])</span><br><span class="line">  &#125;</span><br><span class="line">  return ret</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
@@ -642,7 +655,9 @@
   <entry>
     <title>Testing!</title>
     <url>/2019/07/29/golang/2019-07-29-testing/</url>
-    <content><![CDATA[<p>An important part of the development process is testing, how to ensure the quality of the code, how to ensure that each function can run and the results are correct, and how to ensure the best performance of the written code.   </p>
+    <content><![CDATA[<a id="more"></a>
+
+<p>An important part of the development process is testing, how to ensure the quality of the code, how to ensure that each function can run and the results are correct, and how to ensure the best performance of the written code.   </p>
 <p>The focus of unit testing is to discover logic errors in programming or implementation, to expose problems early, and to facilitate problem location. The focus of performance testing is to find some problems in programming, so that online programs can be in high concurrency. It can still be stable.</p>
 <h1 id="testing"><a href="#testing" class="headerlink" title="testing"></a>testing</h1><h2 id="单元测试准则"><a href="#单元测试准则" class="headerlink" title="单元测试准则"></a>单元测试准则</h2><ul>
 <li>文件名必须<code>_test.go</code>结尾</li>
@@ -718,7 +733,9 @@
   <entry>
     <title>Beego!</title>
     <url>/2019/07/30/golang/2019-07-30-beego/</url>
-    <content><![CDATA[<p>Beego is an HTTP framework for rapid development of Go applications. It can be used to quickly develop applications such as APIs, Web and back-end services. It is a RESTful framework, mainly inspired by the three frameworks of tornado, sinatra and flask. But a framework designed to combine some of Go’s own features (interface, struct embedding, etc.).</p>
+    <content><![CDATA[<a id="more"></a>
+
+<p>Beego is an HTTP framework for rapid development of Go applications. It can be used to quickly develop applications such as APIs, Web and back-end services. It is a RESTful framework, mainly inspired by the three frameworks of tornado, sinatra and flask. But a framework designed to combine some of Go’s own features (interface, struct embedding, etc.).</p>
 <h2 id="跨域访问"><a href="#跨域访问" class="headerlink" title="跨域访问"></a>跨域访问</h2><ul>
 <li>CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）</li>
 <li>CORS允许浏览器向跨源服务器发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制</li>
@@ -775,7 +792,9 @@
   <entry>
     <title>Monkey!</title>
     <url>/2019/11/07/golang/2019-11-07-monkey/</url>
-    <content><![CDATA[<p>Monkey是Golang的一个猴子补丁（monkeypatching）框架，在运行时通过汇编语句重写可执行文件，将待打桩函数或方法的实现跳转到桩实现，原理和热补丁类似</p>
+    <content><![CDATA[<a id="more"></a>
+
+<p>Monkey是Golang的一个猴子补丁（monkeypatching）框架，在运行时通过汇编语句重写可执行文件，将待打桩函数或方法的实现跳转到桩实现，原理和热补丁类似</p>
 <p>通过Monkey，我们可以解决函数或方法的打桩问题，但Monkey不是线程安全的，不要将Monkey用于并发的测试中</p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">go get github.com&#x2F;bouk&#x2F;monkey</span><br></pre></td></tr></table></figure>
 <p>运行完后你会发现，在$GOPATH/src/github.com目录下，新增了bouk/monkey子目录</p>
@@ -808,7 +827,9 @@
   <entry>
     <title>GoConvey!</title>
     <url>/2019/11/08/golang/2019-11-08-goconvey/</url>
-    <content><![CDATA[<p>GoConvey是Golang的测试框架，它提供了丰富的断言，支持web界面，能够与Golang自带的单元测试框架无缝集成，可以让程序员简洁优雅的编写测试代码</p>
+    <content><![CDATA[<a id="more"></a>
+
+<p>GoConvey是Golang的测试框架，它提供了丰富的断言，支持web界面，能够与Golang自带的单元测试框架无缝集成，可以让程序员简洁优雅的编写测试代码</p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">go get github.com&#x2F;smartystreets&#x2F;goconvey  </span><br></pre></td></tr></table></figure>
 <p>运行成功后，你会发现：</p>
 <ul>
@@ -838,7 +859,9 @@
   <entry>
     <title>GoMock!</title>
     <url>/2019/11/08/golang/2019-11-08-gomock/</url>
-    <content><![CDATA[<p>GoMock是由Golang官方开发维护的测试框架，实现了较为完整的基于interface的Mock功能，能够与Golang内置的testing包良好集成，也能用于其它的测试环境中<br>GoMock测试框架包含了GoMock包和mockgen工具两部分，其中GoMock包完成对桩对象生命周期的管理，mockgen工具用来生成interface对应的Mock类源文件</p>
+    <content><![CDATA[<a id="more"></a>
+
+<p>GoMock是由Golang官方开发维护的测试框架，实现了较为完整的基于interface的Mock功能，能够与Golang内置的testing包良好集成，也能用于其它的测试环境中<br>GoMock测试框架包含了GoMock包和mockgen工具两部分，其中GoMock包完成对桩对象生命周期的管理，mockgen工具用来生成interface对应的Mock类源文件</p>
 <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>在命令行运行命令</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">go get github.com&#x2F;golang&#x2F;mock&#x2F;gomock</span><br></pre></td></tr></table></figure>
 <p>运行完后你会发现，在$GOPATH/src目录下有了github.com/golang/mock子目录，且在该子目录下有GoMock包和mockgen工具</p>
@@ -894,7 +917,9 @@
   <entry>
     <title>GoStub!</title>
     <url>/2019/11/08/golang/2019-11-08-gostub/</url>
-    <content><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">go get github.com&#x2F;prashantv&#x2F;gostub</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<a id="more"></a>
+
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">go get github.com&#x2F;prashantv&#x2F;gostub</span><br></pre></td></tr></table></figure>
 
 <h2 id="gostub用法"><a href="#gostub用法" class="headerlink" title="gostub用法"></a>gostub用法</h2><h3 id="为全局变量进行打桩"><a href="#为全局变量进行打桩" class="headerlink" title="为全局变量进行打桩"></a>为全局变量进行打桩</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var configFile &#x3D; &quot;config.json&quot;</span><br><span class="line"></span><br><span class="line">func GetConfig() ([]byte, error) &#123;</span><br><span class="line">    return ioutil.ReadFile(configFile)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Test code</span><br><span class="line">stubs :&#x3D; gostub.Stub(&amp;configFile, &quot;&#x2F;tmp&#x2F;test.config&quot;)</span><br><span class="line"></span><br><span class="line">data, err :&#x3D; GetConfig()</span><br><span class="line">&#x2F;&#x2F; data will now return contents of the &#x2F;tmp&#x2F;test.config file</span><br></pre></td></tr></table></figure>
 <ul>
@@ -926,7 +951,9 @@
   <entry>
     <title>Linux new and add Swap partition!</title>
     <url>/2019/04/12/linux/2019-04-12-linux-add-swap-area/</url>
-    <content><![CDATA[<p><strong>文章转载自 <a href="https://www.cnblogs.com/wuxie1989/p/5888595.html">https://www.cnblogs.com/wuxie1989/p/5888595.html</a></strong>    </p>
+    <content><![CDATA[<a id="more"></a>
+
+<p><strong>文章转载自 <a href="https://www.cnblogs.com/wuxie1989/p/5888595.html">https://www.cnblogs.com/wuxie1989/p/5888595.html</a></strong>    </p>
 <p> 我们都知道在安装Linux系统时在分区时可以分配swap分区，而系统安装后（在运行中）如何建立或调整swap分区呢？    </p>
 <p> 在装完Linux系统之后，建立Swap分区有两种方法。    </p>
 <ul>
@@ -976,7 +1003,9 @@
   <entry>
     <title>unzip error:symlink error:File name too long!</title>
     <url>/2019/04/12/linux/2019-04-12-unzip-broken-with-symlink-error/</url>
-    <content><![CDATA[<h1 id="问题提出"><a href="#问题提出" class="headerlink" title="问题提出"></a>问题提出</h1><p>从github上下载了kubernetes源码的压缩包kubernetes-master.zip，将其放到linux环境上进行解压，解压过程中出现symlink error: File name too long</p>
+    <content><![CDATA[<a id="more"></a>
+
+<h1 id="问题提出"><a href="#问题提出" class="headerlink" title="问题提出"></a>问题提出</h1><p>从github上下载了kubernetes源码的压缩包kubernetes-master.zip，将其放到linux环境上进行解压，解压过程中出现symlink error: File name too long</p>
 <h1 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h1><p>通过对出错文件的分析，事实上这些文件本来可能就是一个文本文件，现在变成了一个符号链接文件，文件名指向的“文件”就是文件内容本身，所以才会有文件名过长的错误报出。<br>网上搜了一下，说是Linux下的unzip的一个bug：在OSX上解压,OSX的HFS+文件系统是不区分大小写的,而linux文件系统是区分大小写的，这就会造成文件Fuck.TXT会被fuck.txt覆盖的悲惨命运。</p>
 <h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p><code>网上有人分析出问题出在unzip身上，并且给出了unzip 6.0版本的补丁patch，并且通知了info-zip，很不幸，unzip 6.0版本自从2009年4月20号发布以来，再未更新过。http://www.info-zip.org/UnZip.html</code></p>
 <h2 id="解决方法一：搞到unzip6-0的源码，打上补丁，重新编译"><a href="#解决方法一：搞到unzip6-0的源码，打上补丁，重新编译" class="headerlink" title="解决方法一：搞到unzip6.0的源码，打上补丁，重新编译"></a>解决方法一：搞到unzip6.0的源码，打上补丁，重新编译</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">--- a&#x2F;process.c    2014-07-11 18:02:34.671611514 +0800</span><br><span class="line">+++ b&#x2F;process.c    2014-07-11 18:03:09.639609859 +0800</span><br><span class="line">@@ -1751,6 +1751,12 @@</span><br><span class="line">         &#x3D; (G.crec.general_purpose_bit_flag &amp; (1 &lt;&lt; 11)) &#x3D;&#x3D; (1 &lt;&lt; 11);</span><br><span class="line"> #endif</span><br><span class="line"></span><br><span class="line">+#ifdef SYMLINKS </span><br><span class="line">+    &#x2F;* Initialize the symlink flag, may be set by the platform-specific </span><br><span class="line">+       mapattr function.  *&#x2F; </span><br><span class="line">+    G.pInfo-&gt;symlink &#x3D; 0; </span><br><span class="line">+#endif </span><br><span class="line">+</span><br><span class="line">     return PK_COOL;</span><br><span class="line"></span><br><span class="line"> &#125; &#x2F;* end function process_cdir_file_hdr() *&#x2F;</span><br></pre></td></tr></table></figure>
@@ -994,7 +1023,9 @@
   <entry>
     <title>Welcome to my blogger!</title>
     <url>/2018/07/22/mood/2018-07-22-welcome/</url>
-    <content><![CDATA[<p>时光荏苒，转眼六年时间过去了。刚工作的时候我给自己的计划之中有一项就是搞一个自己的网站，没想到拖了这么久，一直没有耐心好好研究一下怎么做。偶然之时，突然看到jekyll可以将Markdown直接转化成博客。经过我一两天的模仿学习，网站在今天终于正式上线啦。</p>
+    <content><![CDATA[<a id="more"></a>
+
+<p>时光荏苒，转眼六年时间过去了。刚工作的时候我给自己的计划之中有一项就是搞一个自己的网站，没想到拖了这么久，一直没有耐心好好研究一下怎么做。偶然之时，突然看到jekyll可以将Markdown直接转化成博客。经过我一两天的模仿学习，网站在今天终于正式上线啦。</p>
 <p>我建站的目的很简单，就是发表一些自己的所见所得，学习心得，读书笔记等等。不仅可以对自己的学习过程做一个简单的总结，还能锻炼一下自己的写作能力。</p>
 <p>期待与你相遇，一同成长前行！</p>
 ]]></content>
@@ -1005,7 +1036,9 @@
   <entry>
     <title>Print python function name with decorator!</title>
     <url>/2019/07/15/python/2019-07-15-decorate/</url>
-    <content><![CDATA[<p>装饰器(Decorators)是 Python 的一个重要部分。简单地说：他们是修改其他函数的功能的函数。他们有助于让我们的代码更简短，也更Pythonic（Python范儿）。</p>
+    <content><![CDATA[<a id="more"></a>
+
+<p>装饰器(Decorators)是 Python 的一个重要部分。简单地说：他们是修改其他函数的功能的函数。他们有助于让我们的代码更简短，也更Pythonic（Python范儿）。</p>
 <h1 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h1><p>有一个打开文件进行读写操作的类FileManager，现在想要给其每一个执行的方法都加上打印方法名，以及方法执行时间。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># encoding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line">logging.basicConfig(level=logging.INFO,</span><br><span class="line">                    <span class="built_in">format</span>=<span class="string">&#x27;%(asctime)s -%(name)s -%(levelname)s -%(message)s&#x27;</span>)</span><br><span class="line">logger = logging.getLogger(__name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_method_name</span>(<span class="params">func</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>(<span class="params">*args, **kwargs</span>):</span></span><br><span class="line">        start_time = datetime.datetime.now()</span><br><span class="line">        result = func(*args, **kwargs)</span><br><span class="line">        end_time = datetime.datetime.now()</span><br><span class="line">        logger.info(</span><br><span class="line">            <span class="string">&quot;---call function=&#123;func&#125;, escaped=&#123;escaped&#125;ms---&quot;</span>.<span class="built_in">format</span>(func=func.__name__,</span><br><span class="line">                                                                     escaped=(</span><br><span class="line">                                                                             end_time - start_time).microseconds)</span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileManager</span>:</span></span><br><span class="line"><span class="meta">    @print_method_name</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, name, mode</span>):</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.mode = mode</span><br><span class="line">        self.file = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @print_method_name</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__enter__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.file = <span class="built_in">open</span>(self.name, self.mode)</span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line"></span><br><span class="line"><span class="meta">    @print_method_name</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__exit__</span>(<span class="params">self, exc_type, exc_val, exc_tb</span>):</span></span><br><span class="line">        <span class="keyword">if</span> self.file:</span><br><span class="line">            self.file.close()</span><br><span class="line">        logger.info(<span class="string">&quot;exec_type=&#123;&#125;,exc_val=&#123;&#125;, exc_tb=&#123;&#125;&quot;</span>.<span class="built_in">format</span>(exc_type, exc_val, exc_tb))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @print_method_name</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">business</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.file.write(<span class="string">&quot;hello&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> FileManager(<span class="string">&quot;test.txt&quot;</span>, <span class="string">&quot;a&quot;</span>) <span class="keyword">as</span> fm:</span><br><span class="line">    fm.business()</span><br></pre></td></tr></table></figure>
 
@@ -1021,7 +1054,9 @@
   <entry>
     <title>with as usage in python!</title>
     <url>/2019/07/15/python/2019-07-15-with-as/</url>
-    <content><![CDATA[<p>有一些任务，可能事先需要设置，事后做清理工作。对于这种场景，Python的with语句提供了一种非常方便的处理方式。<br>一个很好的例子是文件处理，你需要获取一个文件句柄，从文件中读取数据，然后关闭文件句柄。</p>
+    <content><![CDATA[<a id="more"></a>
+
+<p>有一些任务，可能事先需要设置，事后做清理工作。对于这种场景，Python的with语句提供了一种非常方便的处理方式。<br>一个很好的例子是文件处理，你需要获取一个文件句柄，从文件中读取数据，然后关闭文件句柄。</p>
 <h1 id="with语句"><a href="#with语句" class="headerlink" title="with语句"></a>with语句</h1><p>当我们进行文件处理时，需要获取一个文件句柄，从文件中读取数据，然后关闭文件句柄。<br>要正确的处理涉及到的异常资源管理时，在2.6版本之前，需要使用try/finally代码结构，实现如下：  </p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;abc.txt&quot;</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	<span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">		print(line)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">	<span class="keyword">if</span> f <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">		f.close()	</span><br></pre></td></tr></table></figure>
 
@@ -1096,7 +1131,9 @@
   <entry>
     <title>vue grammar learning!</title>
     <url>/2019/07/04/vue/2019-07-04-vue-basic/</url>
-    <content><![CDATA[<p>Vue.js是一套构建用户界面的渐进式框架。<br>与其他重量级框架不同的是，Vue 采用自底向上增量开发的设计。<br>Vue 的核心库只关注视图层，并且非常容易学习，非常容易与其它库或已有项目整合。<br>另一方面，Vue 完全有能力驱动采用单文件组件和Vue生态系统支持的库开发的复杂单页应用</p>
+    <content><![CDATA[<a id="more"></a>
+
+<p>Vue.js是一套构建用户界面的渐进式框架。<br>与其他重量级框架不同的是，Vue 采用自底向上增量开发的设计。<br>Vue 的核心库只关注视图层，并且非常容易学习，非常容易与其它库或已有项目整合。<br>另一方面，Vue 完全有能力驱动采用单文件组件和Vue生态系统支持的库开发的复杂单页应用</p>
 <h1 id="什么是Vue-js"><a href="#什么是Vue-js" class="headerlink" title="什么是Vue.js"></a>什么是Vue.js</h1><ul>
 <li>Vue.js是目前最火的一个框架，React是最流行的一个框架（react除了开发网站，还可以开发手机APP）</li>
 <li>Vue.js是前端的<strong>主流框架之一</strong>，和Angular.js、React.js一起，并称为前端三大主流框架</li>
@@ -1134,7 +1171,9 @@
   <entry>
     <title>Cobra cli interface!</title>
     <url>/2019/07/21/golang/2019-07-21-cobra/</url>
-    <content><![CDATA[<p>Cobra is a library that provides a simple interface to create powerful modern Cli interfaces, similar to git and go tools.<br>Cobra is also an application that will generate your application scaffold to quickly develop Cobra-based applications.</p>
+    <content><![CDATA[<a id="more"></a>
+
+<p>Cobra is a library that provides a simple interface to create powerful modern Cli interfaces, similar to git and go tools.<br>Cobra is also an application that will generate your application scaffold to quickly develop Cobra-based applications.</p>
 <h2 id="Cobra可以提供哪些功能？"><a href="#Cobra可以提供哪些功能？" class="headerlink" title="Cobra可以提供哪些功能？"></a>Cobra可以提供哪些功能？</h2><ul>
 <li>简单的基于子命令的命令行：如app server，app fetch等</li>
 <li>完全兼容posix的标志flags(包括短版本和长版本)</li>
@@ -1269,7 +1308,9 @@
   <entry>
     <title>Clean Code!</title>
     <url>/2018/09/19/reading/2018-09-19-cleancode/</url>
-    <content><![CDATA[<h1 id="一、整洁代码"><a href="#一、整洁代码" class="headerlink" title="一、整洁代码"></a>一、整洁代码</h1><h2 id="1-为什么阅读这本书？"><a href="#1-为什么阅读这本书？" class="headerlink" title="1 为什么阅读这本书？"></a>1 为什么阅读这本书？</h2><ul>
+    <content><![CDATA[<a id="more"></a>
+
+<h1 id="一、整洁代码"><a href="#一、整洁代码" class="headerlink" title="一、整洁代码"></a>一、整洁代码</h1><h2 id="1-为什么阅读这本书？"><a href="#1-为什么阅读这本书？" class="headerlink" title="1 为什么阅读这本书？"></a>1 为什么阅读这本书？</h2><ul>
 <li>你是个程序员</li>
 <li>你想成为更好的程序员</li>
 </ul>
@@ -1754,7 +1795,9 @@
   <entry>
     <title>Go patterns!</title>
     <url>/2019/07/13/golang/2019-07-13-patterns/</url>
-    <content><![CDATA[<p>The Design pattern represents the best practice and is typically adopted by experienced object-oriented software developers. Design patterns are solutions to the general problems that software developers face during software development. These solutions are summarized by many software developers after a long period of trial and error.</p>
+    <content><![CDATA[<a id="more"></a>
+
+<p>The Design pattern represents the best practice and is typically adopted by experienced object-oriented software developers. Design patterns are solutions to the general problems that software developers face during software development. These solutions are summarized by many software developers after a long period of trial and error.</p>
 <table border="0">
  <tr>
    <th>类别</th>

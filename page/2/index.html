@@ -122,6 +122,8 @@
 <nav class="site-nav">
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
@@ -194,7 +196,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -203,7 +205,7 @@
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -280,7 +282,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-12-18 10:04:09" itemprop="dateModified" datetime="2020-12-18T10:04:09+08:00">2020-12-18</time>
+        <time title="Modified: 2020-12-22 20:37:22" itemprop="dateModified" datetime="2020-12-22T20:37:22+08:00">2020-12-22</time>
       </span>
 
   
@@ -293,7 +295,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>有一些任务，可能事先需要设置，事后做清理工作。对于这种场景，Python的with语句提供了一种非常方便的处理方式。<br>一个很好的例子是文件处理，你需要获取一个文件句柄，从文件中读取数据，然后关闭文件句柄。</p>
+          <a id="more"></a>
+
+<p>有一些任务，可能事先需要设置，事后做清理工作。对于这种场景，Python的with语句提供了一种非常方便的处理方式。<br>一个很好的例子是文件处理，你需要获取一个文件句柄，从文件中读取数据，然后关闭文件句柄。</p>
 <h1 id="with语句"><a href="#with语句" class="headerlink" title="with语句"></a>with语句</h1><p>当我们进行文件处理时，需要获取一个文件句柄，从文件中读取数据，然后关闭文件句柄。<br>要正确的处理涉及到的异常资源管理时，在2.6版本之前，需要使用try/finally代码结构，实现如下：  </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;abc.txt&quot;</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	<span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">		print(line)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">	<span class="keyword">if</span> f <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">		f.close()	</span><br></pre></td></tr></table></figure>
 
@@ -416,7 +420,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-12-18 10:04:09" itemprop="dateModified" datetime="2020-12-18T10:04:09+08:00">2020-12-18</time>
+        <time title="Modified: 2020-12-22 20:37:22" itemprop="dateModified" datetime="2020-12-22T20:37:22+08:00">2020-12-22</time>
       </span>
 
   
@@ -429,7 +433,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>The Design pattern represents the best practice and is typically adopted by experienced object-oriented software developers. Design patterns are solutions to the general problems that software developers face during software development. These solutions are summarized by many software developers after a long period of trial and error.</p>
+          <a id="more"></a>
+
+<p>The Design pattern represents the best practice and is typically adopted by experienced object-oriented software developers. Design patterns are solutions to the general problems that software developers face during software development. These solutions are summarized by many software developers after a long period of trial and error.</p>
 <table border="0">
  <tr>
    <th>类别</th>
@@ -1263,7 +1269,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-12-18 10:04:09" itemprop="dateModified" datetime="2020-12-18T10:04:09+08:00">2020-12-18</time>
+        <time title="Modified: 2020-12-22 20:37:22" itemprop="dateModified" datetime="2020-12-22T20:37:22+08:00">2020-12-22</time>
       </span>
 
   
@@ -1276,7 +1282,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>GDB是一个由GNU开源组织发布的、UNIX/LINUX操作系统下的、基于命令行的、功能强大的程序调试工具。 对于一名Linux下工作的golang程序员，gdb是必不可少的工具；</p>
+          <a id="more"></a>
+
+<p>GDB是一个由GNU开源组织发布的、UNIX/LINUX操作系统下的、基于命令行的、功能强大的程序调试工具。 对于一名Linux下工作的golang程序员，gdb是必不可少的工具；</p>
 <h1 id="调试准备"><a href="#调试准备" class="headerlink" title="调试准备"></a>调试准备</h1><h2 id="准备源码"><a href="#准备源码" class="headerlink" title="准备源码"></a>准备源码</h2><p>hello.go：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;debug init&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	mainMethod()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">mainMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;hello,world&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -1404,7 +1412,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-12-18 10:04:09" itemprop="dateModified" datetime="2020-12-18T10:04:09+08:00">2020-12-18</time>
+        <time title="Modified: 2020-12-22 20:37:22" itemprop="dateModified" datetime="2020-12-22T20:37:22+08:00">2020-12-22</time>
       </span>
 
   
@@ -1417,7 +1425,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>Vue.js是一套构建用户界面的渐进式框架。<br>与其他重量级框架不同的是，Vue 采用自底向上增量开发的设计。<br>Vue 的核心库只关注视图层，并且非常容易学习，非常容易与其它库或已有项目整合。<br>另一方面，Vue 完全有能力驱动采用单文件组件和Vue生态系统支持的库开发的复杂单页应用</p>
+          <a id="more"></a>
+
+<p>Vue.js是一套构建用户界面的渐进式框架。<br>与其他重量级框架不同的是，Vue 采用自底向上增量开发的设计。<br>Vue 的核心库只关注视图层，并且非常容易学习，非常容易与其它库或已有项目整合。<br>另一方面，Vue 完全有能力驱动采用单文件组件和Vue生态系统支持的库开发的复杂单页应用</p>
 <h1 id="什么是Vue-js"><a href="#什么是Vue-js" class="headerlink" title="什么是Vue.js"></a>什么是Vue.js</h1><ul>
 <li>Vue.js是目前最火的一个框架，React是最流行的一个框架（react除了开发网站，还可以开发手机APP）</li>
 <li>Vue.js是前端的<strong>主流框架之一</strong>，和Angular.js、React.js一起，并称为前端三大主流框架</li>
@@ -1504,7 +1514,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-12-18 10:04:09" itemprop="dateModified" datetime="2020-12-18T10:04:09+08:00">2020-12-18</time>
+        <time title="Modified: 2020-12-22 20:37:22" itemprop="dateModified" datetime="2020-12-22T20:37:22+08:00">2020-12-22</time>
       </span>
 
   
@@ -1517,7 +1527,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>testing是go标准库中提供的关于单元测试的相关包，不过断言我感觉是其真正缺失的东西。<br>你绝对可以通过<code>if</code>比较或者其他任何方式获得相同的结果，但相比java中提供的junit框架，golang中testing并不是最简洁的方法。<br><code>stretchr/testify</code>框架的出现，终于解决了go单元测试断言方面的缺陷，它优雅的语法使您能够编写简单得难以置信的断言。</p>
+          <a id="more"></a>
+
+<p>testing是go标准库中提供的关于单元测试的相关包，不过断言我感觉是其真正缺失的东西。<br>你绝对可以通过<code>if</code>比较或者其他任何方式获得相同的结果，但相比java中提供的junit框架，golang中testing并不是最简洁的方法。<br><code>stretchr/testify</code>框架的出现，终于解决了go单元测试断言方面的缺陷，它优雅的语法使您能够编写简单得难以置信的断言。</p>
 <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>你可以通过如下命令来进行安装：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">go get -u github.com&#x2F;stretchr&#x2F;testify</span><br></pre></td></tr></table></figure>
 
@@ -1592,7 +1604,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-12-18 10:04:09" itemprop="dateModified" datetime="2020-12-18T10:04:09+08:00">2020-12-18</time>
+        <time title="Modified: 2020-12-22 20:37:22" itemprop="dateModified" datetime="2020-12-22T20:37:22+08:00">2020-12-22</time>
       </span>
 
   
@@ -1605,7 +1617,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>Golang provides a lot of open source frameworks for rest, such as <a target="_blank" rel="noopener" href="https://beego.me/">beego</a>, <a target="_blank" rel="noopener" href="http://go-echo.org/">echo</a>,<a target="_blank" rel="noopener" href="https://iris-go.com/">iris</a> and so on.<br>In practice, when we use these frameworks, we will expose the unfriendly prompts such as exception information and stacks directly to the user. In this case, it is necessary to integrate error codes for your golang application.</p>
+          <a id="more"></a>
+
+<p>Golang provides a lot of open source frameworks for rest, such as <a target="_blank" rel="noopener" href="https://beego.me/">beego</a>, <a target="_blank" rel="noopener" href="http://go-echo.org/">echo</a>,<a target="_blank" rel="noopener" href="https://iris-go.com/">iris</a> and so on.<br>In practice, when we use these frameworks, we will expose the unfriendly prompts such as exception information and stacks directly to the user. In this case, it is necessary to integrate error codes for your golang application.</p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
 <li>Q：小明,不好了,你使用beego框架开发出来的微服务报错了<blockquote>
 <p>啊，报的啥错呀？</p>
@@ -1721,7 +1735,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-12-18 10:04:09" itemprop="dateModified" datetime="2020-12-18T10:04:09+08:00">2020-12-18</time>
+        <time title="Modified: 2020-12-22 20:37:22" itemprop="dateModified" datetime="2020-12-22T20:37:22+08:00">2020-12-22</time>
       </span>
 
   
@@ -1734,7 +1748,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>kubernetes中的命令行接口叫做kubectl，用来控制kubernetes集群。</p>
+          <a id="more"></a>
+
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>kubernetes中的命令行接口叫做kubectl，用来控制kubernetes集群。</p>
 <p>kubectl采用Cobra库进行构建，关于Cobra的简单使用，请参考<a target="_blank" rel="noopener" href="https://guodongq.github.io/2019/04/19/golang-cli-about-cobra/">Cobra Cli</a></p>
 <h1 id="源码结构"><a href="#源码结构" class="headerlink" title="源码结构"></a>源码结构</h1><ul>
 <li>api: 接口文档，基本上都是json源码</li>
@@ -1840,7 +1856,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-12-18 10:04:09" itemprop="dateModified" datetime="2020-12-18T10:04:09+08:00">2020-12-18</time>
+        <time title="Modified: 2020-12-22 20:37:22" itemprop="dateModified" datetime="2020-12-22T20:37:22+08:00">2020-12-22</time>
       </span>
 
   
@@ -1853,7 +1869,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="kubernetes基础"><a href="#kubernetes基础" class="headerlink" title="kubernetes基础"></a>kubernetes基础</h1><h2 id="kuberntes能为你做什么"><a href="#kuberntes能为你做什么" class="headerlink" title="kuberntes能为你做什么?"></a>kuberntes能为你做什么?</h2><ul>
+          <a id="more"></a>
+
+<h1 id="kubernetes基础"><a href="#kubernetes基础" class="headerlink" title="kubernetes基础"></a>kubernetes基础</h1><h2 id="kuberntes能为你做什么"><a href="#kuberntes能为你做什么" class="headerlink" title="kuberntes能为你做什么?"></a>kuberntes能为你做什么?</h2><ul>
 <li>给现代化的web服务提供7*24的运行机制;</li>
 <li>随时都能发布新的应用程序版本;</li>
 </ul>
@@ -1975,7 +1993,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-12-18 10:04:09" itemprop="dateModified" datetime="2020-12-18T10:04:09+08:00">2020-12-18</time>
+        <time title="Modified: 2020-12-22 20:37:22" itemprop="dateModified" datetime="2020-12-22T20:37:22+08:00">2020-12-22</time>
       </span>
 
   
@@ -1988,7 +2006,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><strong style="color:green">文章转载自： <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e1de8fc52718">https://www.jianshu.com/p/e1de8fc52718</a></strong></p>
+          <a id="more"></a>
+
+<p><strong style="color:green">文章转载自： <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e1de8fc52718">https://www.jianshu.com/p/e1de8fc52718</a></strong></p>
 <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>在docker的docker-entrypoint.sh脚本中我们经常会看到有如下的一句话</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exec $@</span><br></pre></td></tr></table></figure>
 <p><strong>Q:</strong> 在shell脚本中exec有什么作用？<br><strong>A:</strong> exec会执行参数指定的命令，但是并不创建新的进程，只在当前进程空间内执行，即替换当前进程的执行内容，他们重用同一个进程号PID.</p>
@@ -2071,7 +2091,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-12-18 10:04:09" itemprop="dateModified" datetime="2020-12-18T10:04:09+08:00">2020-12-18</time>
+        <time title="Modified: 2020-12-22 20:37:22" itemprop="dateModified" datetime="2020-12-22T20:37:22+08:00">2020-12-22</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -2093,7 +2113,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h1><p><a target="_blank" rel="noopener" href="https://echo.labstack.com/guide">Echo</a>是一个高性能、可扩展、<strong>极简主义的golang web框架</strong>。它具有下面的特点：</p>
+          <a id="more"></a>
+
+<h1 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h1><p><a target="_blank" rel="noopener" href="https://echo.labstack.com/guide">Echo</a>是一个高性能、可扩展、<strong>极简主义的golang web框架</strong>。它具有下面的特点：</p>
 <ul>
 <li>高效的路由</li>
 <li>支持http/2</li>
