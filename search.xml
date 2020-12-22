@@ -3,7 +3,8 @@
   <entry>
     <title>gRPC之protobuf</title>
     <url>/2020/02/13/gRPC/2020-02-13-protobuf/</url>
-    <content><![CDATA[<a id="more"></a>
+    <content><![CDATA[<p>gRPC protobuf</p>
+<a id="more"></a>
 
 <h1 id="Protobuf简介"><a href="#Protobuf简介" class="headerlink" title="Protobuf简介"></a>Protobuf简介</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><strong>Protobuf</strong>也叫做Protocol Buffers,它是由Google公司开发的一种跨语言和平台的序列化数据结构的方式，是一个灵活的、高效的用于序列化数据的协议。<br><strong>Protobuf</strong>是跨语言的，自身带有一个编译器(protoc),我们可以通过protoc集成相关语言的插件(例如protoc-gen-go)就可以快速编译成Go、Java等多种语言代码，并且可以直接使用无需编写其他代码，它自己带有解析的代码。  </p>
 <p>protoc的GitHub地址：</p>
@@ -140,7 +141,8 @@
   <entry>
     <title>Goroutine Synchronized!</title>
     <url>/2018/12/02/golang/2018-12-02-goroutinesync/</url>
-    <content><![CDATA[<a id="more"></a>
+    <content><![CDATA[<p>golang中通常有一些任务处理，需要主线程等待子线程的结果之后，再来进行处理。比如发送若干个http请求，主线程需要等待各个子线程的结果，之后再做关联处理</p>
+<a id="more"></a>
 
 <h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="1，time-sleep"><a href="#1，time-sleep" class="headerlink" title="1，time.sleep()"></a>1，time.sleep()</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func main()&#123;</span><br><span class="line"> var buf []byte</span><br><span class="line"> var err error</span><br><span class="line"> &#x2F;&#x2F;发送HTTP请求</span><br><span class="line"> go func()&#123;</span><br><span class="line"> buf, err &#x3D; http.Get(&quot;http:&#x2F;&#x2F;localhost:8080&#x2F;api&quot;)</span><br><span class="line"> &#125;()</span><br><span class="line"> &#x2F;&#x2F;主线程sleep 5s，等待上面的goroutine发送http请求结束</span><br><span class="line"> time.Sleep(5e9)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -161,7 +163,8 @@
   <entry>
     <title>Golang Rand Seed!</title>
     <url>/2018/12/02/golang/2018-12-02-timeseed/</url>
-    <content><![CDATA[<a id="more"></a>
+    <content><![CDATA[<p>golang seed </p>
+<a id="more"></a>
 
 
 <h1 id="问题提出"><a href="#问题提出" class="headerlink" title="问题提出"></a>问题提出</h1><p>有10台服务器负载均衡，并提供了RESTful请求，每次获取一个实例进行通信。<br>使用rand.Int获取随机数，向其中一个实例发送RESTful请求，经发现每次获取的都是同一台机器，这样所有的流量都打到一台机器上，导致机器挂了。影响其它服务。  </p>
@@ -175,6 +178,15 @@
         <tag>seed</tag>
         <tag>golang</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>kubernetes waiting cluster ready!</title>
+    <url>/2018/12/02/golang/2019-01-06-k8s-waiting-cluster-status/</url>
+    <content><![CDATA[<p>kubernetes waiting cluster ready!</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; WaitForClusterAvailable returns true if all endpoints in the cluster are available after retry attempts, an error is returned otherwise</span><br><span class="line">func (c Client) WaitForClusterAvailable(retries int, retryInterval time.Duration) (bool, error) &#123;</span><br><span class="line">	for i :&#x3D; 0; i &lt; retries; i++ &#123;</span><br><span class="line">		if i &gt; 0 &#123;</span><br><span class="line">			fmt.Printf(&quot;[util&#x2F;etcd] Waiting %v until next retry\n&quot;, retryInterval)</span><br><span class="line">			time.Sleep(retryInterval)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Printf(&quot;[util&#x2F;etcd] Attempting to see if all cluster endpoints are available %d&#x2F;%d\n&quot;, i+1, retries)</span><br><span class="line">		resp, err :&#x3D; c.ClusterAvailable()</span><br><span class="line">		if err !&#x3D; nil &#123;</span><br><span class="line">			switch err &#123;</span><br><span class="line">			case context.DeadlineExceeded:</span><br><span class="line">				fmt.Println(&quot;[util&#x2F;etcd] Attempt timed out&quot;)</span><br><span class="line">			default:</span><br><span class="line">				fmt.Printf(&quot;[util&#x2F;etcd] Attempt failed with error: %v\n&quot;, err)</span><br><span class="line">			&#125;</span><br><span class="line">			continue</span><br><span class="line">		&#125;</span><br><span class="line">		return resp, nil</span><br><span class="line">	&#125;</span><br><span class="line">	return false, errors.New(&quot;timeout waiting for etcd cluster to be available&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
   </entry>
   <entry>
     <title>RESTful之echo</title>

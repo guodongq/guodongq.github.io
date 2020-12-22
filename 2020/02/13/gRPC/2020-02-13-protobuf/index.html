@@ -23,15 +23,15 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"qianguodong.xyz","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="Protobuf简介简介Protobuf也叫做Protocol Buffers,它是由Google公司开发的一种跨语言和平台的序列化数据结构的方式，是一个灵活的、高效的用于序列化数据的协议。Protobuf是跨语言的，自身带有一个编译器(protoc),我们可以通过protoc集成相关语言的插件(例如protoc-gen-go)就可以快速编译成Go、Java等多种语言代码，并且可以直接使用无需">
+<meta name="description" content="gRPC protobuf">
 <meta property="og:type" content="article">
 <meta property="og:title" content="gRPC之protobuf">
 <meta property="og:url" content="https://qianguodong.xyz/2020/02/13/gRPC/2020-02-13-protobuf/index.html">
 <meta property="og:site_name" content="Bruce&#39;s Blog">
-<meta property="og:description" content="Protobuf简介简介Protobuf也叫做Protocol Buffers,它是由Google公司开发的一种跨语言和平台的序列化数据结构的方式，是一个灵活的、高效的用于序列化数据的协议。Protobuf是跨语言的，自身带有一个编译器(protoc),我们可以通过protoc集成相关语言的插件(例如protoc-gen-go)就可以快速编译成Go、Java等多种语言代码，并且可以直接使用无需">
+<meta property="og:description" content="gRPC protobuf">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-13T14:15:19.000Z">
-<meta property="article:modified_time" content="2020-12-22T12:37:22.825Z">
+<meta property="article:modified_time" content="2020-12-22T13:24:58.590Z">
 <meta property="article:author" content="Bruce Qian">
 <meta property="article:tag" content="protobuf">
 <meta name="twitter:card" content="summary">
@@ -202,7 +202,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -289,7 +289,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-12-22 20:37:22" itemprop="dateModified" datetime="2020-12-22T20:37:22+08:00">2020-12-22</time>
+        <time title="Modified: 2020-12-22 21:24:58" itemprop="dateModified" datetime="2020-12-22T21:24:58+08:00">2020-12-22</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -311,7 +311,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <a id="more"></a>
+        <p>gRPC protobuf</p>
+<a id="more"></a>
 
 <h1 id="Protobuf简介"><a href="#Protobuf简介" class="headerlink" title="Protobuf简介"></a>Protobuf简介</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><strong>Protobuf</strong>也叫做Protocol Buffers,它是由Google公司开发的一种跨语言和平台的序列化数据结构的方式，是一个灵活的、高效的用于序列化数据的协议。<br><strong>Protobuf</strong>是跨语言的，自身带有一个编译器(protoc),我们可以通过protoc集成相关语言的插件(例如protoc-gen-go)就可以快速编译成Go、Java等多种语言代码，并且可以直接使用无需编写其他代码，它自己带有解析的代码。  </p>
 <p>protoc的GitHub地址：</p>

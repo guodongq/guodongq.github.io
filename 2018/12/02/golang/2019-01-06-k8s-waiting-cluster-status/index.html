@@ -23,16 +23,20 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"qianguodong.xyz","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta property="og:type" content="website">
-<meta property="og:title" content="Bruce&#39;s Blog">
-<meta property="og:url" content="https://qianguodong.xyz/tags/gostub/index.html">
+<meta name="description" content="kubernetes waiting cluster ready!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kubernetes waiting cluster ready!">
+<meta property="og:url" content="https://qianguodong.xyz/2018/12/02/golang/2019-01-06-k8s-waiting-cluster-status/index.html">
 <meta property="og:site_name" content="Bruce&#39;s Blog">
+<meta property="og:description" content="kubernetes waiting cluster ready!">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-12-02T02:22:16.000Z">
+<meta property="article:modified_time" content="2020-12-22T13:24:58.590Z">
 <meta property="article:author" content="Bruce Qian">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://qianguodong.xyz/tags/gostub/">
+<link rel="canonical" href="https://qianguodong.xyz/2018/12/02/golang/2019-01-06-k8s-waiting-cluster-status/">
 
 
 <script class="page-configurations">
@@ -40,11 +44,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
-<title>Tag: gostub | Bruce's Blog</title>
+<title>kubernetes waiting cluster ready! | Bruce's Blog</title>
   
 
 
@@ -241,51 +245,98 @@
 </noscript>
 
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h2 class="collection-header">gostub
-          <small>Tag</small>
-        </h2>
-      </div>
 
-      
-    <div class="collection-year">
-      <span class="collection-header">2019</span>
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://qianguodong.xyz/2018/12/02/golang/2019-01-06-k8s-waiting-cluster-status/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bruce Qian">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          kubernetes waiting cluster ready!
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-12-02 10:22:16" itemprop="dateCreated datePublished" datetime="2018-12-02T10:22:16+08:00">2018-12-02</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-22 21:24:58" itemprop="dateModified" datetime="2020-12-22T21:24:58+08:00">2020-12-22</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>kubernetes waiting cluster ready!</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; WaitForClusterAvailable returns true if all endpoints in the cluster are available after retry attempts, an error is returned otherwise</span><br><span class="line">func (c Client) WaitForClusterAvailable(retries int, retryInterval time.Duration) (bool, error) &#123;</span><br><span class="line">	for i :&#x3D; 0; i &lt; retries; i++ &#123;</span><br><span class="line">		if i &gt; 0 &#123;</span><br><span class="line">			fmt.Printf(&quot;[util&#x2F;etcd] Waiting %v until next retry\n&quot;, retryInterval)</span><br><span class="line">			time.Sleep(retryInterval)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Printf(&quot;[util&#x2F;etcd] Attempting to see if all cluster endpoints are available %d&#x2F;%d\n&quot;, i+1, retries)</span><br><span class="line">		resp, err :&#x3D; c.ClusterAvailable()</span><br><span class="line">		if err !&#x3D; nil &#123;</span><br><span class="line">			switch err &#123;</span><br><span class="line">			case context.DeadlineExceeded:</span><br><span class="line">				fmt.Println(&quot;[util&#x2F;etcd] Attempt timed out&quot;)</span><br><span class="line">			default:</span><br><span class="line">				fmt.Printf(&quot;[util&#x2F;etcd] Attempt failed with error: %v\n&quot;, err)</span><br><span class="line">			&#125;</span><br><span class="line">			continue</span><br><span class="line">		&#125;</span><br><span class="line">		return resp, nil</span><br><span class="line">	&#125;</span><br><span class="line">	return false, errors.New(&quot;timeout waiting for etcd cluster to be available&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2019-11-08T10:22:16+08:00"
-              content="2019-11-08">
-          11-08
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/11/08/golang/2019-11-08-gostub/" itemprop="url">
-            <span itemprop="name">GoStub!</span>
-          </a>
-      </div>
+    <footer class="post-footer">
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/09/19/reading/2018-09-19-cleancode/" rel="prev" title="Clean Code!">
+                  <i class="fa fa-chevron-left"></i> Clean Code!
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/12/02/golang/2018-12-02-timeseed/" rel="next" title="Golang Rand Seed!">
+                  Golang Rand Seed! <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-    </div>
-  </div>
-  
-  
-  
 
+
+
+
+
+    <div class="comments" id="gitalk-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -347,6 +398,25 @@
 
 
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.css">
+
+<script>
+NexT.utils.loadComments('#gitalk-container', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '566ec257445badffee98',
+      clientSecret: 'd3f485d706e7ec94d5e4d9f5dfa989907f05b8c7',
+      repo        : 'qianguodong.github.io',
+      owner       : 'qianguodong',
+      admin       : ['bruce'],
+      id          : 'a4fa0f516bacd12a82988668a2e8def5',
+        language: 'en',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

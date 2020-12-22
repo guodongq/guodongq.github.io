@@ -23,15 +23,15 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"qianguodong.xyz","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="问题提出有10台服务器负载均衡，并提供了RESTful请求，每次获取一个实例进行通信。使用rand.Int获取随机数，向其中一个实例发送RESTful请求，经发现每次获取的都是同一台机器，这样所有的流量都打到一台机器上，导致机器挂了。影响其它服务。   解决方法添加随机种子，保证每次产生的随机数不同,不过rand.Seed会导致内存飙升，影响程序的性能，最好放到init方法中。根据官方文档，">
+<meta name="description" content="golang seed">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Golang Rand Seed!">
 <meta property="og:url" content="https://qianguodong.xyz/2018/12/02/golang/2018-12-02-timeseed/index.html">
 <meta property="og:site_name" content="Bruce&#39;s Blog">
-<meta property="og:description" content="问题提出有10台服务器负载均衡，并提供了RESTful请求，每次获取一个实例进行通信。使用rand.Int获取随机数，向其中一个实例发送RESTful请求，经发现每次获取的都是同一台机器，这样所有的流量都打到一台机器上，导致机器挂了。影响其它服务。   解决方法添加随机种子，保证每次产生的随机数不同,不过rand.Seed会导致内存飙升，影响程序的性能，最好放到init方法中。根据官方文档，">
+<meta property="og:description" content="golang seed">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2018-12-02T02:22:16.000Z">
-<meta property="article:modified_time" content="2020-12-22T12:37:22.825Z">
+<meta property="article:modified_time" content="2020-12-22T13:24:58.590Z">
 <meta property="article:author" content="Bruce Qian">
 <meta property="article:tag" content="seed">
 <meta property="article:tag" content="golang">
@@ -203,7 +203,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -290,7 +290,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-12-22 20:37:22" itemprop="dateModified" datetime="2020-12-22T20:37:22+08:00">2020-12-22</time>
+        <time title="Modified: 2020-12-22 21:24:58" itemprop="dateModified" datetime="2020-12-22T21:24:58+08:00">2020-12-22</time>
       </span>
 
   
@@ -303,7 +303,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <a id="more"></a>
+        <p>golang seed </p>
+<a id="more"></a>
 
 
 <h1 id="问题提出"><a href="#问题提出" class="headerlink" title="问题提出"></a>问题提出</h1><p>有10台服务器负载均衡，并提供了RESTful请求，每次获取一个实例进行通信。<br>使用rand.Int获取随机数，向其中一个实例发送RESTful请求，经发现每次获取的都是同一台机器，这样所有的流量都打到一台机器上，导致机器挂了。影响其它服务。  </p>
@@ -329,8 +330,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2018/09/19/reading/2018-09-19-cleancode/" rel="prev" title="Clean Code!">
-                  <i class="fa fa-chevron-left"></i> Clean Code!
+                <a href="/2018/12/02/golang/2019-01-06-k8s-waiting-cluster-status/" rel="prev" title="kubernetes waiting cluster ready!">
+                  <i class="fa fa-chevron-left"></i> kubernetes waiting cluster ready!
                 </a>
             </div>
             <div class="post-nav-item">
