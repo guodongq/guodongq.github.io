@@ -14,6 +14,7 @@ day_quote:
     Put a very powerful message.
 ---
 
+<!-- more -->
 
 # 方法
 

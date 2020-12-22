@@ -13,7 +13,7 @@ day_quote:
   description: |
     Put a very powerful message.
 ---
-
+<!--more-->
 
 开发过程中，我们经常会遇到对切片中的数据进行加工，如何很优雅的对切片中的元素进行去重，本文通过代码的实例告诉大家优雅的对切片进行去重处理。
 

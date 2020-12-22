@@ -14,6 +14,7 @@ day_quote:
     Put a very powerful message.
 ---
 
+<!--more-->
 
 <strong style="color:green">文章转载自： https://www.jianshu.com/p/e1de8fc52718</strong>
 

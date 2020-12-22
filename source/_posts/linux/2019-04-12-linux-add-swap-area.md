@@ -13,7 +13,7 @@ day_quote:
   description: |
     Put a very powerful message.
 ---
-
+<!--more-->
 
 **文章转载自 https://www.cnblogs.com/wuxie1989/p/5888595.html**    
 

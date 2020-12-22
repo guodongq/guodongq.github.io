@@ -13,7 +13,7 @@ day_quote:
   description: |
     Put a very powerful message.
 ---
-
+<!--more-->
 
 # 概述
 kubernetes中的命令行接口叫做kubectl，用来控制kubernetes集群。

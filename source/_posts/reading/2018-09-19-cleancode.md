@@ -13,7 +13,7 @@ day_quote:
   description: |
     Put a very powerful message.
 ---
-
+<!--more-->
 
 # 一、整洁代码
 

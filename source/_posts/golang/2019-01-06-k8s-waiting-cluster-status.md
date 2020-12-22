@@ -1,20 +1,13 @@
 ---
-layout: post
-title:  "kubernetes waiting cluster ready!"
-date:   2019-01-06 10:22:16 +0800
-tags: ["k8s","golang"]
-published: true
-comments: true
-script: [post.js]
-excerpted: |
-    kubernetes waiting cluster ready ...
-day_quote:
-  title: The word of the day!
-  description: |
-    Put a very powerful message.
+layout: post title:  "kubernetes waiting cluster ready!"
+date:   2019-01-06 10:22:16 +0800 tags: ["k8s","golang"]
+published: true comments: true script: [post.js]
+excerpted: | kubernetes waiting cluster ready ... day_quote:
+title: The word of the day!
+description: | Put a very powerful message.
 ---
 
-
+<!--more-->
 
 ```
 // WaitForClusterAvailable returns true if all endpoints in the cluster are available after retry attempts, an error is returned otherwise
