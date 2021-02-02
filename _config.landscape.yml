@@ -3,11 +3,12 @@ menu:
   Home: /
   Archives: /archives
 rss: /atom.xml
-banner: "images/banner.jpg"
+#banner: "images/banner.jpg"
 
 # Content
 excerpt_link: Read More
-fancybox: true
+fancybox: false
+mathjax: false
 
 # Footer
 #copyright: |-
