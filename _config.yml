@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 小布之家
+title: Bruce's Blogger
 subtitle: ''
 description: ''
 keywords:
-author: Bruce
-language: zh-CN
+author: Bruce Qian
+language: en
 timezone: 'Asia/Shanghai'
 
 # URL
@@ -94,24 +94,13 @@ pagination_dir: page
 include:
 exclude:
 ignore:
-  - README.md
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-#theme: landscape
-theme: next
+theme: landscape
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: 'git'
-  repo: https://github.com/guodongq/guodongq.github.io.git
-  branch: gh-pages
-  message: 'update markdown'
-
-search:
-  path: search.xml
-  field: post
-  content: true
-  format: html
+  type: ''
