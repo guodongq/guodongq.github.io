@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Bruce's Notes
-subtitle: ''
+title: 小布的笔记
+subtitle: '失败是成功之母'
 description: ''
 keywords:
 author: guodongq
-language: en
+language: zh-CN
 timezone: 'Asia/Shanghai'
 
 # URL
@@ -99,7 +99,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
