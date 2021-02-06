@@ -1,350 +1,462 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  
-  
-  <title>Bruce&#39;s Notes</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Bruce&#39;s Notes">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"guodongq.github.io","root":"/","images":"/images","scheme":"Mist","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+<meta property="og:type" content="website">
+<meta property="og:title" content="小布的笔记">
 <meta property="og:url" content="https://guodongq.github.io/index.html">
-<meta property="og:site_name" content="Bruce&#39;s Notes">
-<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="小布的笔记">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="guodongq">
 <meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Bruce's Notes" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Bruce&#39;s Notes</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://guodongq.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-2019-04-12-echo" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019-04-12-echo/" class="article-date">
-  <time class="dt-published" datetime="2019-04-12T14:19:55.000Z" itemprop="datePublished">2019-04-12</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/golang/">golang</a>►<a class="article-category-link" href="/categories/golang/RESTful/">RESTful</a>►<a class="article-category-link" href="/categories/golang/RESTful/framework/">framework</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019-04-12-echo/">Echo</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h1><p><a target="_blank" rel="noopener" href="https://echo.labstack.com/guide">Echo</a>是一个高性能、可扩展、<strong>极简主义的golang web框架</strong>。它具有下面的特点：</p>
-<ul>
-<li>高效的路由</li>
-<li>支持http/2</li>
-<li>简单的数据绑定与渲染 支持json、xml、html和文件等</li>
-<li>丰富的<code>Middleware</code> 支持内置和自定义的<code>Middleware</code></li>
-</ul>
-<h2 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h2><p>安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u github.com/labstack/<span class="built_in">echo</span></span><br></pre></td></tr></table></figure>
-<p>下面是一个hello world示例。</p>
-<p>例1：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;net/http&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/labstack/echo&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	e := echo.New()</span><br><span class="line">	e.GET(<span class="string">&quot;/&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c echo.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">		<span class="keyword">return</span> c.String(http.StatusOK, <span class="string">&quot;Hello, World!&quot;</span>)</span><br><span class="line">	&#125;)</span><br><span class="line">	e.Logger.Fatal(e.Start(<span class="string">&quot;0.0.0.0:1323&quot;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中，<code>echo.New()</code>用于创建一个新的echo实例，<code>e.Start(&quot;0.0.0.0:1323&quot;)</code>用来在<code>:1323</code>端口上启动server监听。这里也可以使用自定义的server，用来自定义相关参数：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">e := echo.New()</span><br><span class="line">s := &amp;http.Server&#123;</span><br><span class="line">Addr:         <span class="string">&quot;0.0.0.0:1323&quot;</span>,</span><br><span class="line">ReadTimeout:  time.Minute * <span class="number">2</span>,</span><br><span class="line">WriteTimeout: time.Minute * <span class="number">2</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">... ...</span><br><span class="line"></span><br><span class="line">e.StartServer(s)</span><br></pre></td></tr></table></figure>
-<p><code>e.GET(&quot;/&quot;, func(c echo.Context) error &#123;...&#125;)</code>方法即是echo的路由，将GET方法的”/“路径请求映射到相应的handle方法。</p>
-<h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><p>echo的路由算法基于<code>radix tree</code>，速度非常快；并且内部实现使用了<code>sync.Pool</code>以使得其内存消耗少，GC压力小。</p>
-<p>常规的，可以通过http请求方法将url路径和handle方法绑定在一起，如例1示。也可以使用<code>e.Any(&quot;/&quot;, func(c echo.context) error &#123;...&#125;)</code>。</p>
-<p>echo也支持路径参数和匹配。echo的所有路由方法都会放回一个<code>*echo.Route</code>对象。</p>
-<p>更为使用的是echo的路由分组功能：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">g := e.Group(<span class="string">&quot;/hello&quot;</span>)</span><br><span class="line"></span><br><span class="line">g.POST(<span class="string">&quot;&quot;</span>, <span class="function"><span class="keyword">func</span> <span class="params">(context echo.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">name := context.FormValue(<span class="string">&quot;name&quot;</span>)</span><br><span class="line"><span class="keyword">return</span> context.String(http.StatusOK, <span class="string">&quot;hello, &quot;</span>+name+<span class="string">&quot;.&quot;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">g.GET(<span class="string">&quot;/:id&quot;</span>, <span class="function"><span class="keyword">func</span> <span class="params">(context echo.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">id := context.Param(<span class="string">&quot;id&quot;</span>)</span><br><span class="line">name := context.QueryParam(<span class="string">&quot;name&quot;</span>)</span><br><span class="line">e.Logger.Infof(<span class="string">&quot;test e.logger&quot;</span>)</span><br><span class="line"><span class="keyword">return</span> context.JSON(http.StatusOK, <span class="string">&quot;hello, &quot;</span>+id+name)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>此外，<code>e.URI(HandlerFunc, ...interface&#123;&#125;)</code>可以根据handler和url中的参数得到URI；<code>e.Routes()</code>用来返回当前echo实例<code>e</code>中注册的所有路由对象的切片。</p>
-<h2 id="请求和响应"><a href="#请求和响应" class="headerlink" title="请求和响应"></a>请求和响应</h2><p><code>echo.Context</code>封装了所有请求消息的上下文，包括请求和响应的引用、路径、参数、请求数据等等。echo的handler只需要传入一个<code>echo.Context</code>实例即可。</p>
-<p><code>echo.Context</code>可以通过其方法<code>c.Param(&quot;id&quot;)</code>获取路径参数，通过<code>c.QueryParam(&quot;name&quot;)</code>获取请求参数。请过<code>c.FormValue(&quot;name&quot;)</code>获取<code>form-data</code>，…</p>
-<p>此外<code>c.Bind(interface&#123;&#125;)</code>也可以用来绑定请求数据到一个golang的结构提上去：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">Name  <span class="keyword">string</span> <span class="string">`json:&quot;name&quot; from:&quot;name&quot; query:&quot;name&quot;`</span></span><br><span class="line">Id    <span class="keyword">string</span> <span class="string">`json:&quot;id&quot; from:&quot;id&quot; query:&quot;id&quot;`</span></span><br><span class="line">Phone <span class="keyword">string</span> <span class="string">`json:&quot;phone&quot; from:&quot;phone&quot; query:&quot;phone&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">e := echo.New()</span><br><span class="line"></span><br><span class="line">e.ANY(<span class="string">&quot;/save&quot;</span>, <span class="function"><span class="keyword">func</span> <span class="params">(context echo.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">user := <span class="built_in">new</span>(User)</span><br><span class="line"></span><br><span class="line">err := context.Bind(user)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">e.Logger.Errorf(<span class="string">&quot;bind data failed, err : %v&quot;</span>, err)</span><br><span class="line">context.String(http.StatusBadRequest, err.Error())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> context.JSONPretty(http.StatusOK, user, <span class="string">&quot;  &quot;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行这个示例后，可以通过以下任意请求得到正确的响应：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST http://10.62.127.88:1323/save \</span><br><span class="line">-H <span class="string">&#x27;Content-Type=application/json&#x27;</span> \</span><br><span class="line">-d <span class="string">&#x27;&#123;&quot;name&quot; : &quot;jmz&quot;,&quot;id&quot; : &quot;21131&quot;,&quot;phone&quot; : &quot;13661541330&quot;&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST http://10.62.127.88:1323/save \</span><br><span class="line">-H <span class="string">&#x27;Content-Type=application/x-www-form-urlencoded&#x27;</span> \</span><br><span class="line">-d <span class="string">&#x27;name=jmz&#x27;</span> -d <span class="string">&#x27;id=21131&#x27;</span> -d <span class="string">&#x27;phone=13661541330&#x27;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET http://10.62.127.88:1323/save?name=jmz&amp;id=21131&amp;phone=13661541330</span><br></pre></td></tr></table></figure>
-<p>echo没有内建请求数据验证功能，但是提供了<code>e.Validator</code>接收自定义的数据验证模块，如使用<a target="_blank" rel="noopener" href="https://github.com/go-playground/validator">validator</a>等第三方验证模块。</p>
-<p>可以通过方法<code>c.Request()</code>放回一个<code>*http.Request</code>对象，并从中取得请求的所有参数，包括请求头，请求体，URL，方法等。</p>
-<p>数据渲染方面，echo支持text，json，xml，html，File，stream等诸多常见格式。echo是通过<code>echo.Context</code>中的相应方法来渲染数据的。</p>
-<p>常见的响应数据渲染方法包括：</p>
-<ul>
-<li><code>c.NoContent(http.StatusOK)</code> 仅有返回码，无content</li>
-<li><code>c.JSON(http.StatusOK, user)</code> 以<code>application/json</code>类型返回<code>user</code>对象的json数据</li>
-<li><code>c.JSONPretty(http.StatusOK, user, &quot;  &quot;)</code> 以可读的方式放回<code>user</code>的json数据</li>
-<li><code>c.String(http.StatusOK, &quot;hello, world.&quot;)</code> 以文本格式(<code>text/plain</code>)响应请求</li>
-<li><code>c.File(fileName)</code> 以<code>fileName</code>指定的文件响应请求</li>
-<li><code>c.Blob(http.StatusOK, &quot;text/csv&quot;, data)</code> 以指定的<code>Content-Type</code>返回任意<code>[]byte</code>数据</li>
-<li><code>c.Stream(http.StatusOK, &quot;image/png&quot;, pic)</code> 以指定的<code>Content-Type</code>返回任意数据流</li>
-<li><code>c.Redirect(http.StatusMovedPermanently, &quot;http://10.62.127.88:1323/log&quot;)</code> 用来重定向请求到指定的url</li>
-</ul>
-<p>此外，echo还为响应提供了Hook方法，可以在每次写response前后调用hook进行相关操作：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">e.GET(<span class="string">&quot;/picture&quot;</span>, <span class="function"><span class="keyword">func</span> <span class="params">(c echo.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">pic, err := os.Open(<span class="string">&quot;/home/juc.png&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line"><span class="keyword">return</span> c.String(http.StatusNotFound, <span class="string">&quot;image not found.&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> start time.Time</span><br><span class="line"></span><br><span class="line">c.Response().Before(<span class="function"><span class="keyword">func</span> <span class="params">()</span></span> &#123;</span><br><span class="line">start = time.Now()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">c.Response().After(<span class="function"><span class="keyword">func</span> <span class="params">()</span></span> &#123;</span><br><span class="line">e.Logger.Infof(<span class="string">&quot;write picture caused %v&quot;</span>, time.Since(start))</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> c.Stream(http.StatusOK, <span class="string">&quot;image/png&quot;</span>, pic)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="一个echo实现的文件上传和下载的示例"><a href="#一个echo实现的文件上传和下载的示例" class="headerlink" title="一个echo实现的文件上传和下载的示例"></a>一个echo实现的文件上传和下载的示例</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/labstack/echo&quot;</span></span><br><span class="line">	<span class="string">&quot;io&quot;</span></span><br><span class="line">	<span class="string">&quot;net/http&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> uploadDir = <span class="string">&quot;/home/testUpload/&quot;</span></span><br><span class="line"><span class="keyword">var</span> downloadDir = <span class="string">&quot;/root/gopackage/&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	e := echo.New()</span><br><span class="line"></span><br><span class="line">	s := &amp;http.Server&#123;</span><br><span class="line">		Addr:         <span class="string">&quot;0.0.0.0:1324&quot;</span>,</span><br><span class="line">		ReadTimeout:  time.Minute * <span class="number">2</span>,</span><br><span class="line">		WriteTimeout: time.Minute * <span class="number">2</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	e.GET(<span class="string">&quot;/download/:file&quot;</span>, download)</span><br><span class="line"></span><br><span class="line">	e.POST(<span class="string">&quot;/upload&quot;</span>, upload)</span><br><span class="line"></span><br><span class="line">	e.Logger.Fatal(e.StartServer(s))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">download</span><span class="params">(c echo.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	fileName := c.Param(<span class="string">&quot;file&quot;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> c.File(downloadDir + fileName)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">upload</span><span class="params">(c echo.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	<span class="comment">// Source</span></span><br><span class="line">	file, err := c.FormFile(<span class="string">&quot;test&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	src, err := file.Open()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> src.Close()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Destination</span></span><br><span class="line">	dst, err := os.Create(uploadDir + file.Filename)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> dst.Close()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Copy</span></span><br><span class="line">	<span class="keyword">if</span> _, err = io.Copy(dst, src); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> c.String(http.StatusOK, fmt.Sprintf(<span class="string">&quot;File %s uploaded successfully.&quot;</span>, file.Filename))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>需要注意的是，文件上传时，请求的<code>Content-Type</code>必须为<code>multipart/form-data</code>，body里的key为<code>test</code>，type为<code>file</code>，value中则是要上传的文件。</p>
-<h2 id="Middleware"><a href="#Middleware" class="headerlink" title="Middleware"></a>Middleware</h2><p>MiddleWare是一个函数，这个函数能够嵌入到一对请求-响应中，并获取<code>echo.Context</code>对象以进行一些操作action，功能有点类似于Spring Framework中的拦截器。例如<code>middleware.Logger()</code><br>就可以对将所有的用户请求打印到日志。</p>
-<p>echo的中间件按照作用范围和执行时机分类大概有四个类别：</p>
-<h3 id="Before-Route-Root-level"><a href="#Before-Route-Root-level" class="headerlink" title="Before Route(Root level)"></a>Before Route(Root level)</h3><p>这个级别的middleware在请求被路由之前执行action，这类middleware通过<code>echo.Pre()</code>注册。由于作用于路由之前，所有这类middleware不能够访问和操作<code>echo.Context</code><br>。常用内置的这类middleware包括：</p>
-<ul>
-<li><code>middleware.HTTPSRedirect()</code> 可以将http请求重定向为https请求</li>
-<li><code>middleware.HTTPSWWWRedirect()</code> 可以将http请求重定向到<a target="_blank" rel="noopener" href="http://www.***请求/">http://www.***请求</a></li>
-</ul>
-<p>等等。</p>
-<h3 id="After-Route-Root-level"><a href="#After-Route-Root-level" class="headerlink" title="After Route(Root level)"></a>After Route(Root level)</h3><p>这个类型的middleware使用<code>echo.Use()</code>函数注册。middleware的action在请求路由处理完成后执行，因此可以访问请求的<code>echo.Context</code><br>，所以也注定有着更为广泛的用途，常见的包括日志、压缩、安全认证、请求限制等等。</p>
-<h3 id="Group-level"><a href="#Group-level" class="headerlink" title="Group level"></a>Group level</h3><p>通过<code>e.Group(path, middleware)</code>方法在创建group是指定一个或多个middlewares，作用域仅仅为当前的路由分组，也可以使用<code>g.Use()</code>来注册middlewares。</p>
-<h3 id="Route-level"><a href="#Route-level" class="headerlink" title="Route level"></a>Route level</h3><p>这种middleware在创建路由时指定，middleware的action仅能够对相应的请求起作用。</p>
-<h3 id="自定义middleware"><a href="#自定义middleware" class="headerlink" title="自定义middleware"></a>自定义middleware</h3><p>middleware是一个能够返回<code>HandlerFunc func(Context) error</code>类型函数的函数。通常，还可以通过为middleware配置一个<code>Skipper</code>来指定middleware对那些路由执行action。</p>
-<h3 id="内建的中间件"><a href="#内建的中间件" class="headerlink" title="内建的中间件"></a>内建的中间件</h3><ul>
-<li><code>CORS</code> 跨域设置中间件，默认为允许来自所有域的访问，echo默认内置了该中间件。也可以通过<code>middleware.CORSWithConfig(middleware.CORSConfig)</code><br>来自定义跨域配置，其中<code>middleware.CORSConfig</code>的主要配置项包括<ul>
-<li><code>Skipper</code>，用来决定哪些路由需要执行action</li>
-<li><code>AllowOrigins</code> 定义了可以访问资源的域的集合</li>
-<li><code>AllowMethods</code> 定义了允许访问资源的请求方法</li>
-<li><code>AllowHeaders</code> 定义了可以用来请求资源的请求体</li>
-</ul>
-</li>
-<li><code>CSRF</code> 跨站请求伪造中间件，又称<code>XSRF</code>。echo内置的CSRF中间件通过请求体的<code>X-CSRF-Token</code>来防止跨站伪造</li>
-<li>安全认证类中间件，内置的包括<code>Basic Auth</code>、<code>Casbin Auth</code>、<code>Key Auth</code>、<code>Secure</code>等</li>
-<li><code>Logger</code> 日志中间件，用来记录每一次请求到日志，可以通过配置定义日志格式以及output，echo日志系统见下一节</li>
-<li><code>Recover</code> 将程序从请求处理的panic中恢复，可以配置是否输出错误栈以及输出栈的深度</li>
-<li><code>Body Limit</code> 限制请求体(request body)的大小，通过<code>Content-Length</code>工作。</li>
-<li><code>Request ID</code> 为每次请求生成一个唯一ID</li>
-<li><code>Session</code> 用于会话管理，基于<a target="_blank" rel="noopener" href="https://github.com/gorilla/sessions">gorilla/sessions</a></li>
-<li><code>Trailing Slash</code> 为请求URL添加尾部斜杠</li>
-</ul>
-<h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><p>上一节提到了middleware中间件的日志<code>middleware.Logger</code>，它用来记录请求-响应中的一些信息，如请求处理耗时，请求大小，状态码等。</p>
-<p>echo也提供了自己的日志框架：<code>echo.Logger</code>。<code>echo.Logger</code><br>方便我们在处理请求过程中自定义日志，并且同样可配置。下面是一个通过<a target="_blank" rel="noopener" href="https://github.com/lestrrat-go/file-rotatelogs">file-rotatelogs</a>写日志到文件的示例：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">e := echo.New()</span><br><span class="line"></span><br><span class="line">writer, _ := rotatelogs.New(</span><br><span class="line">logName+<span class="string">&quot;.%Y%m%d%H&quot;</span>,</span><br><span class="line">rotatelogs.WithLinkName(logName),</span><br><span class="line">rotatelogs.WithRotationTime(time.Hour),</span><br><span class="line">rotatelogs.WithRotationCount(<span class="number">24</span>),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">logConf := middleware.LoggerConfig&#123;</span><br><span class="line">Skipper: <span class="function"><span class="keyword">func</span> <span class="params">(c echo.Context)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line"><span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;,</span><br><span class="line">Format: <span class="string">`&#123;&quot;time&quot;:&quot;$&#123;time_rfc3339_nano&#125;&quot;,&quot;remote_ip&quot;:&quot;$&#123;remote_ip&#125;&quot;,&quot;host&quot;:&quot;$&#123;host&#125;&quot;,`</span> +</span><br><span class="line"><span class="string">`&quot;method&quot;:&quot;$&#123;method&#125;&quot;,&quot;uri&quot;:&quot;$&#123;uri&#125;&quot;,&quot;status&quot;:$&#123;status&#125;,&quot;error&quot;:&quot;$&#123;error&#125;&quot;,`</span> +</span><br><span class="line"><span class="string">`&quot;latency_human&quot;:&quot;$&#123;latency_human&#125;&quot;,&quot;bytes_in&quot;:$&#123;bytes_in&#125;,`</span> +</span><br><span class="line"><span class="string">`&quot;bytes_out&quot;:$&#123;bytes_out&#125;&#125;`</span> + <span class="string">&quot;\n&quot;</span>,</span><br><span class="line">Output: writer,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">e.Use(middleware.LoggerWithConfig(logConf))</span><br><span class="line"></span><br><span class="line">e.Logger.SetOutput(writer)</span><br><span class="line">e.Logger.SetHeader(<span class="string">`&#123;&quot;time&quot;:&quot;$&#123;time_rfc3339_nano&#125;&quot;,&quot;level&quot;:&quot;$&#123;level&#125;&quot;,&quot;prefix&quot;:&quot;$&#123;prefix&#125;&quot;,`</span> +</span><br><span class="line"><span class="string">`&quot;file&quot;:&quot;$&#123;short_file&#125;&quot;,&quot;line&quot;:&quot;$&#123;line&#125;&quot;&#125;`</span>)</span><br><span class="line">e.Logger.SetLevel(log.DEBUG)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="平滑关闭"><a href="#平滑关闭" class="headerlink" title="平滑关闭"></a>平滑关闭</h3><p>echo支持第三方的<code>Graceful</code>，如标准库的<code>http.Server#Shutdown()</code><br>、<a target="_blank" rel="noopener" href="https://github.com/tylerb/graceful">graceful</a>或者<a target="_blank" rel="noopener" href="https://github.com/facebookgo/grace">grace</a>等，下面是官方提供的grace shutdown示例：</p>
-<figure class="highlight go"><figcaption><span>facebook/grace</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;github.com/facebookgo/grace/gracehttp&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/labstack/echo&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// Setup</span></span><br><span class="line">    e := echo.New()</span><br><span class="line">    e.GET(<span class="string">&quot;/&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c echo.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">        <span class="keyword">return</span> c.String(http.StatusOK, <span class="string">&quot;Six sick bricks tick&quot;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    e.Server.Addr = <span class="string">&quot;:1323&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Serve it like a boss</span></span><br><span class="line">    e.Logger.Fatal(gracehttp.Serve(e.Server))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><figcaption><span>graceful</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;net/http&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;github.com/labstack/echo&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/tylerb/graceful&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// Setup</span></span><br><span class="line">    e := echo.New()</span><br><span class="line">    e.GET(<span class="string">&quot;/&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c echo.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">        <span class="keyword">return</span> c.String(http.StatusOK, <span class="string">&quot;Sue sews rose on slow joe crows nose&quot;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    e.Server.Addr = <span class="string">&quot;:1323&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Serve it like a boss</span></span><br><span class="line">    graceful.ListenAndServe(e.Server, <span class="number">5</span>*time.Second)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>echo支持从中间件或者action返回HTTP错误集中处理。这样可以允许我们在统一的地方记录日志提供给第三方或者返回自定义的HTTP响应给客户端，错误可以是<code>error</code>或者<code>*echo.HTTPError</code>。</p>
-<p>下面是一个错误处理的示例：</p>
- <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> e.Use(<span class="function"><span class="keyword">func</span> <span class="params">(next echo.HandlerFunc)</span> <span class="title">echo</span>.<span class="title">HandlerFunc</span></span> &#123;</span><br><span class="line"><span class="keyword">return</span> <span class="function"><span class="keyword">func</span> <span class="params">(c echo.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line"><span class="comment">// Extract the credentials from HTTP request header and perform a security</span></span><br><span class="line"><span class="comment">// check</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// For invalid credentials</span></span><br><span class="line"><span class="keyword">return</span> echo.NewHTTPError(http.StatusUnauthorized, <span class="string">&quot;Please provide valid credentials&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// For valid credentials call next</span></span><br><span class="line"><span class="comment">// return next(c)</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实echo算不上完整的web框架，缺乏像beego等web框架那样对MVC、ORM、cache等的支持。但echo一向以极简主义著称，所有很适合作为嵌入式web服务器，以少量代码提供功能完整多样的http服务。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://guodongq.github.io/2019-04-12-echo/" data-id="ckktofgj20001xep05ahxd4ws" data-title="Echo" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/echo/" rel="tag">echo</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
 
 
-
-  
-    <article id="post-2018-07-22-welcome" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2018-07-22-welcome/" class="article-date">
-  <time class="dt-published" datetime="2018-07-22T02:22:55.000Z" itemprop="datePublished">2018-07-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/mood/">mood</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2018-07-22-welcome/">Welcome to my blogger</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>时光荏苒，转眼六年时间过去了。刚工作的时候我给自己的计划之中有一项就是搞一个自己的网站，没想到拖了这么久，一直没有耐心好好研究一下怎么做。偶然之时，突然看到jekyll可以将Markdown直接转化成博客。经过我一两天的模仿学习，网站在今天终于正式上线啦。</p>
-<p>我建站的目的很简单，就是发表一些自己的所见所得，学习心得，读书笔记等等。不仅可以对自己的学习过程做一个简单的总结，还能锻炼一下自己的写作能力。</p>
-<p>期待与你相遇，一同成长前行！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://guodongq.github.io/2018-07-22-welcome/" data-id="ckktofgix0000xep01emr5iun" data-title="Welcome to my blogger" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/welcome/" rel="tag">welcome</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
+<link rel="canonical" href="https://guodongq.github.io/">
 
 
-
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>小布的笔记</title>
   
 
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/golang/">golang</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/golang/RESTful/">RESTful</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/golang/RESTful/framework/">framework</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/mood/">mood</a></li></ul>
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="小布的笔记" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
+  <div class="site-meta">
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/echo/" rel="tag">echo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/welcome/" rel="tag">welcome</a></li></ul>
-    </div>
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">小布的笔记</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">失败是成功之母</p>
   </div>
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/echo/" style="font-size: 10px;">echo</a> <a href="/tags/welcome/" style="font-size: 10px;">welcome</a>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
     </div>
   </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
-    </div>
-  </div>
+</div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019-04-12-echo/">Echo</a>
-          </li>
-        
-          <li>
-            <a href="/2018-07-22-welcome/">Welcome to my blogger</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 guodongq<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
 </nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="guodongq"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">guodongq</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/guodongq" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;guodongq" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:qgd365@126.com" title="E-Mail → mailto:qgd365@126.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner index posts-expand">
+
     
 
 
-<script src="/js/jquery-3.4.1.min.js"></script>
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://guodongq.github.io/2019-04-12-echo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="guodongq">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小布的笔记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019-04-12-echo/" class="post-title-link" itemprop="url">Echo</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-04-12 22:19:55" itemprop="dateCreated datePublished" datetime="2019-04-12T22:19:55+08:00">2019-04-12</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-02-06 21:03:13" itemprop="dateModified" datetime="2021-02-06T21:03:13+08:00">2021-02-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/golang/" itemprop="url" rel="index"><span itemprop="name">golang</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/golang/RESTful/" itemprop="url" rel="index"><span itemprop="name">RESTful</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/golang/RESTful/framework/" itemprop="url" rel="index"><span itemprop="name">framework</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Echo is a high performance, extensible, minimalist Go web framework.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019-04-12-echo/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://guodongq.github.io/2018-07-22-welcome/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="guodongq">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小布的笔记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018-07-22-welcome/" class="post-title-link" itemprop="url">Welcome to my blogger</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-07-22 10:22:55" itemprop="dateCreated datePublished" datetime="2018-07-22T10:22:55+08:00">2018-07-22</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-02-06 21:03:13" itemprop="dateModified" datetime="2021-02-06T21:03:13+08:00">2021-02-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/mood/" itemprop="url" rel="index"><span itemprop="name">mood</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>欢迎大家访问我的博客!</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018-07-22-welcome/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
 
 
 
 
 
-<script src="/js/script.js"></script>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">guodongq</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
 
 
 
 
 
-  </div>
+
+  
+
+
+
+
+
+
 </body>
 </html>
