@@ -1,0 +1,424 @@
+---
+title: RESTful框架之echo
+date: 2019-04-12T22:19:55+08:00:00
+tags:
+- echo
+categories:
+- golang
+- framework  
+- RESTful
+--- 
+
+Quick  start  for RESTful framework echo.
+
+<!--more-->
+
+# echo
+
+[Echo](https://echo.labstack.com/guide)是一个高性能、可扩展、**极简主义的golang web框架**。它具有下面的特点：
+
+- 高效的路由
+- 支持http/2
+- 简单的数据绑定与渲染 支持json、xml、html和文件等
+- 丰富的`Middleware` 支持内置和自定义的`Middleware`
+
+## 开始使用
+
+安装
+
+```bash
+go get -u github.com/labstack/echo
+```
+
+下面是一个hello world示例。
+
+例1：
+
+```go
+package main
+
+import (
+    "net/http"
+    "github.com/labstack/echo"
+)
+
+func main() {
+    e := echo.New()
+    e.GET("/", func(c echo.Context) error {
+        return c.String(http.StatusOK, "Hello, World!")
+    })
+    e.Logger.Fatal(e.Start("0.0.0.0:1323"))
+}
+```
+
+其中，`echo.New()`用于创建一个新的echo实例，`e.Start("0.0.0.0:1323")`用来在`:1323`端口上启动server监听。这里也可以使用自定义的server，用来自定义相关参数：
+
+```go
+e := echo.New()
+s := &http.Server{
+    Addr:         "0.0.0.0:1323",
+    ReadTimeout:  time.Minute * 2,
+    WriteTimeout: time.Minute * 2,
+}
+
+... ...
+
+e.StartServer(s)
+```
+
+`e.GET("/", func(c echo.Context) error {...})`方法即是echo的路由，将GET方法的"/"路径请求映射到相应的handle方法。
+
+## 路由
+
+echo的路由算法基于`radix tree`，速度非常快；并且内部实现使用了`sync.Pool`以使得其内存消耗少，GC压力小。
+
+常规的，可以通过http请求方法将url路径和handle方法绑定在一起，如例1示。也可以使用`e.Any("/", func(c echo.context) error {...})`。
+
+echo也支持路径参数和匹配。echo的所有路由方法都会放回一个`*echo.Route`对象。
+
+更为使用的是echo的路由分组功能：
+
+```go
+g := e.Group("/hello")
+
+g.POST("", func(context echo.Context) error {
+    name := context.FormValue("name")
+    return context.String(http.StatusOK, "hello, "+name+".")
+})
+
+g.GET("/:id", func(context echo.Context) error {
+    id := context.Param("id")
+    name := context.QueryParam("name")
+    e.Logger.Infof("test e.logger")
+    return context.JSON(http.StatusOK, "hello, "+id+name)
+})
+```
+
+此外，`e.URI(HandlerFunc, ...interface{})`可以根据handler和url中的参数得到URI；`e.Routes()`用来返回当前echo实例`e`中注册的所有路由对象的切片。
+
+## 请求和响应
+
+`echo.Context`封装了所有请求消息的上下文，包括请求和响应的引用、路径、参数、请求数据等等。echo的handler只需要传入一个`echo.Context`实例即可。
+
+`echo.Context`可以通过其方法`c.Param("id")`获取路径参数，通过`c.QueryParam("name")`获取请求参数。请过`c.FormValue("name")`获取`form-data`，...
+
+此外`c.Bind(interface{})`也可以用来绑定请求数据到一个golang的结构提上去：
+
+```go
+type User struct {
+    Name  string `json:"name" from:"name" query:"name"`
+    Id    string `json:"id" from:"id" query:"id"`
+    Phone string `json:"phone" from:"phone" query:"phone"`
+}
+
+func main() {
+    e := echo.New()
+
+    e.ANY("/save", func(context echo.Context) error {
+        user := new(User)
+
+        err := context.Bind(user)
+
+        if err != nil {
+            e.Logger.Errorf("bind data failed, err : %v", err)
+            context.String(http.StatusBadRequest, err.Error())
+        }
+
+        return context.JSONPretty(http.StatusOK, user, "  ")
+    })
+
+    ...
+
+}
+```
+
+运行这个示例后，可以通过以下任意请求得到正确的响应：
+
+```bash
+curl -XPOST http://10.62.127.88:1323/save \
+-H 'Content-Type=application/json' \
+-d '{"name" : "jmz","id" : "21131","phone" : "13661541330"}'
+```
+
+```bash
+curl -XPOST http://10.62.127.88:1323/save \
+-H 'Content-Type=application/x-www-form-urlencoded' \
+-d 'name=jmz' -d 'id=21131' -d 'phone=13661541330'
+```
+
+```bash
+curl -XGET http://10.62.127.88:1323/save?name=jmz&id=21131&phone=13661541330
+```
+
+echo没有内建请求数据验证功能，但是提供了`e.Validator`接收自定义的数据验证模块，如使用[validator](https://github.com/go-playground/validator)等第三方验证模块。
+
+可以通过方法`c.Request()`放回一个`*http.Request`对象，并从中取得请求的所有参数，包括请求头，请求体，URL，方法等。
+
+数据渲染方面，echo支持text，json，xml，html，File，stream等诸多常见格式。echo是通过`echo.Context`中的相应方法来渲染数据的。
+
+常见的响应数据渲染方法包括：
+
+- `c.NoContent(http.StatusOK)` 仅有返回码，无content
+- `c.JSON(http.StatusOK, user)` 以`application/json`类型返回`user`对象的json数据
+- `c.JSONPretty(http.StatusOK, user, "  ")` 以可读的方式放回`user`的json数据
+- `c.String(http.StatusOK, "hello, world.")` 以文本格式(`text/plain`)响应请求
+- `c.File(fileName)` 以`fileName`指定的文件响应请求
+- `c.Blob(http.StatusOK, "text/csv", data)` 以指定的`Content-Type`返回任意`[]byte`数据
+- `c.Stream(http.StatusOK, "image/png", pic)` 以指定的`Content-Type`返回任意数据流
+- `c.Redirect(http.StatusMovedPermanently, "http://10.62.127.88:1323/log")` 用来重定向请求到指定的url
+
+此外，echo还为响应提供了Hook方法，可以在每次写response前后调用hook进行相关操作：
+
+```go
+e.GET("/picture", func(c echo.Context) error {
+    pic, err := os.Open("/home/juc.png")
+
+    if err != nil {
+        return c.String(http.StatusNotFound, "image not found.")
+    }
+
+    var start time.Time
+
+    c.Response().Before(func() {
+        start = time.Now()
+    })
+
+    c.Response().After(func() {
+        e.Logger.Infof("write picture caused %v", time.Since(start))
+    })
+
+    return c.Stream(http.StatusOK, "image/png", pic)
+})
+```
+
+### 一个echo实现的文件上传和下载的示例
+
+```go
+package main
+
+import (
+    "fmt"
+    "github.com/labstack/echo"
+    "io"
+    "net/http"
+    "os"
+    "time"
+)
+
+var uploadDir = "/home/testUpload/"
+var downloadDir = "/root/gopackage/"
+
+func main() {
+    e := echo.New()
+
+    s := &http.Server{
+        Addr:         "0.0.0.0:1324",
+        ReadTimeout:  time.Minute * 2,
+        WriteTimeout: time.Minute * 2,
+    }
+
+    e.GET("/download/:file", download)
+
+    e.POST("/upload", upload)
+
+    e.Logger.Fatal(e.StartServer(s))
+}
+
+func download(c echo.Context) error {
+    fileName := c.Param("file")
+
+    return c.File(downloadDir + fileName)
+}
+
+func upload(c echo.Context) error {
+    // Source
+    file, err := c.FormFile("test")
+    if err != nil {
+        return err
+    }
+    src, err := file.Open()
+    if err != nil {
+        return err
+    }
+    defer src.Close()
+
+    // Destination
+    dst, err := os.Create(uploadDir + file.Filename)
+    if err != nil {
+        return err
+    }
+    defer dst.Close()
+
+    // Copy
+    if _, err = io.Copy(dst, src); err != nil {
+        return err
+    }
+
+    return c.String(http.StatusOK, fmt.Sprintf("File %s uploaded successfully.", file.Filename))
+}
+```
+
+需要注意的是，文件上传时，请求的`Content-Type`必须为`multipart/form-data`，body里的key为`test`，type为`file`，value中则是要上传的文件。
+
+## Middleware
+
+MiddleWare是一个函数，这个函数能够嵌入到一对请求-响应中，并获取`echo.Context`对象以进行一些操作action，功能有点类似于Spring Framework中的拦截器。例如`middleware.Logger()`就可以对将所有的用户请求打印到日志。
+
+echo的中间件按照作用范围和执行时机分类大概有四个类别：
+
+### Before Route(Root level)
+
+这个级别的middleware在请求被路由之前执行action，这类middleware通过`echo.Pre()`注册。由于作用于路由之前，所有这类middleware不能够访问和操作`echo.Context`。常用内置的这类middleware包括：
+
+- `middleware.HTTPSRedirect()` 可以将http请求重定向为https请求
+- `middleware.HTTPSWWWRedirect()` 可以将http请求重定向到http://www.***请求
+
+等等。
+
+### After Route(Root level)
+
+这个类型的middleware使用`echo.Use()`函数注册。middleware的action在请求路由处理完成后执行，因此可以访问请求的`echo.Context`，所以也注定有着更为广泛的用途，常见的包括日志、压缩、安全认证、请求限制等等。
+
+### Group level
+
+通过`e.Group(path, middleware)`方法在创建group是指定一个或多个middlewares，作用域仅仅为当前的路由分组，也可以使用`g.Use()`来注册middlewares。
+
+### Route level
+
+这种middleware在创建路由时指定，middleware的action仅能够对相应的请求起作用。
+
+### 自定义middleware
+
+middleware是一个能够返回`HandlerFunc func(Context) error`类型函数的函数。通常，还可以通过为middleware配置一个`Skipper`来指定middleware对那些路由执行action。
+
+### 内建的中间件
+
+- `CORS` 跨域设置中间件，默认为允许来自所有域的访问，echo默认内置了该中间件。也可以通过`middleware.CORSWithConfig(middleware.CORSConfig)`来自定义跨域配置，其中`middleware.CORSConfig`的主要配置项包括
+    - `Skipper`，用来决定哪些路由需要执行action
+    - `AllowOrigins` 定义了可以访问资源的域的集合
+    - `AllowMethods` 定义了允许访问资源的请求方法
+    - `AllowHeaders` 定义了可以用来请求资源的请求体
+- `CSRF` 跨站请求伪造中间件，又称`XSRF`。echo内置的CSRF中间件通过请求体的`X-CSRF-Token`来防止跨站伪造
+- 安全认证类中间件，内置的包括`Basic Auth`、`Casbin Auth`、`Key Auth`、`Secure`等
+- `Logger` 日志中间件，用来记录每一次请求到日志，可以通过配置定义日志格式以及output，echo日志系统见下一节
+- `Recover` 将程序从请求处理的panic中恢复，可以配置是否输出错误栈以及输出栈的深度
+- `Body Limit` 限制请求体(request body)的大小，通过`Content-Length`工作。
+- `Request ID` 为每次请求生成一个唯一ID
+- `Session` 用于会话管理，基于[gorilla/sessions](https://github.com/gorilla/sessions)
+- `Trailing Slash` 为请求URL添加尾部斜杠
+
+## 日志
+
+上一节提到了middleware中间件的日志`middleware.Logger`，它用来记录请求-响应中的一些信息，如请求处理耗时，请求大小，状态码等。
+
+echo也提供了自己的日志框架：`echo.Logger`。`echo.Logger`方便我们在处理请求过程中自定义日志，并且同样可配置。下面是一个通过[file-rotatelogs](https://github.com/lestrrat-go/file-rotatelogs)写日志到文件的示例：
+
+```go
+e := echo.New()
+
+writer, _ := rotatelogs.New(
+    logName+".%Y%m%d%H",
+    rotatelogs.WithLinkName(logName),
+    rotatelogs.WithRotationTime(time.Hour),
+    rotatelogs.WithRotationCount(24),
+)
+
+logConf := middleware.LoggerConfig{
+    Skipper: func(c echo.Context) bool {
+        return false
+    },
+    Format: `{"time":"${time_rfc3339_nano}","remote_ip":"${remote_ip}","host":"${host}",` +
+        `"method":"${method}","uri":"${uri}","status":${status},"error":"${error}",` +
+        `"latency_human":"${latency_human}","bytes_in":${bytes_in},` +
+        `"bytes_out":${bytes_out}}` + "\n",
+    Output: writer,
+}
+
+e.Use(middleware.LoggerWithConfig(logConf))
+
+e.Logger.SetOutput(writer)
+e.Logger.SetHeader(`{"time":"${time_rfc3339_nano}","level":"${level}","prefix":"${prefix}",` +
+    `"file":"${short_file}","line":"${line}"}`)
+e.Logger.SetLevel(log.DEBUG)
+
+... 
+
+```
+
+## 其他
+
+### 平滑关闭
+
+echo支持第三方的`Graceful`，如标准库的`http.Server#Shutdown()`、[graceful](https://github.com/tylerb/graceful)或者[grace](https://github.com/facebookgo/grace)等，下面是官方提供的grace shutdown示例：
+
+```go facebook/grace
+package main
+
+import (
+    "net/http"
+
+    "github.com/facebookgo/grace/gracehttp"
+    "github.com/labstack/echo"
+)
+
+func main() {
+    // Setup
+    e := echo.New()
+    e.GET("/", func(c echo.Context) error {
+        return c.String(http.StatusOK, "Six sick bricks tick")
+    })
+    e.Server.Addr = ":1323"
+
+    // Serve it like a boss
+    e.Logger.Fatal(gracehttp.Serve(e.Server))
+}
+```
+
+```go graceful
+package main
+
+import (
+    "net/http"
+    "time"
+
+    "github.com/labstack/echo"
+    "github.com/tylerb/graceful"
+)
+
+func main() {
+    // Setup
+    e := echo.New()
+    e.GET("/", func(c echo.Context) error {
+        return c.String(http.StatusOK, "Sue sews rose on slow joe crows nose")
+    })
+    e.Server.Addr = ":1323"
+
+    // Serve it like a boss
+    graceful.ListenAndServe(e.Server, 5*time.Second)
+}
+```
+
+### 错误处理
+
+echo支持从中间件或者action返回HTTP错误集中处理。这样可以允许我们在统一的地方记录日志提供给第三方或者返回自定义的HTTP响应给客户端，错误可以是`error`或者`*echo.HTTPError`。
+
+下面是一个错误处理的示例：
+
+ ```go
+ e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
+  return func(c echo.Context) error {
+    // Extract the credentials from HTTP request header and perform a security
+    // check
+
+    // For invalid credentials
+    return echo.NewHTTPError(http.StatusUnauthorized, "Please provide valid credentials")
+
+    // For valid credentials call next
+    // return next(c)
+  }
+})
+```
+
+## 总结
+
+其实echo算不上完整的web框架，缺乏像beego等web框架那样对MVC、ORM、cache等的支持。但echo一向以极简主义著称，所有很适合作为嵌入式web服务器，以少量代码提供功能完整多样的http服务。
