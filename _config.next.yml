@@ -37,8 +37,8 @@ custom_file_path:
 
 # Schemes
 #scheme: Muse
-scheme: Mist
-#scheme: Pisces
+#scheme: Mist
+scheme: Pisces
 #scheme: Gemini
 
 # Dark Mode
@@ -612,7 +612,7 @@ gitalk:
   github_id: guodongq # GitHub repo owner
   repo: guodongq.github.io  # Repository name to store issues
   client_id: 566ec257445badffee98 # GitHub Application Client ID
-  client_secret: d3f485d706e7ec94d5e4d9f5dfa989907f05b8c7 # GitHub Application Client Secret
+  client_secret: 3ca5fb5a06fb4a8b9408363964ed3c5c3d2ac8ec # GitHub Application Client Secret
   admin_user: bruce # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
   distraction_free_mode: true # Facebook-like distraction free mode
   # Gitalk's display language depends on user's browser or system environment
