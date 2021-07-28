@@ -17,8 +17,8 @@ portfolio:
     children:
       - title: "Go Patterns"
         url: /portfolio/gopatterns/
-#      - title: "Anomaly Detection in Social Networks"
-#        url: /portfolio/social-networks/
+      - title: "SSH Tunnel"
+        url: /portfolio/sshtunnel/
 #      - title: "NetComp: Python Network Comparison"
 #        url: /portfolio/netcomp/
 #      - title: "Automatic Genre Classification"
