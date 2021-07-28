@@ -42,7 +42,7 @@ author:
 comments:
   provider: "disqus"
   disqus:
-    shortname: "pwills-com"
+    shortname: "bruce_qian"
 
 analytics:
   provider: "google"
