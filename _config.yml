@@ -31,7 +31,7 @@ minimal_mistakes_skin: "dirt"
 author:
   name   : "Bruce Qian"
   avatar : "/assets/images/headshot.jpg"
-  bio    : "I enjoy writing about things I'm interested in - mostly computing, math, physics, and software engineering."
+  bio    : "I enjoy writing about things I'm interested in - mostly computing, travel, and software engineering."
   location: "Shanghai, China"
   github : guodongq
 #  linkedin: peterewills
@@ -47,7 +47,7 @@ comments:
 analytics:
   provider: "google"
   google:
-    tracking_id: "UA-116208936-1"
+    tracking_id: #"UA-116208936-1"
 
 
 # pagination for blog page

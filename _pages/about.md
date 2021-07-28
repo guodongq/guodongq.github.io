@@ -1,8 +1,8 @@
 ---
 title: " "
 header:
-  overlay_image: /assets/images/utah.jpg
-  caption: "Photo Credit: **Kathleen Finlinson**"
+  overlay_image: /assets/images/tools.jpg
+  caption: "Photo Credit: **Unknown**"
 permalink: /about/
 ---
 
