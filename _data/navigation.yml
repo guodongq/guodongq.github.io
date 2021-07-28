@@ -19,8 +19,8 @@ portfolio:
         url: /portfolio/gopatterns/
       - title: "SSH Tunnel"
         url: /portfolio/sshtunnel/
-#      - title: "NetComp: Python Network Comparison"
-#        url: /portfolio/netcomp/
+      - title: "Goroutine Pool"
+        url: /portfolio/gpool/
 #      - title: "Automatic Genre Classification"
 #        url: /portfolio/genre_cls/
 
@@ -31,8 +31,8 @@ portfolio:
 #      - title: "Smart Climate Index"
 #        url: /portfolio/sclm
 #
-#  - title: "Research"
-#    children:
+  - title: "Research"
+    children:
 #      - title: "Dynamic Anomaly Detection"
 #        url: /portfolio/networks/
 #      - title: "Statistics of Entanglement"

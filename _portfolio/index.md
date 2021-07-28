@@ -20,7 +20,14 @@ feature_row:
     excerpt: "SSH port forwarding that can be used to get into an internal corporate network from the Internet."
     url: "/portfolio/sshtunnel/"
     btn_label: "Read More"
-    btn_class: "btn--primary" 
+    btn_class: "btn--primary"
+  - image_path: assets/images/gpool.png
+    alt: "gpool"
+    title: "Goroutine Pool"
+    excerpt: "Gpool allowing you to limit work coming from any number of goroutines with a synchronous API."
+    url: "/portfolio/gpool/"
+    btn_label: "Read More"
+    btn_class: "btn--primary"
 ---
 
 # Portfolio
