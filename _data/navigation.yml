@@ -4,8 +4,8 @@ main:
     url: /
   - title: "About"
     url: /about/
-#  - title: "Portfolio"
-#    url: /portfolio/
+  - title: "Portfolio"
+    url: /portfolio/
 #  - title: "Resume"
 #    url: /assets/docs/resume.pdf
   # - title: "Blog"
@@ -15,8 +15,8 @@ main:
 portfolio:
   - title: "Projects"
     children:
-#      - title: "Machine Learning on AWS"
-#        url: /portfolio/coming/
+      - title: "Go Patterns"
+        url: /portfolio/gopatterns/
 #      - title: "Anomaly Detection in Social Networks"
 #        url: /portfolio/social-networks/
 #      - title: "NetComp: Python Network Comparison"
@@ -24,15 +24,15 @@ portfolio:
 #      - title: "Automatic Genre Classification"
 #        url: /portfolio/genre_cls/
 
-  - title: "Professional"
-    children:
+#  - title: "Professional"
+#    children:
 #      - title: "DeskAI"
 #        url: /portfolio/deskai
 #      - title: "Smart Climate Index"
 #        url: /portfolio/sclm
 #
-  - title: "Research"
-    children:
+#  - title: "Research"
+#    children:
 #      - title: "Dynamic Anomaly Detection"
 #        url: /portfolio/networks/
 #      - title: "Statistics of Entanglement"
