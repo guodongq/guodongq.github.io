@@ -1,7 +1,7 @@
 ---
 title: " "
 header:
-  overlay_image: /assets/images/tools.jpg
+  overlay_image: /assets/images/social_network.jpg
   caption: "Photo Credit: **Unknown**"
 permalink: /about/
 ---
