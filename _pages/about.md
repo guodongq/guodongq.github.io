@@ -8,64 +8,19 @@ permalink: /about/
 
 # About Me
 
-coming soon
+<img src="{{ "/assets/images/routeburn.jpg" | absolute_url }}" 
+width="50%" hspace="20" align="right">
 
-[comment]: <> (<img src="{{ "/assets/images/routeburn.jpg" | absolute_url }}")
+This is bruce, come from a city called chizhou in Anhui province. The city is very famous for a buddhist mountain called [jiuhua][1], which has large number of buddhist temples and attracts a lot of tourists every year.
 
-[comment]: <> (width="50%" hspace="20" align="right">)
-  
-[comment]: <> (I help organizations understand and leverage their quantitative)
+In July 2012, I graduated from [Anhui university][2] majoring in network engineering, and then started to work.
 
-[comment]: <> (information. Call it what you will: data science, machine learning, or)
+Over these years, I Joined some companies, such as [Longshine][3], [ZTE][4]. I have participated in and developed a lot of projects, and most of them were related to back-end. I have also worked with some programming languages, java, python, golang etc. Now I am in HP Shanghai as a senior back-end engineer, and helped to develop a PaaS platform called Horizon.
 
-[comment]: <> (statistics; the modern technological world lies at the intersection of)
+In February 2020, my daughter was born, she is a gift for me. In my spare time, I like to watch movies, and play games. Sometimes I enjoy cooking and having delicious food with my family.
 
-[comment]: <> (mathematics and computing, and that's where I like to play.)
 
-[comment]: <> (I've worked with [Stage 1 start-ups][5] and [publicly traded corporations][6],)
-
-[comment]: <> (building models, establishing codebases, and providing mathematical expertise to)
-
-[comment]: <> (developers. My mother tongue is Python, but I also speak Scala and Java. I have)
-
-[comment]: <> (experience working with Apache Spark, scikit-learn, Tensorflow, pandas, and many)
-
-[comment]: <> (other popular data analysis and machine learning libraries.)
-
-[comment]: <> (I have a bachelors degree in Physics from Reed College, where I did)
-
-[comment]: <> ([my thesis][2] on measurement of quantum entanglement in optical systems. After)
-
-[comment]: <> (spending some time pursuing other interests,[^fnote2] I began working on my)
-
-[comment]: <> (Ph.D. in Applied Mathematics at University of Colorado. My dissertation covers a)
-
-[comment]: <> (range of topics in statistics, data analytics, and understanding noisy)
-
-[comment]: <> (systems. For more details on all that, check out [my portfolio]&#40;/portfolio/&#41;, or)
-
-[comment]: <> (take a look at [my resume][4]. )
-
-[comment]: <> (I currently live in San Francisco, where I work as a data scientist with the)
-
-[comment]: <> (inventory optimization team at [Stitch Fix][7].)
-
-[comment]: <> ([^fnote2]: After graduating from Reed, I spent some time living at)
-
-[comment]: <> (	[Great Vow Zen Monastery][3], where we followed a daily schedule of work and)
-
-[comment]: <> (	meditation.)
-  
-[comment]: <> ([1]: mailto: peter@pwills.com)
-
-[comment]: <> ([2]: /assets/docs/thesis.pdf)
-
-[comment]: <> ([3]: https://www.zendust.org/monastery)
-
-[comment]: <> ([4]: /assets/docs/resume.pdf)
-
-[comment]: <> ([5]: https://www.entelligent.com)
-
-[comment]: <> ([6]: https://www.thetradedesk.com)
-
-[comment]: <> ([7]: https://multithreaded.stitchfix.com/algorithms/)
+[1]: https://www.chinadiscovery.com/anhui/mount-jiuhua.html
+[2]: https://en.ahu.edu.cn
+[3]: https://www.longshine.com
+[4]: https://www.zte.com.cn
