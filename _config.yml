@@ -42,7 +42,7 @@ author:
 comments:
   provider: "disqus"
   disqus:
-    shortname: "bruce_qian"
+    shortname: # "bruce_qian"
 
 analytics:
   provider: "google"
