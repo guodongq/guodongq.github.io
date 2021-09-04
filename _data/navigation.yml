@@ -30,12 +30,8 @@ portfolio:
   - title: "Research"
     children:
       - title: "Go Patterns"
-          url: /portfolio/gopatterns/
+        url: /portfolio/gopatterns/
       - title: "Goroutine Pool"
-          url: /portfolio/gpool/
-#      - title: "Dynamic Anomaly Detection"
-#        url: /portfolio/networks/
-#      - title: "Statistics of Entanglement"
-#        url: /portfolio/qm_stats/
+        url: /portfolio/gpool/
 #      - title: "Magnetic Waves and Noise"
 #        url: /portfolio/waves/
