@@ -7,13 +7,6 @@ permalink: /portfolio/index.html
 date: 2018-01-07
 
 feature_row:
-  - image_path: assets/images/gopattern.png
-    alt: "GoPatterns"
-    title: "Golang Design Patterns"
-    excerpt: "A code design experience that is repeatedly used in software design."
-    url: "/portfolio/gopatterns/"
-    btn_label: "Read More"
-    btn_class: "btn--primary"
   - image_path: assets/images/tunnel.png
     alt: "sshtunnel"
     title: "SSH Tunnel"
@@ -21,14 +14,7 @@ feature_row:
     url: "/portfolio/sshtunnel/"
     btn_label: "Read More"
     btn_class: "btn--primary"
-  - image_path: assets/images/gpool.png
-    alt: "gpool"
-    title: "Goroutine Pool"
-    excerpt: "Gpool allowing you to limit work coming from any number of goroutines with a synchronous API."
-    url: "/portfolio/gpool/"
-    btn_label: "Read More"
-    btn_class: "btn--primary"
-  - image_path: assets/images/gpool.png
+  - image_path: assets/images/kubestorm.png
     alt: "kubeStorm"
     title: "KubeStorm"
     excerpt: "A browser-based kubectl command line that can run kubernetes commands."

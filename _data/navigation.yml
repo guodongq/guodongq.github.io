@@ -17,8 +17,8 @@ portfolio:
     children:
       - title: "SSH Tunnel"
         url: /portfolio/sshtunnel/
-#      - title: "Automatic Genre Classification"
-#        url: /portfolio/genre_cls/
+      - title: "KubeStorm"
+        url: /portfolio/kubeStorm/
 
 #  - title: "Professional"
 #    children:
