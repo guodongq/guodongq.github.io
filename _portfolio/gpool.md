@@ -9,3 +9,6 @@ toc_label: "Contents"
 ---
 
 # GPool: A goroutine pool for Go
+
+<img src="{{ "/assets/images/gpool.png" | absolute_url }}"
+width="100%" hspace="20" align="middle">
