@@ -10,7 +10,7 @@ toc_label: "Contents"
 
 # GoPatterns: A code design experience that is repeatedly used in software design
 
-<img src="{{ "/assets/images/gopattern.jpg" | absolute_url }}" 
+<img src="{{ "/assets/images/gopattern.png" | absolute_url }}" 
 width="100%" hspace="20" align="middle">
 
 总体而言，设计模式共分为三大类，想知道更多信息，请访问[这里](https://guodongq.github.io/go-patterns/)
