@@ -2,7 +2,7 @@
 title:  "Clean Code"
 category: posts
 date: 2018-09-19
-excerpt: "Clean Code: A Handbook of Agile Software Craftsmanship"
+excerpt: "A Handbook of Agile Software Craftsmanship"
 ---
 
 # 一、整洁代码
