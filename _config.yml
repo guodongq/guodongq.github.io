@@ -39,15 +39,15 @@ author:
 
 
 # # comments by disqus
-comments:
-  provider: "disqus"
-  disqus:
-    shortname: # "bruce_qian"
+#comments:
+#  provider: "disqus"
+#  disqus:
+#    shortname: # "bruce_qian"
 
-analytics:
-  provider: "google"
-  google:
-    tracking_id: #"UA-116208936-1"
+#analytics:
+#  provider: "google"
+#  google:
+#    tracking_id: #"UA-116208936-1"
 
 
 # pagination for blog page
