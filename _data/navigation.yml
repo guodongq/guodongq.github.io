@@ -27,11 +27,11 @@ portfolio:
 #      - title: "Smart Climate Index"
 #        url: /portfolio/sclm
 #
-  - title: "Research"
-    children:
-      - title: "Go Patterns"
-        url: /portfolio/gopatterns/
-      - title: "Goroutine Pool"
-        url: /portfolio/gpool/
+#  - title: "Research"
+#    children:
+#      - title: "Go Patterns"
+#        url: /portfolio/gopatterns/
+#      - title: "Goroutine Pool"
+#        url: /portfolio/gpool/
 #      - title: "Magnetic Waves and Noise"
 #        url: /portfolio/waves/
